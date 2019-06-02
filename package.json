@@ -1,7 +1,6 @@
 {
-  "name": "kadai-static-server",
+  "name": "elsa-web-static",
   "version": "0.1.0",
-  "private": true,
   "scripts": {
     "start": "node server.js",
     "watch": "nodemon server.js",

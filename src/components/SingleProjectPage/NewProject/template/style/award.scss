@@ -1,0 +1,19 @@
+#award {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-wrap: nowrap;
+    .content {
+        width: 500px;
+        text-align: center;
+        h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 48px;
+            color: #B76A53;
+        }
+        img {
+            width: 90%;
+        }
+    }
+}

@@ -1,0 +1,85 @@
+@import "node_modules/react-image-gallery/styles/scss/image-gallery.scss";
+.pdf-bg {
+    height: 700px;
+    width: 75%;
+    background-color: #353535;
+
+}
+.content-page {
+    background-color: #f3f3f3;
+}
+.comment {
+    width: 50%;
+    padding: 4em 0 0 0;
+    border-top: solid 1px #5d5d5d;
+    margin: 3em auto 0em auto;
+}
+.title-content {
+    text-align: center;
+    margin: 3em 0 2em 0;
+    font-family: 'DM Serif Display', serif;
+    h1 {
+        margin: 0;
+        font-size: 38px;
+    }
+    h3 {
+        font-size: 18px;
+    }
+}
+.image-gallery {
+    width: 50%;
+    margin: 0 auto 1em auto;
+}
+.page-count {
+    text-align: center;
+    color: #e0e0e0;
+    bottom: 3em;
+}
+.App {
+    width: 65%;
+    margin: 0 auto;
+    background-color: rgb(94, 94, 94);
+    top: 50%;
+    transform: translate(0, -50%);
+    .App-pages {
+        margin: auto;
+        width: 100%;
+        // height: calc(var(width) / 4);
+        padding-top: 75%;
+        perspective: 960px;
+        -ms-user-select: none;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        user-select: none;
+        img {
+            width: 100%;
+        }
+    }
+
+    button {
+        position: absolute;
+        top: 0;
+        background-color: white;
+        border: none;
+        height: 100%;
+        width: 40%;
+        opacity: 0;
+    }
+    .NextButton {
+        right: 0;
+    }
+
+
+    .rightArrow {
+        width: 75%;
+    }
+
+}
+
+.allSlides img {
+    width: 11vw;
+    margin: 0.5vw;
+    &:hover {
+        cursor: pointer;
+    }
+}

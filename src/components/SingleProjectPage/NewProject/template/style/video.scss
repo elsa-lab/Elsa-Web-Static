@@ -1,0 +1,22 @@
+#video {
+    margin-top: 7em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    h1 {
+        width: 58%;
+        line-height: 1em;
+        font-family: 'DM Serif Display', serif;
+        font-size: 48px;
+        color: #B76A53;
+    }
+    .video-block {
+        flex: 100%;
+        text-align: center;
+        iframe {
+            width: calc(1920px / 2.5);
+            height: calc(1080px / 2.5);
+        }
+    }
+}

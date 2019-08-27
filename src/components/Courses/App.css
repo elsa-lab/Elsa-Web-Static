@@ -1,0 +1,58 @@
+.App {
+    top: 5em;
+}
+.App-pages {
+    margin: 0 auto;
+    height: 450px;
+    width: 600px;
+    perspective: 960px;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.App-page {
+    color: white;
+    height: 100%;
+}
+
+.App-page_red {
+    background: #f44336;
+}
+
+.App-page_green {
+    background: #4caf50;
+}
+
+.App-page_blue {
+    background: #2196f3;
+}
+
+.App-page_orange {
+    background: #ff9800;
+}
+
+button {
+    position: absolute;
+    top: 0;
+    background-color: white;
+    border: none;
+    height: 450px;
+    width: 150px;
+    opacity: 0.1;
+    transition: 0.3s;
+}
+button:hover {
+    opacity: 0.3;
+}
+.NextButton {
+    right: 0;
+}
+
+img {
+    width: 100%;
+}
+.rightArrow {
+    width: 75%;
+}

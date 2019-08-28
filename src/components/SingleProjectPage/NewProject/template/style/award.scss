@@ -5,15 +5,23 @@
     height: 100vh;
     flex-wrap: nowrap;
     .content {
-        width: 500px;
+        width: 650px;
         text-align: center;
         h1 {
             font-family: 'DM Serif Display', serif;
             font-size: 48px;
             color: #B76A53;
         }
+        hr {
+            width: 13%;
+            border-top: none;
+            margin-top: 2em;
+            margin-bottom: 3em;
+            border-bottom: solid 3px #0b322b;
+        }
         img {
-            width: 90%;
+            width: 80%;
+            margin: 1em 0;
         }
     }
 }

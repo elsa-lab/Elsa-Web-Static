@@ -1,0 +1,22 @@
+{
+    "topic": {
+        "year": "20XX",
+        "title": "TEXT",
+        "subtitle": "TEXT",
+        "coverImage": "imageUrl"
+    },
+    "abstract": "Collecting training data from the physical world i…d real environments, and↵learns faster than them.",
+    "award": ["imageUrl", "imageUrl", ...],
+    "videoUrl": "videoUrl",
+    "conclusion": "We presented a new modular architecture for transf…ions does↵improve the learning speed of our model",
+    "proposedMethodology": [
+        {"title": "text", "imgUrl": "...", "content": "TEXT"},
+        {"title": "text", "imgUrl": "...", "content": "TEXT},
+        ...
+    ],
+    "experimentalResults": [
+        {"title": "text", "imgUrl": "...", "content": "TEXT"},
+        {"title": "text", "imgUrl": "...", "content": "TEXT"},
+        ...
+    ]
+}

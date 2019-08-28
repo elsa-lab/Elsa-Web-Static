@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@emotion/core": "^10.0.16",
     "@fullpage/react-fullpage": "^0.1.2",
     "antd": "^3.10.1",
     "axios": "^0.16.2",
@@ -33,10 +34,12 @@
     "react-pdf-viewer-with-rotate": "^1.1.0",
     "react-player": "^1.6.6",
     "react-responsive": "^6.0.1",
+    "react-reveal": "^1.2.2",
     "react-router": "^3.0.0",
     "react-script": "^2.0.5",
     "react-scripts": "2.1.1",
     "react-slick": "^0.14.8",
+    "react-spinners": "^0.6.1",
     "react-spring": "^6.1.8",
     "sass-loader": "^7.1.0",
     "showdown": "^1.8.6",
@@ -49,6 +52,7 @@
     "swiper": "^4.5.0"
   },
   "devDependencies": {
+    "babel-plugin-emotion": "^10.0.16",
     "babel-plugin-import": "^1.10.0",
     "eslint-config-yoctol": "^0.18.1",
     "eslint-plugin-import": "^2.14.0",

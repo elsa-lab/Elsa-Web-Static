@@ -4,7 +4,10 @@ import Topic from './template/Topic';
 import Award from './template/Awarding';
 import Abstract from './template/Abstract';
 import Video from './template/Video';
+import Proposed from './template/Proposed';
+import Conclusion from './template/Conclusion';
 import './main.scss';
+import anime from './Ellipsis-2.2s-200px.svg';
 
 import DeepPolicyInferenceQNetwork from '../../Content/DeepPolicy';
 import DynamicVideoSegmentationNetwork from '../../Content/DynamicVideo';
@@ -20,10 +23,6 @@ const projectNameMap = {
   'A-Deep-Policy-Inference-Q-Network': DeepPolicyInferenceQNetwork,
 };
 
-const ParticlesParm = {
-    color: "black"
-};
-
 class NewProject extends Component {
     state = {
         porjects: '',
@@ -34,7 +33,12 @@ class NewProject extends Component {
         abstract: '',
 
     };
-
+    constructor(props) {
+      super(props);
+      this.state = {
+        loading: true
+      }
+    }
     componentWillMount() {
         const ins = axios.create({
             baseURL: settings.backend_url,
@@ -50,15 +54,34 @@ class NewProject extends Component {
             .catch(error => {
                 console.log(error);
             });
+
+
     }
+
+    componentDidMount(){
+        setTimeout(
+            function() {
+                this.setState({loading: false});
+            }
+            .bind(this),
+            1000
+        );
+    }
+
     render() {
+        let style;
         const {
           params: { name },
         } = this.props;
         const content = projectNameMap[name];
-        // console.log(content)
+        if(this.state.loading === true) {
+            style = {opacity: 1};
+        } else {
+            style = {opacity: 0};
+        }
       return (
         <div>
+            <div id="loading" style={style}><img src={anime} alt=""/></div>;
             <Particles
                 params={{
                     "particles": {
@@ -92,8 +115,8 @@ class NewProject extends Component {
             <Award projectName={name}></Award>
             <Abstract projectName={name} content={content.abstract}></Abstract>
             <Video projectName={name}></Video>
-            <div id="post"></div>
-            <div id="conclusion"></div>
+            <Proposed projectName={name} content={content.proposedMethodology}></Proposed>
+            <Conclusion projectName={name} content={content.experimentalResults}></Conclusion>
         </div>
       );
     }

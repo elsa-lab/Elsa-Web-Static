@@ -1,0 +1,45 @@
+#Conclusion {
+    height: 100vh;
+    text-align: center;
+    padding: 10% 0;
+    h1 {
+        font-family: 'DM Serif Display', serif;
+        font-size: 40px;
+        color: #333;
+        margin-bottom: 4em;
+        letter-spacing: 1px;
+        color: #B76A53;
+    }
+    .cardContent {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+
+            .card {
+                width: 250px;
+                height: 320.5px;
+                margin: 0 2.8em;
+                background-color: #f7f7f7;
+                text-align: center;
+                transition: 0.3s;
+
+                img {
+                    width: 100%;
+                    margin-bottom: 1.6em;
+                }
+                h1 {
+                    font-family: 'DM Serif Display', serif;
+                    font-size: 22px;
+                    color: #333;
+                    letter-spacing: 1px;
+                }
+
+                &:hover {
+                    cursor: pointer;
+                    transform: scale(1.1);
+                    box-shadow: -5px 5px 20px 0px rgba(0, 0, 0, 0.3);
+                }
+            }
+    }
+}

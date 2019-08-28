@@ -2,8 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import { Comment as AntComment, Avatar, Col, Row } from 'antd';
-// import {Editor, EditorState} from 'draft-js';
+import { Comment as AntComment, Avatar } from 'antd';
 
 import settings from '../../../../../settings';
 
@@ -59,7 +58,7 @@ class Comment extends Component {
     ins
       .get(`user/${userId}`)
       .then(res => {
-        // //console.log(res);
+        console.log(res);
         this.setState({ pictureUrl: res.data.profile.pictureUrl });
       })
       .catch(error => {
@@ -124,7 +123,7 @@ class Comment extends Component {
       .get(`files/${fileId}/pages/${nowPage}`)
       .then(res => {
         // console.log('In Load Comment');
-        // console.log(res.data);
+        console.log(res.data);
         this.setState({ comments: res.data });
       })
       .catch(error => {

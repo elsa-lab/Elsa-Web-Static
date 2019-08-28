@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import axios from 'axios';
 import ImageGallery from 'react-image-gallery';
-import { Col, Row } from 'antd';
+import { Row } from 'antd';
 import '../../App.scss'
 import Header from '../../../Share/Header';
 import settings from '../../../../settings';
-import { media, notebook } from '../../../size';
+import { notebook } from '../../../size';
 
 import Comment from './Comment';
 
@@ -37,7 +37,7 @@ class PdfPage extends Component {
         ins
         .get(`courses/${course_id}`)
         .then(res => {
-            // console.log(res.data);
+            console.log(res.data);
             this.setState({
                 title: res.data.title,
             });
@@ -89,9 +89,7 @@ class PdfPage extends Component {
             title,
             year,
             season,
-            imageRootUrl,
             current,
-            allSlides,
         } = this.state;
 
         return (

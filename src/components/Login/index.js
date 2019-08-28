@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import { Col, Input, Row } from 'antd';
 import { Link } from 'react-router';
 
-import Drawer from '../Share/Drawer';
 import Header from '../Share/Header';
 import IconImg from '../static/icon.png';
 import settings from '../../settings';
@@ -20,7 +19,6 @@ import {
   PageLink,
   SmallContent,
   Text,
-  TextCol,
   Title1,
   Title2,
   TitleText,
@@ -126,7 +124,6 @@ class Login extends Component {
   };
 
   handleSubmit = event => {
-    const reactIns = this;
     axios.post(`${settings.backend_url}/api-token-auth/`, {
         username: this.state.account,
         password: this.state.password,

@@ -25,6 +25,7 @@ import {
   Title2,
   TitleText,
 } from '../Share';
+import './style.scss'
 import { media, notebook } from '../size';
 
 const Blocks = styled.div`
@@ -53,7 +54,6 @@ const BackgroundStyleColor2 = styled(BackgroundColor)`
 
 const EachBlock = styled.div`
   width: 100%;
-  height: 20vh;
   background-color: rgba(0, 0, 0, 0.3);
   margin-bottom: 5vh;
   color: white;
@@ -74,15 +74,6 @@ const TextArea = styled.div`
     padding-top: 3.5vh;
     padding-left: 4vw;
     font-size:4vw;
-  `};
-`;
-
-const Title = styled.div`
-  font-size: 2vw;
-  padding-top: 1vh;
-
-  ${media.lessThan('notebook')`
-    font-size:5vw;
   `};
 `;
 
@@ -134,44 +125,36 @@ class Publications extends Component {
     ins
       .get('publications')
       .then(res => {
-        //console.log(res);
+        // console.log(res);
         this.setState({ publications: res.data });
+
+        console.log(this.state.publications);
       })
       .catch(error => {
         console.log(error);
       });
   }
 
-  // [
-  //   {
-  //     "id": 1,
-  //     "title": "fdsfsd",
-  //     "code_url": "sdaf",
-  //     "arXiv_url": "sadf",
-  //     "files": {
-  //       "id": 1,
-  //       "size": 3170,
-  //       "type": "image/png",
-  //       "url": "http://35.201.173.113:8080/static/fdsfsd/fdsfsd.png"
-  //     }
-  //   }
-  // ]
-
   renderPublications = () =>
     this.state.publications.map(
       ({
         id: publicationId,
         title,
-        // code_url: codeUrl,
         arXiv_url: arXivUrl,
-        files,
+        author,
+        year,
+        published_in
+
       }) => (
         <EachBlock key={publicationId}>
           <Row type="flex">
-            <Col span={20}>
-              <TextArea>
-                <Title>{title}</Title>
-              </TextArea>
+            <Col span={20} color="#0B322B">
+              <div className="textarea">
+                <label>{year}</label>
+                <h1>{title}</h1>
+                <hr/>
+                <h3>{author}, {published_in}</h3>
+              </div>
             </Col>
             <Col span={4}>
               <LinkArea>
@@ -179,7 +162,7 @@ class Publications extends Component {
                   <LinkText href={arXivUrl}>arXiv</LinkText>
                 </LinkBlock>
                 <LinkBlock color="rgba(0, 0, 0, 0.4)">
-                  <LinkText href={files.url}>PDF</LinkText>
+                  <LinkText>PDF</LinkText>
                 </LinkBlock>
               </LinkArea>
             </Col>

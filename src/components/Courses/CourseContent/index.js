@@ -126,7 +126,12 @@ class CourseContent extends Component {
     description: '',
     year: '',
     season: '',
-    lectures: [],
+    lectures: [
+        {id: "",
+        title: "",
+        lecture_number: "",
+        files: []}
+    ],
   };
 
   componentWillMount() {
@@ -153,8 +158,7 @@ class CourseContent extends Component {
     ins
       .get(`courses/${course_id}/contents/${content_id}`)
       .then(res => {
-        // console.log(res.data);
-        this.setState(res.data);
+        console.log(res.data)
       })
       .catch(error => {
         console.log(error);
@@ -167,63 +171,64 @@ class CourseContent extends Component {
         return this.state.lectures.map(
         ({ id: lectureId, title, lecture_number: lectureNumber, files }) => {
           isChangeOrder = !isChangeOrder;
-          if(files.length === 0){
-              return (
-                <a
-                  key={lectureId}
-                  href={`${contentId}/lectures/${lectureId}/files`}
-                >
-
-                  <EachBlock
-                    color={
-                      isChangeOrder ? 'rgba(0, 0, 0, 0.3)' : 'rgba(0, 0, 0, 0.4)'
-                    }
-                  >
-                    <Row>
-                      <Col xs={{ span: 12 }} xl={{ span: 8 }}>
-                        <ImageArea image={BackgroundImage} />
-                      </Col>
-                      <Col xs={{ span: 12 }} xl={{ span: 16 }}>
-                        <TextArea>
-                          <div>
-                            material #{lectureNumber} <Date>2019/01/01</Date>
-                          </div>
-                          <Title>{title}</Title>
-                        </TextArea>
-                      </Col>
-                    </Row>
-                  </EachBlock>
-                </a>
-              );
-          }else{
-              return (
-                <a
-                  key={lectureId}
-                  href={`${contentId}/lectures/${lectureId}/files/${files[0].id}`}
-                >
-
-                  <EachBlock
-                    color={
-                      isChangeOrder ? 'rgba(0, 0, 0, 0.3)' : 'rgba(0, 0, 0, 0.4)'
-                    }
-                  >
-                    <Row>
-                      <Col xs={{ span: 12 }} xl={{ span: 8 }}>
-                        <ImageArea image={BackgroundImage} />
-                      </Col>
-                      <Col xs={{ span: 12 }} xl={{ span: 16 }}>
-                        <TextArea>
-                          <div>
-                            material #{lectureNumber} <Date>2019/01/01</Date>
-                          </div>
-                          <Title>{title}</Title>
-                        </TextArea>
-                      </Col>
-                    </Row>
-                  </EachBlock>
-                </a>
-              );
-          }
+          // console.log(this.state.lectures)
+          // if(files.length === 0){
+          //     return (
+          //       <a
+          //         key={lectureId}
+          //         href={`${contentId}/lectures/${lectureId}/files`}
+          //       >
+          //
+          //         <EachBlock
+          //           color={
+          //             isChangeOrder ? 'rgba(0, 0, 0, 0.3)' : 'rgba(0, 0, 0, 0.4)'
+          //           }
+          //         >
+          //           <Row>
+          //             <Col xs={{ span: 12 }} xl={{ span: 8 }}>
+          //               <ImageArea image={BackgroundImage} />
+          //             </Col>
+          //             <Col xs={{ span: 12 }} xl={{ span: 16 }}>
+          //               <TextArea>
+          //                 <div>
+          //                   material #{lectureNumber} <Date>2019/01/01</Date>
+          //                 </div>
+          //                 <Title>{title}</Title>
+          //               </TextArea>
+          //             </Col>
+          //           </Row>
+          //         </EachBlock>
+          //       </a>
+          //     );
+          // }else{
+          //     return (
+          //       <a
+          //         key={lectureId}
+          //         href={`${contentId}/lectures/${lectureId}/files/${files[0].id}`}
+          //       >
+          //
+          //         <EachBlock
+          //           color={
+          //             isChangeOrder ? 'rgba(0, 0, 0, 0.3)' : 'rgba(0, 0, 0, 0.4)'
+          //           }
+          //         >
+          //           <Row>
+          //             <Col xs={{ span: 12 }} xl={{ span: 8 }}>
+          //               <ImageArea image={BackgroundImage} />
+          //             </Col>
+          //             <Col xs={{ span: 12 }} xl={{ span: 16 }}>
+          //               <TextArea>
+          //                 <div>
+          //                   material #{lectureNumber} <Date>2019/01/01</Date>
+          //                 </div>
+          //                 <Title>{title}</Title>
+          //               </TextArea>
+          //             </Col>
+          //           </Row>
+          //         </EachBlock>
+          //       </a>
+          //     );
+          // }
         }
       );
     }

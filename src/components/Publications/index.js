@@ -65,17 +65,6 @@ const EachBlock = styled.div`
   `};
 `;
 
-const TextArea = styled.div`
-  padding-left: 2.5vw;
-  padding-right: 4vw;
-  padding-top: 4.5vh;
-
-  ${media.lessThan('notebook')`
-    padding-top: 3.5vh;
-    padding-left: 4vw;
-    font-size:4vw;
-  `};
-`;
 
 const LinkArea = styled.div`
   width: 100%;

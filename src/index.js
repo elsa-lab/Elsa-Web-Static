@@ -46,11 +46,11 @@ ReactDOM.render(
       <Route exact path="/" component={Home} />
       <Route path="/courses" component={Courses} />
       <Route
-        path="/courses(/:course_id)/contents(/:content_id)"
+        path="/courses(/:course_id)"
         component={CourseContent}
       />
       <Route
-        path="/courses(/:course_id)/contents(/:content_id)/lectures(/:lecture_id)/files(/:file_id)"
+        path="/courses(/:course_id)/lectures(/:lecture_id)"
         component={PdfPage}
       />
       <Route path="/publications" component={Publications} />

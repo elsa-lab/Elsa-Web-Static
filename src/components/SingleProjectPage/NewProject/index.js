@@ -24,18 +24,21 @@ const projectNameMap = {
 };
 
 class NewProject extends Component {
-    state = {
-        porjects: '',
-        title: '',
-        year: '',
-        subtitle: '',
-        conclusion: '',
-        abstract: '',
-
-    };
     constructor(props) {
       super(props);
       this.state = {
+        id: '',
+        topic: {
+          title: '',
+          subtitle: '',
+          year: '',
+          description: '',
+        },
+        cover_image_url: '',
+        video_url: '',
+        abstract: '',
+        conclusion: '',
+        created_at: '',
         loading: true
       }
     }
@@ -46,10 +49,22 @@ class NewProject extends Component {
         });
 
         ins
-            .get('/projects')
+            .get('/projects/1')
             .then(res => {
-                // console.log(res.data);
-                this.setState({ courses: res.data });
+                this.setState({
+                    id: res.data.id,
+                    topic: {
+                        title: res.data.title,
+                        year: res.data.year,
+                        subtitle: res.data.subtitle,
+                        description: res.data.description
+                    },
+                    cover_image_url: res.data.cover_image_url,
+                    video_url: res.data.video_url,
+                    abstract: res.data.content,
+                    conclusion: res.data.conclusion,
+                    created_at: res.data.created_at
+                });
             })
             .catch(error => {
                 console.log(error);
@@ -74,6 +89,7 @@ class NewProject extends Component {
           params: { name },
         } = this.props;
         const content = projectNameMap[name];
+        console.log(this.state)
         if(this.state.loading === true) {
             style = {opacity: 1};
         } else {
@@ -111,10 +127,10 @@ class NewProject extends Component {
                 }}
                 className="particles"
             />
-            <Topic projectName={name} content={content.topic} />
+        <Topic projectName={name} content={this.state.topic} />
             <Award projectName={name}></Award>
-            <Abstract projectName={name} content={content.abstract}></Abstract>
-            <Video projectName={name}></Video>
+            <Abstract projectName={name} content={this.state.abstract}></Abstract>
+            <Video projectName={name} videoUrl={this.state.video_url}></Video>
             <Proposed projectName={name} content={content.proposedMethodology}></Proposed>
             <Conclusion projectName={name} content={content.experimentalResults}></Conclusion>
         </div>

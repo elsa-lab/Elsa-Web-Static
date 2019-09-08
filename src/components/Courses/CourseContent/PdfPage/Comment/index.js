@@ -33,7 +33,7 @@ class Comment extends Component {
     comments: [],
     submitting: false,
     value: '',
-    fileId: this.props.fileId,
+    lectureId: this.props.lectureId,
     nowPage: this.props.nowPage,
     pictureUrl: '',
   };
@@ -112,7 +112,7 @@ class Comment extends Component {
   loadComment = () => {
     // if login load all comments under this page
     this.setState({ nowPage: this.props.nowPage });
-    const { fileId } = this.state;
+    const { lectureId } = this.state;
     const { nowPage } = this.props;
 
     const ins = axios.create({
@@ -120,7 +120,7 @@ class Comment extends Component {
       timeout: 1000,
     });
     ins
-      .get(`files/${fileId}/pages/${nowPage}`)
+      .get(`lectures/${lectureId}/comments/${nowPage}`)
       .then(res => {
         // console.log('In Load Comment');
         console.log(res.data);
@@ -141,7 +141,7 @@ class Comment extends Component {
     });
 
     const {
-      fileId,
+      lectureId,
       nowPage,
       comments,
       value,
@@ -157,16 +157,16 @@ class Comment extends Component {
       },
     });
 
+    //write comment
     ins
-      .post(`files/${fileId}/pages/${nowPage}`, {
+      .post(`lectures/${lectureId}/comments/${nowPage}`, {
         comments,
         content: value,
-        fileId,
+        lectureId,
         nowPage,
         email_notify: emailNotify,
       })
       .then(res => {
-        // //console.log(res);
         this.setState({ submitting: false, value: '' });
         this.loadComment();
       })
@@ -187,11 +187,6 @@ class Comment extends Component {
       });
     }
   };
-  // constructor(props) {
-  //     super(props);
-  //     this.state = {editorState: EditorState.createEmpty()};
-  //     this.onChange = (editorState) => this.setState({editorState});
-  // }
 
   render() {
     const { comments } = this.state;
@@ -208,7 +203,7 @@ class Comment extends Component {
 }
 
 Comment.propTypes = {
-  fileId: PropTypes.string.isRequired,
+  lectureId: PropTypes.string.isRequired,
   nowPage: PropTypes.number.isRequired,
 };
 

@@ -10,9 +10,9 @@ const Topic = ({ projectName, content }) => (
                     <img alt="" src={cover} />
                 </div>
                 <div className="col">
-                    <h1 className="topic title">{content[1]}</h1>
-                    <h1 className="topic year">{content[0]}</h1>
-                    <p className="topic content">{content[2]}</p>
+                    <h1 className="topic title">{content.title}</h1>
+                    <h1 className="topic year">{content.year}</h1>
+                    <p className="topic content">{content.description}</p>
                 </div>
             </div>
 

@@ -13,85 +13,68 @@ import Comment from './Comment';
 
 class PdfPage extends Component {
     state = {
-        title: '',
-        imageRootUrl: '',
-        page_size: '',
-        allSlides: [],
-        selected: 0,
-        current: 0,
-        courses: '',
+        id: "",
+        title: "",
+        description: "",
+        lecture_number: "",
+        page: [],
+        lecture_file: {},
+        attach_files: [],
+        course: {},
+        created_at: "",
+        updated_at: "",
+        current: 0
     };
     setCurrent = (e) => {
         this.setState({current: e})
     }
     componentDidMount() {
         const {
-            params: { course_id, content_id, file_id },
+            params: { lecture_id },
         } = this.props;
-
         const ins = axios.create({
             baseURL: settings.backend_url,
             timeout: 1000,
         });
 
         ins
-        .get(`courses/${course_id}`)
+        .get(`lectures/${lecture_id}`)
         .then(res => {
-            console.log(res.data);
+
             this.setState({
+                id: res.data.id,
                 title: res.data.title,
+                description: res.data.description,
+                lecture_number: res.data.lecture_number,
+                page: res.data.pages,
+                lecture_file: res.data.lecture_file,
+                attach_files: res.data.attach_files,
+                course: res.data.course,
+                created_at: res.data.created_at,
+                updated_at: res.data.updated_at,
             });
         })
         .catch(error => {
             console.log(error);
         });
 
-        ins
-        .get(`courses/${course_id}/contents/${content_id}`)
-        .then(res => {
-            // console.log(res.data);
-            this.setState(res.data);
-        })
-        .catch(error => {
-            console.log(error);
-        });
-
-        ins
-        .get(`files/${file_id}`)
-        .then(res => {
-            // console.log(res.data);
-            this.setState({
-                imageRootUrl: res.data.image_root_url,
-                page_size: res.data.page_size,
-            });
-            // console.log(res.data.page_size)
-            this.displaySlides();
-        })
-        .catch(error => {
-            console.log(error);
-        });
     }
 
 
     render() {
         const images = [];
-        for (let i = 0; i < this.state.page_size; i++) {
+        let seasonText;
+        if(this.state.course.season === 0){
+            seasonText = "Spring";
+        } else {
+            seasonText = "Fall";
+        }
+        for (let i = 0; i < this.state.page.length; i++) {
             images.push({
-                original: this.state.imageRootUrl+'/page-'+i+'.jpeg',
-                thumbnail: this.state.imageRootUrl+'/page-'+i+'.jpeg'
+                original: settings.backend_url+'/'+this.state.page[i],
+                thumbnail: settings.backend_url+'/'+this.state.page[i]
             });
         }
-        const {
-            params: { file_id },
-        } = this.props;
-
-        const {
-            title,
-            year,
-            season,
-            current,
-        } = this.state;
-
         return (
             <Row>
                 <MediaQuery query={`(max-width: ${notebook})`}>
@@ -99,11 +82,11 @@ class PdfPage extends Component {
                 </MediaQuery>
 
                 <div className="title-content">
-                    <h1>{title}</h1>
-                    <h3>{year} | {season}</h3>
+                    <h1>{this.state.title}</h1>
+                    <h3>{this.state.course.year} | {seasonText}</h3>
                 </div>
-                <ImageGallery onSlide={this.setCurrent} startIndex={current} showIndex={true} thumbnailPosition="left" slideOnThumbnailOver={false} showPlayButton={false} showBullets={true} showNav={false} infinite={false} items={images} />
-                <Comment id={file_id} fileId={file_id} nowPage={current}/>
+                <ImageGallery onSlide={this.setCurrent} startIndex={this.state.current} showIndex={true} thumbnailPosition="left" slideOnThumbnailOver={false} showPlayButton={false} showBullets={true} showNav={false} infinite={false} items={images} />
+                <Comment id={this.props.params.lecture_id} lectureId={this.props.params.lecture_id} nowPage={this.state.current}/>
             </Row>
 
         );
@@ -112,9 +95,7 @@ class PdfPage extends Component {
 
 PdfPage.propTypes = {
     params: PropTypes.shape({
-        course_id: PropTypes.string.isRequired,
-        content_id: PropTypes.string.isRequired,
-        file_id: PropTypes.string.isRequired,
+        lecture_id: PropTypes.string.isRequired,
     }).isRequired,
 };
 

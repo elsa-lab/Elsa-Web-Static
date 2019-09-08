@@ -132,44 +132,47 @@ class Courses extends Component {
       });
   }
 
-  renderClass = () => {
-    if (this.state.courses) {
-      return this.state.courses.map(({ id: courseId, title, contents }) => {
-        let isChangeOrder = false;
-        return contents.map(({ id, season, year, course_no }) => {
-          isChangeOrder = !isChangeOrder;
-          return (
-            <a key={id} href={`/courses/${courseId}/contents/${id}`}>
-              <EachBlock>
-                <Row type="flex">
-                  <Col
-                    span={12}
-                    xs={{ order: isChangeOrder ? 2 : 1 }}
-                    xl={{ order: 1 }}
-                  >
-                    <TextArea>
-                      <Year>
-                        {year} {season}
-                      </Year>
-                      <Title>{title}</Title>
-                      course no : {course_no}
-                    </TextArea>
-                  </Col>
-                  <Col
-                    span={12}
-                    xs={{ order: isChangeOrder ? 1 : 2 }}
-                    xl={{ order: 2 }}
-                  >
-                    <ImageArea image={BackgroundImage} />
-                  </Col>
-                </Row>
-              </EachBlock>
-            </a>
-          );
-        });
-      });
-    }
-  };
+    renderClass = () => {
+        if (this.state.courses) {
+            return this.state.courses.map(({ id, title, description, year, season, location, course_no, time, lectures}) => {
+              let isChangeOrder = false;
+              let seasonText;
+              isChangeOrder = !isChangeOrder;
+              if(season === 0){
+                  seasonText = "下學期";
+              } else {
+                  seasonText = "上學期";
+              }
+              return (
+                  <a key={id} href={`/courses/${id}`}>
+                      <EachBlock>
+                          <Row type="flex">
+                              <Col
+                                  span={12}
+                                  xs={{ order: isChangeOrder ? 2 : 1 }}
+                                  xl={{ order: 1 }}
+                                  >
+                                  <TextArea>
+                                      <Year>
+                                          {year} {seasonText}
+                                      </Year>
+                                      <Title>{title}</Title>
+                                      course no : {course_no}
+                                  </TextArea>
+                              </Col>
+                              <Col
+                                  span={12}
+                                  xs={{ order: isChangeOrder ? 1 : 2 }}
+                                  xl={{ order: 2 }}
+                                  >
+                                  <ImageArea image={BackgroundImage} />
+                              </Col>
+                          </Row>
+                      </EachBlock>
+                  </a>)
+            });
+        }
+    };
 
   renderLogin = () => {
     const { token } = localStorage;

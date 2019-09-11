@@ -11,7 +11,6 @@ import PdfPage from './components/Courses/CourseContent/PdfPage';
 import Publications from './components/Publications';
 import SingleProjectPage from './components/SingleProjectPage';
 import Projects from './components/Projects';
-import NewProject from './components/SingleProjectPage/NewProject'
 import News from './components/News';
 import NewContent from './components/News/NewContent';
 import Login from './components/Login';
@@ -55,7 +54,6 @@ ReactDOM.render(
       />
       <Route path="/publications" component={Publications} />
       <Route path="/projects" component={Projects} />
-      <Route path="/newProject(/:name)" component={NewProject} />
       <Route path="/project(/:name)" component={SingleProjectPage} />
       <Route path="/news" component={News} />
       <Route path="/news(/:news_id)" component={NewContent} />

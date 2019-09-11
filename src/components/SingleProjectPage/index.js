@@ -1,84 +1,132 @@
-import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import ReactFullpage from '@fullpage/react-fullpage';
 
-import DeepPolicyInferenceQNetwork from '../Content/DeepPolicy';
-import DynamicVideoSegmentationNetwork from '../Content/DynamicVideo';
-import VirtualToReal from '../Content/VirtualToReal';
+import Topic from './template/Topic';
+import Award from './template/Awarding';
+import Abstract from './template/Abstract';
+import Video from './template/Video';
+import Proposed from './template/Proposed';
+import Conclusion from './template/Conclusion';
+import './main.scss';
+import anime from './Ellipsis-2.2s-200px.svg';
 
-import Abstract from './Abstract';
-import Awarding from './Awarding';
-import Conclusion from './Conclusion';
-import ExperimentalResults from './ExperimentalResults';
-import NextProject from './NextProject';
-import ProposedMethodology from './ProposedMethodology';
-import SystemStructure from './SystemStructure';
-import Topic from './Topic';
-import VideoOverview from './VideoOverview';
+import Header from '../Share/Header';
 
-const eachBlockTag = [
-  'topic',
-  'systemStructure',
-  'abstract',
-  'proposedMethodology',
-  'experimentalResults',
-  'awarding',
-  'videoOverview',
-  'conclusion',
-  'nextProject',
-];
+import axios from 'axios';
+import settings from '../../settings';
+import Particles from 'react-particles-js';
 
-const projectNameMap = {
-  'Virtual-to-Real': VirtualToReal,
-  'Dynamic-Video-Segmentation-Network': DynamicVideoSegmentationNetwork,
-  'A-Deep-Policy-Inference-Q-Network': DeepPolicyInferenceQNetwork,
-};
 
-class SingleProjectPage extends Component {
-  render() {
-    const {
-      params: { name },
-    } = this.props;
-    console.log(this.props)
-    const content = projectNameMap[name];
+class NewProject extends Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        id: '',
+        topic: {
+          title: '',
+          subtitle: '',
+          year: '',
+          description: '',
+        },
+        cover_image_url: '',
+        video_url: '',
+        abstract: '',
+        conclusion: '',
+        created_at: '',
+        loading: true
+      }
+    }
+    componentWillMount() {
+        const ins = axios.create({
+            baseURL: settings.backend_url,
+            timeout: 1000,
+        });
 
-    return (
-      <ReactFullpage
-        licenseKey="OPEN-SOURCE-GPLV3-LICENSE"
-        anchors={eachBlockTag}
-        render={({ state, fullpageApi }) => {
-          // console.log('render prop change', state);
-          console.log({ fullpageApi });
+        ins
+            .get('/projects/1')
+            .then(res => {
+                this.setState({
+                    id: res.data.id,
+                    topic: {
+                        title: res.data.title,
+                        year: res.data.year,
+                        subtitle: res.data.subtitle,
+                        description: res.data.description
+                    },
+                    cover_image_url: res.data.image_url,
+                    video_url: res.data.video_url,
+                    abstract: res.data.content,
+                    conclusion: res.data.conclusion,
+                    created_at: res.data.created_at
+                });
+            })
+            .catch(error => {
+                console.log(error);
+            });
 
-          return (
-            <ReactFullpage.Wrapper>
-              <Topic projectName={name} content={content.topic} />
-              <SystemStructure projectName={name} />
-              <Abstract projectName={name} content={content.abstract} />
-              <ProposedMethodology
-                projectName={name}
-                content={content.proposedMethodology}
-              />
-              <ExperimentalResults
-                projectName={name}
-                content={content.experimentalResults}
-              />
-              <Awarding projectName={name} />
-              <VideoOverview projectName={name} />
-              <Conclusion projectName={name} content={content.conclusion} />
-              <NextProject />
-            </ReactFullpage.Wrapper>
-          );
-        }}
-      />
-    );
-  }
+
+    }
+
+    componentDidMount(){
+        setTimeout(
+            function() {
+                this.setState({loading: false});
+            }
+            .bind(this),
+            1000
+        );
+    }
+
+    render() {
+        let style;
+        console.log(this.state.cover_image_url)
+        if(this.state.loading === true) {
+            style = {opacity: 1};
+        } else {
+            style = {opacity: 0};
+        }
+      return (
+        <div>
+            <Header fontColor="#9b9b9b" />
+            <div id="loading" style={style}><img src={anime} alt=""/></div>;
+            <Particles
+                params={{
+                    "particles": {
+                        "number": {
+                            "value": 200
+                        },
+                        "line_linked": {
+                            "enable": true,
+                            "distance": 70,
+                            "opacity": 0.4,
+                            "color": "#636363"
+                        },
+                        "move": {
+                            "speed": 1
+                        },
+                        "opacity": {
+                            "anim": {
+                                "enable": true,
+                                "opacity_min": 0.05,
+                                "speed": 2,
+                                "sync": false
+                            },
+                            "value": 0.1
+                        },
+                        color: {"value":"#000000"}
+                    }
+                }}
+                className="particles"
+            />
+            <Topic projectName={this.state.topic.title} content={this.state.topic} />
+            <Award projectName={this.state.topic.title} imageUrl={this.state.cover_image_url}></Award>
+            <Abstract projectName={this.state.topic.title} content={this.state.abstract}></Abstract>
+            <Video projectName={this.state.topic.title} videoUrl={this.state.video_url}></Video>
+            {/*<Proposed projectName={this.state.topic.title} content={content.proposedMethodology}></Proposed>
+        <Conclusion projectName={this.state.topic.title} content={content.experimentalResults}></Conclusion>*/}
+        </div>
+      );
+    }
 }
 
-SingleProjectPage.propTypes = {
-  params: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-  }).isRequired,
-};
 
-export default SingleProjectPage;
+export default NewProject;

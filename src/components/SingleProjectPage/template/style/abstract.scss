@@ -1,0 +1,40 @@
+#abstract {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+    background-color: #0b322b;
+    .flex {
+        width: 75%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .left {
+            flex: 1;
+            text-align: center;
+            img {
+                width: 50%;
+                box-shadow: -10px 10px 30px rgba(#000000, 0.5);
+            }
+        }
+        .right {
+            flex: 1;
+            h1 {
+                font-family: 'DM Serif Display', serif;
+                font-size: 48px;
+                letter-spacing: 1px;
+                color: #B76A53;
+            }
+            p {
+                color: #f7f7f7;
+                text-align: justify;
+                font-family: 'Noto Serif', serif;
+                font-size: 16px;
+                letter-spacing: 0.6px;
+                line-height: 1.2em;
+                width: 500px;
+            }
+
+        }
+    }
+}

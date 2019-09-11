@@ -1,0 +1,57 @@
+#Topic {
+    height: 100vh;
+    .colorBG {
+        width: 100%; height: 75%;
+        position: absolute; top: 25%;
+        background-color: #0B322B;
+
+        .row {
+            display: flex;
+            justify-content: center;
+            height: 100%;
+            align-items: center;
+
+            .homeImage {
+                width: 25%;
+                z-index: 0;
+                margin-top: -140px;
+                margin-right: -40px;
+
+                img {
+                    width: 100%;
+                }
+            }
+
+            .col {
+                margin-top: -80px;
+                z-index: 1;
+                font-family: 'DM Serif Display', serif;
+
+                .title {
+                    font-size: 74px;
+                    line-height: 0.8em;
+                    width: 460px;
+                }
+                .topic {
+                    color: #B76A53;
+                    margin: 0;
+                    letter-spacing: 1.2px;
+                }
+
+                .year {
+                    font-size: 40px;
+                }
+
+                .content {
+                    font-size: 18px;
+                    color: white;
+                    width: 400px;
+                    left: 30%;
+                    top: 80px;
+                    font-weight: 300;
+                }
+            }
+        }
+    }
+
+}

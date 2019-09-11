@@ -8,6 +8,8 @@ const Layout = styled.div`
   width: 100%;
   margin-right: 2vw;
   height: 8vh;
+  position: fixed;
+  z-index: 100;
 `;
 
 const EachLink = styled(Link)`

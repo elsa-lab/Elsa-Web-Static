@@ -6,23 +6,14 @@ import { Col, Input, Row } from 'antd';
 
 import Drawer from '../Share/Drawer';
 import Header from '../Share/Header';
-import IconImg from '../static/icon.png';
 import settings from '../../settings';
+import Logo from '../Share/Logo';
 import {
   BackgroundColor,
-  BigTitle,
-  Hr,
-  IconImage,
-  LogoContent,
-  MainRow,
   MedContent,
   PageLink,
-  SmallContent,
   Text,
   TextCol,
-  Title1,
-  Title2,
-  TitleText,
 } from '../Share';
 import { media, notebook } from '../size';
 
@@ -49,12 +40,6 @@ const BackgroundStyleColor2 = styled(BackgroundColor)`
   `};
 `;
 
-const IconStyleImage = styled(IconImage)`
-  ${media.lessThan('notebook')`
-    width: 8vw;
-  `};
-`;
-
 const UserInput = styled(Input)`
   background-color: #cfcfcf;
   width: 100%;
@@ -68,12 +53,6 @@ const InputText = styled.div`
   color: white;
   margin-top: 1vh;
   margin-bottom: 1vh;
-`;
-
-const TitleStyleText = styled(TitleText)`
-  ${media.lessThan('notebook')`
-    font-size: 10vw;
-  `};
 `;
 
 const SubmitButton = styled.div`
@@ -90,12 +69,13 @@ const SubmitButton = styled.div`
 
 class Register extends Component {
   state = {
-    account: '',
+    username: '',
     password: '',
     confirm_password: '',
     message: '',
     nick_name: '',
     student_id: '',
+    picture: null,
   };
 
   renderMessage = () => {
@@ -105,15 +85,15 @@ class Register extends Component {
   };
 
   handleChange = (id, event) => {
-    if (id === 'account') {
-      this.setState({ account: event.target.value });
+    if (id === 'username') {
+      this.setState({ username: event.target.value });
     } else if (id === 'password') {
       this.setState({ password: event.target.value });
     }
 
     switch (id) {
-      case 'account':
-        this.setState({ account: event.target.value });
+      case 'username':
+        this.setState({ username: event.target.value });
         break;
       case 'password':
         this.setState({ password: event.target.value });
@@ -127,21 +107,23 @@ class Register extends Component {
       case 'student_id':
         this.setState({ student_id: event.target.value });
         break;
+      case 'picture':
+        this.setState({ picture: event.target.files[0] })
       default:
     }
   };
 
   validateEmail = () => {
     const re = /^(([^<>()[\]\\.,;:\s@]+(\.[^<>()[\]\\.,;:\s@]+)*)|(.+))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    console.log(re)
-    return re.test(this.state.account);
+    // console.log(re)
+    return re.test(this.state.username);
   };
 
   validatePassword = () => this.state.password === this.state.confirm_password;
 
   validateForm = () => {
-    const { account, password, student_id, nick_name } = this.state;
-    if (!(account && password && student_id && nick_name)) {
+    const { username, password, student_id, nick_name, picture } = this.state;
+    if (!(username && password && student_id && nick_name && picture)) {
       this.setState({ message: '有資料未填' });
       return false;
     } else if (!this.validateEmail()) {
@@ -156,15 +138,18 @@ class Register extends Component {
 
   handleSubmit = event => {
     if (!this.validateForm()) return;
-
+    console.log(this.state);
+    const data = new FormData()
+    data.append('username', this.state.username)
+    data.append('email', this.state.username)
+    data.append('password', this.state.password)
+    data.append('student_id', this.state.student_id)
+    data.append('nick_name', this.state.nick_name)
+    data.append('picture', this.state.picture)
+    console.log(data)
     const react_ins = this;
     axios
-      .post(`${settings.backend_url}/users`, {
-        username: this.state.account,
-        password: this.state.password,
-        student_id: this.state.student_id,
-        nick_name: this.state.nick_name,
-      })
+      .post(`${settings.backend_url}/users`, data)
       .then(response => {
         console.log(response);
         // redirect to user page
@@ -178,7 +163,6 @@ class Register extends Component {
       })
       .catch(error => {
         console.log(error);
-        // handle login error
         react_ins.setState({ message: 'Unknown error.' }, () =>
           setTimeout(() => react_ins.setState({ message: '' }), 2000)
         );
@@ -221,48 +205,16 @@ class Register extends Component {
   render() {
     return (
       <Row>
+        <MediaQuery query={`(max-width: ${notebook})`}>
+          {matches => (!matches ? <Header fontColor="white" /> : <></>)}
+        </MediaQuery>
         <Col xs={{ span: 24 }} xl={{ span: 9 }}>
           <BackgroundStyleColor color="#b0d4b6">
-            <MainRow type="flex" justify="center">
-              <LogoContent xs={{ span: 22 }} xl={{ span: 18 }}>
-                <Row type="flex" justify="start" align="middle" gutter={8}>
-                  <Col>
-                    <IconStyleImage src={IconImg} />
-                  </Col>
-                  <Col>
-                    <Title1>NTHU</Title1>
-                    <Title2>ELSA</Title2>
-                  </Col>
-                  <Col xs={{ span: 14 }} xl={{ span: 0 }} offset={4}>
-                    {this.renderOtherBlock()}
-                  </Col>
-                </Row>
-              </LogoContent>
-              <SmallContent xs={{ span: 22 }} xl={{ span: 18 }} color="#8c8c8c">
-                <Row type="flex" justify="start" align="bottom">
-                  <Col span={6}>
-                    <Hr color="#8c8c8c" />
-                  </Col>
-                  <Col span={12} offset={1}>
-                    Home
-                  </Col>
-                </Row>
-              </SmallContent>
-              <BigTitle xs={{ span: 22 }} xl={{ span: 18 }}>
-                <TitleStyleText>Sign Up</TitleStyleText>
-              </BigTitle>
-              <MedContent xs={{ span: 22 }} xl={{ span: 12 }} color="#8c8c8c">
-                Sign Up to get new account for ELSA Lab
-              </MedContent>
-              <Col span={6} />
-            </MainRow>
+              <Logo content="Sign up"></Logo>
           </BackgroundStyleColor>
         </Col>
         <Col xs={{ span: 24 }} xl={{ span: 15 }}>
           <BackgroundStyleColor2 color="#98c8a0">
-            <MediaQuery query={`(max-width: ${notebook})`}>
-              {matches => (!matches ? <Header fontColor="white" /> : <></>)}
-            </MediaQuery>
             <TeachBlock>
               <Row type="flex" justify="start" align="top">
                 <Col xs={{ span: 18, offset: 2 }} xl={{ span: 10 }}>
@@ -271,10 +223,17 @@ class Register extends Component {
                   <UserInput
                     size="large"
                     type="text"
-                    value={this.state.account}
-                    onChange={e => this.handleChange('account', e)}
+                    value={this.state.username}
+                    onChange={e => this.handleChange('username', e)}
                   />
-                  <InputText>New Password</InputText>
+              <InputText>Nick name</InputText>
+                  <UserInput
+                    size="large"
+                    type="text"
+                    value={this.state.nick_name}
+                    onChange={e => this.handleChange('nick_name', e)}
+                  />
+                  <InputText>Password</InputText>
                   <UserInput
                     size="large"
                     type="password"
@@ -295,12 +254,12 @@ class Register extends Component {
                     value={this.state.student_id}
                     onChange={e => this.handleChange('student_id', e)}
                   />
-                  <InputText>Nick Name</InputText>
-                  <UserInput
-                    size="large"
-                    type="text"
-                    value={this.state.nick_name}
-                    onChange={e => this.handleChange('nick_name', e)}
+                  <InputText>Profile picture</InputText>
+                  <input
+                      type="file"
+                      name="file"
+                      accept="image/*"
+                      onChange={e => this.handleChange('picture', e)}
                   />
                   <SubmitButton onClick={e => this.handleSubmit(e)} href="#">
                     Sign Up

@@ -1,0 +1,37 @@
+.mainRow {
+    padding: 3em 0 0 5em;
+    z-index: 11;
+
+    a {
+        display: inline-block;
+        cursor: pointer;
+
+        .iconBox {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content:flex-start;
+            align-items: center;
+            .iconImg {
+                width: 50px;
+                margin-right: 5px;
+                img {
+                    width: 100%;
+                }
+            }
+            .iconText {
+                h3 {
+                    color: #f7f7f7;
+                    margin: 0;
+                    line-height: 1.2em;
+                }
+            }
+        }
+    }
+
+    h1 {
+        color: #f7f7f7;
+        font-size: 4vw;
+        margin-top: 6vh;
+        font-weight: bold;
+    }
+}

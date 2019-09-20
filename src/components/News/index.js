@@ -7,24 +7,14 @@ import { Col, Row } from 'antd';
 // import BackgroundImage from '../static/background_image_invert_vertical.jpg';
 import Drawer from '../Share/Drawer';
 import Header from '../Share/Header';
-import IconImg from '../static/icon.png';
 import settings from '../../settings';
 import {
   BackgroundColor,
-  BigTitle,
-  Hr,
-  IconImage,
-  LogoContent,
-  MainRow,
-  MedContent,
   PageLink,
-  SmallContent,
   Text,
   TextCol,
-  Title1,
-  Title2,
-  TitleText,
 } from '../Share';
+import Logo from '../Share/Logo';
 import { media, notebook } from '../size';
 
 const Blocks = styled.div`
@@ -92,18 +82,6 @@ const ImageArea = styled.div`
   background: url(${props => props.image});
   background-size: cover;
   background-position: center center;
-`;
-
-const TitleStyleText = styled(TitleText)`
-  ${media.lessThan('notebook')`
-    font-size: 10vw;
-  `};
-`;
-
-const IconStyleImage = styled(IconImage)`
-  ${media.lessThan('notebook')`
-    width: 8vw;
-  `};
 `;
 
 class News extends Component {
@@ -188,46 +166,16 @@ class News extends Component {
   render() {
     return (
       <Row>
+          <MediaQuery query={`(max-width: ${notebook})`}>
+            {matches => (!matches ? <Header fontColor="#9b9b9b" /> : <></>)}
+          </MediaQuery>
         <Col xs={{ span: 24 }} xl={{ span: 9 }}>
           <BackgroundStyleColor color="#b3a1ba">
-            <MainRow type="flex" justify="center">
-              <LogoContent xs={{ span: 22 }} xl={{ span: 18 }}>
-                <Row type="flex" justify="start" align="middle" gutter={8}>
-                  <Col span={2.5}>
-                    <IconStyleImage src={IconImg} />
-                  </Col>
-                  <Col span={3}>
-                    <Title1>NTHU</Title1>
-                    <Title2>ELSA</Title2>
-                  </Col>
-                  <Col xs={{ span: 14 }} xl={{ span: 0 }} offset={4}>
-                    {this.renderOtherBlock()}
-                  </Col>
-                </Row>
-              </LogoContent>
-              <SmallContent xs={{ span: 22 }} xl={{ span: 18 }} color="#8c8c8c">
-                <Row type="flex" justify="start" align="bottom">
-                  <Col span={6}>
-                    <Hr color="#8c8c8c" />
-                  </Col>
-                  <Col span={12} offset={1}>
-                    Home
-                  </Col>
-                </Row>
-              </SmallContent>
-              <BigTitle xs={{ span: 22 }} xl={{ span: 18 }}>
-                <TitleStyleText>News</TitleStyleText>
-              </BigTitle>
-              <MedContent span={12} color="#8c8c8c" />
-              <Col span={6} />
-            </MainRow>
+              <Logo content="News"></Logo>
           </BackgroundStyleColor>
         </Col>
         <Col xs={{ span: 24 }} xl={{ span: 15 }}>
           <BackgroundStyleColor2 color="white">
-            <MediaQuery query={`(max-width: ${notebook})`}>
-              {matches => (!matches ? <Header fontColor="#9b9b9b" /> : <></>)}
-            </MediaQuery>
             <Blocks>{this.renderNews()}</Blocks>
           </BackgroundStyleColor2>
         </Col>

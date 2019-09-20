@@ -6,7 +6,6 @@ import styled from 'styled-components';
 import { Col, Row } from 'antd';
 
 import BackgroundImage from '../../static/background_image_invert_vertical.jpg';
-import Drawer from '../../Share/Drawer';
 import Header from '../../Share/Header';
 import IconImg from '../../static/icon.png';
 import settings from '../../../settings';
@@ -21,7 +20,6 @@ import {
   PageLink,
   SmallContent,
   Text,
-  TextCol,
   Title1,
   Title2,
   TitleText,
@@ -45,12 +43,6 @@ const BackgroundStyleColor = styled(BackgroundColor)`
   `};
 `;
 
-const BackgroundStyleColor2 = styled(BackgroundColor)`
-  ${media.lessThan('notebook')`
-    height: 100%;
-  `};
-`;
-
 const EachBlock = styled.div`
   width: 80%;
   height: 20vh;
@@ -66,11 +58,6 @@ const EachBlock = styled.div`
     background-color: ${props => props.color};
     margin-bottom: 0;
   `};
-`;
-
-const Date = styled.span`
-  font-size: 0.8vw;
-  padding-left: 0.25vw;
 `;
 
 const Title = styled.div`
@@ -130,32 +117,33 @@ class CourseContent extends Component {
   };
 
   componentWillMount() {
-    const {
-      params: { course_id },
-    } = this.props;
-    const ins = axios.create({
-      baseURL: settings.backend_url,
-      timeout: 1000,
-    });
+      const {
+          params: { course_id },
+      } = this.props;
+      const ins = axios.create({
+          baseURL: settings.backend_url,
+          timeout: 1000,
+      });
 
-    ins
-        .get(`courses/${course_id}`)
-        .then(res => {
-            this.setState({
-                id: res.data.id,
-                title: res.data.title,
-                description: res.data.description,
-                course_no: res.data.course_no,
-                season: res.data.season,
-                year: res.data.year,
-                lectures: res.data.lectures,
-                time: res.data.time
-            });
-        })
-        .catch(error => {
-            console.log(error);
-        });
+      ins
+      .get(`courses/${course_id}`)
+      .then(res => {
+          this.setState({
+              id: res.data.id,
+              title: res.data.title,
+              description: res.data.description,
+              course_no: res.data.course_no,
+              season: res.data.season,
+              year: res.data.year,
+              lectures: res.data.lectures,
+              time: res.data.time
+          });
+      })
+      .catch(error => {
+          console.log(error);
+      });
   }
+
 renderClassContent = course_id => {
     if (this.state.lectures) {
         let isChangeOrder = false;
@@ -171,7 +159,7 @@ renderClassContent = course_id => {
                             <Col xs={{ span: 12 }} xl={{ span: 16 }}>
                                 <TextArea>
                                     <div>
-                                        material #{lecture_number} <Date>{this.state.time}</Date>
+                                        第 {lecture_number} 章
                                     </div>
                                     <Title>{title}</Title>
                                 </TextArea>
@@ -184,96 +172,82 @@ renderClassContent = course_id => {
     }
 };
 
-  renderLogin = () => {
+renderLogin = () => {
     const { token } = localStorage;
     if (token) {
-      return (
-        <PageLink to="/logout">
-          <Text color="rgba(0, 0, 0, 0.4)">Sign out</Text>
-        </PageLink>
-      );
+        return (
+            <PageLink to="/logout">
+                <Text color="rgba(0, 0, 0, 0.4)">Sign out</Text>
+            </PageLink>
+        );
     }
     return (
-      <PageLink to="/login">
-        <Text color="rgba(0, 0, 0, 0.4)">Sign in</Text>
-      </PageLink>
+        <PageLink to="/login">
+            <Text color="rgba(0, 0, 0, 0.4)">Sign in</Text>
+        </PageLink>
     );
-  };
+};
 
-  renderOtherBlock = () => (
-    <Row type="flex" justify="end">
-      <Col span={14}>
-        <TextCol>
-          <PageLink to="/about">
-            <Text color="rgba(0, 0, 0, 0.4)">About Elsa Lab</Text>
-          </PageLink>
-        </TextCol>
-        <TextCol>{this.renderLogin()}</TextCol>
-      </Col>
-      <Col span={5}>
-        <Drawer />
-      </Col>
-    </Row>
-  );
+render() {
+    const {
+        params: { content_id },
+    } = this.props;
+    let seasonText;
+    if(this.state.season === 0){
+        seasonText = "下學期";
+    } else {
+        seasonText = "上學期";
+    }
 
-  render() {
-      const {
-          params: { content_id },
-      } = this.props;
 
-      return (
-          <Row>
-              <Col xs={{ span: 24 }} xl={{ span: 9 }}>
-                  <BackgroundStyleColor color="#f8d188">
-                  <MainRow type="flex" justify="center">
-                  <LogoContent xs={{ span: 22 }} xl={{ span: 18 }}>
-                  <Row type="flex" justify="start" align="middle" gutter={8}>
-                  <Col span={2.5}>
-                  <IconStyleImage src={IconImg} />
-                  </Col>
-                  <Col span={3}>
-                  <Title1>NTHU</Title1>
-                  <Title2>ELSA</Title2>
-                  </Col>
-                  <Col xs={{ span: 14 }} xl={{ span: 0 }} offset={4}>
-                  {this.renderOtherBlock()}
-                  </Col>
-                  </Row>
-                  </LogoContent>
-                  <SmallContent xs={{ span: 22 }} xl={{ span: 18 }} color="#8c8c8c">
-                  <Row type="flex" justify="start" align="bottom">
-                  <Col span={6}>
-                  <Hr color="#8c8c8c" />
-                  </Col>
-                  <Col span={12} offset={1}>
-                  Home / Courses
-                  </Col>
-                  </Row>
-                  </SmallContent>
-                  <BigTitle xs={{ span: 22 }} xl={{ span: 18 }}>
-                  <TitleStyleText>
-                  {this.state.year} {this.state.season}
-                  </TitleStyleText>
-                  <MidText>{this.state.title}</MidText>
-                  </BigTitle>
-                  <MedContent xs={{ span: 22 }} xl={{ span: 12 }} color="#8c8c8c">
-                  {this.state.description}
-                  </MedContent>
-                  <Col span={6} />
-                  </MainRow>
-                  </BackgroundStyleColor>
-              </Col>
-              <Col xs={{ span: 24 }} xl={{ span: 15 }}>
-                  <BackgroundStyleColor2 color="white">
-                      <MediaQuery query={`(max-width: ${notebook})`}>
-                          {matches => (!matches ? <Header fontColor="#9b9b9b" /> : <></>)}
-                      </MediaQuery>
-                      <Blocks>{this.renderClassContent(content_id)}</Blocks>
-                  </BackgroundStyleColor2>
-              </Col>
-          </Row>
-      );
-  }
+    return (
+        <Row>
+            <MediaQuery query={`(max-width: ${notebook})`}>
+                {matches => (!matches ? <Header fontColor="#9b9b9b" /> : <></>)}
+            </MediaQuery>
+            <Col xs={{ span: 24 }} xl={{ span: 9 }}>
+                <BackgroundStyleColor color="#f8d188">
+                    <MainRow type="flex" justify="center">
+                        <LogoContent xs={{ span: 22 }} xl={{ span: 18 }}>
+                            <Row type="flex" justify="start" align="middle" gutter={8}>
+                                <Col span={2.5}>
+                                    <IconStyleImage src={IconImg} />
+                                </Col>
+                                <Col span={3}>
+                                    <Title1>NTHU</Title1>
+                                    <Title2>ELSA</Title2>
+                                </Col>
+                            </Row>
+                        </LogoContent>
+                        <SmallContent xs={{ span: 22 }} xl={{ span: 18 }} color="#8c8c8c">
+                            <Row type="flex" justify="start" align="bottom">
+                                <Col span={6}>
+                                    <Hr color="#8c8c8c" />
+                                </Col>
+                                <Col span={12} offset={1}>
+                                    Home / Courses
+                                </Col>
+                            </Row>
+                        </SmallContent>
+                        <BigTitle xs={{ span: 22 }} xl={{ span: 18 }}>
+                            <TitleStyleText>
+                                {this.state.year} {seasonText}
+                            </TitleStyleText>
+                            <MidText>{this.state.title}</MidText>
+                        </BigTitle>
+                        <MedContent xs={{ span: 22 }} xl={{ span: 12 }} color="#8c8c8c">
+                            {this.state.description}
+                        </MedContent>
+                        <Col span={6} />
+                    </MainRow>
+                </BackgroundStyleColor>
+            </Col>
+            <Col xs={{ span: 24 }} xl={{ span: 15 }}>
+                <Blocks>{this.renderClassContent(content_id)}</Blocks>
+            </Col>
+        </Row>
+    );
+}
 }
 
 CourseContent.propTypes = {

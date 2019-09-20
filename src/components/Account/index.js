@@ -144,6 +144,9 @@ class Account extends Component {
   render() {
     return (
       <Row>
+          <MediaQuery query={`(max-width: ${notebook})`}>
+            {matches => (!matches ? <Header fontColor="white" /> : <></>)}
+          </MediaQuery>
         <Col xs={{ span: 24 }} xl={{ span: 9 }}>
           <BackgroundStyleColor color="#ffaaad">
             <MainRow type="flex" justify="center">
@@ -183,9 +186,6 @@ class Account extends Component {
         </Col>
         <Col xs={{ span: 24 }} xl={{ span: 15 }}>
           <BackgroundStyleColor2 color="#906262">
-            <MediaQuery query={`(max-width: ${notebook})`}>
-              {matches => (!matches ? <Header fontColor="white" /> : <></>)}
-            </MediaQuery>
             <TeachBlock>
               <Row type="flex" justify="start" align="top">
                 <Col xs={{ span: 18, offset: 2 }} xl={{ span: 10 }}>

@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import axios from 'axios';
 import ImageGallery from 'react-image-gallery';
-import { Row } from 'antd';
-import '../../App.scss'
 import Header from '../../../Share/Header';
 import settings from '../../../../settings';
 import { notebook } from '../../../size';
+
+import './main.scss';
 
 import Comment from './Comment';
 
@@ -60,7 +60,6 @@ class PdfPage extends Component {
 
     }
 
-
     render() {
         const images = [];
         let seasonText;
@@ -76,19 +75,19 @@ class PdfPage extends Component {
             });
         }
         return (
-            <Row>
+            <div>
                 <MediaQuery query={`(max-width: ${notebook})`}>
                     {matches => (!matches ? <Header fontColor="#9b9b9b" /> : <></>)}
                 </MediaQuery>
-
-                <div className="title-content">
-                    <h1>{this.state.title}</h1>
-                    <h3>{this.state.course.year} | {seasonText}</h3>
+                <div id="pdfpage">
+                    <div className="title-content">
+                        <h1>{this.state.title}</h1>
+                        <h3>{this.state.course.year} | {seasonText}</h3>
+                    </div>
+                    <ImageGallery onSlide={this.setCurrent} slideDuration={80} disableThumbnailScroll={false} startIndex={this.state.current} showIndex={true} thumbnailPosition="left" slideOnThumbnailOver={false} showPlayButton={false} showNav={true} infinite={false} items={images} />
+                    <Comment id={this.props.params.lecture_id} lectureId={this.props.params.lecture_id} nowPage={this.state.current+1}/>
                 </div>
-                <ImageGallery onSlide={this.setCurrent} startIndex={this.state.current} showIndex={true} thumbnailPosition="left" slideOnThumbnailOver={false} showPlayButton={false} showBullets={true} showNav={false} infinite={false} items={images} />
-                <Comment id={this.props.params.lecture_id} lectureId={this.props.params.lecture_id} nowPage={this.state.current}/>
-            </Row>
-
+            </div>
         );
     }
 }

@@ -13,7 +13,6 @@ const timeFormat = timeStr => {
   const formatted = t.format('YYYY-MM-DD hh:mm');
   return formatted;
 };
-
 const CommentList = ({ comments }) => (
   <ListBlock>
     <List
@@ -43,10 +42,7 @@ const CommentList = ({ comments }) => (
 );
 
 CommentList.propTypes = {
-  author: PropTypes.object.isRequired,
   comments: PropTypes.array.isRequired,
-  content: PropTypes.string.isRequired,
-  created_at: PropTypes.string.isRequired,
 };
 
 export default CommentList;

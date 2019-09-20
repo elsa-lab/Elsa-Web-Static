@@ -58,7 +58,7 @@ class Comment extends Component {
     ins
       .get(`user/${userId}`)
       .then(res => {
-        console.log(res);
+        // console.log(res);
         this.setState({ pictureUrl: res.data.profile.pictureUrl });
       })
       .catch(error => {
@@ -114,7 +114,6 @@ class Comment extends Component {
     this.setState({ nowPage: this.props.nowPage });
     const { lectureId } = this.state;
     const { nowPage } = this.props;
-
     const ins = axios.create({
       baseURL: settings.backend_url,
       timeout: 1000,
@@ -122,7 +121,6 @@ class Comment extends Component {
     ins
       .get(`lectures/${lectureId}/comments/${nowPage}`)
       .then(res => {
-        // console.log('In Load Comment');
         console.log(res.data);
         this.setState({ comments: res.data });
       })
@@ -135,7 +133,6 @@ class Comment extends Component {
     if (!this.state.value) {
       return;
     }
-
     this.setState({
       submitting: true,
     });
@@ -143,12 +140,9 @@ class Comment extends Component {
     const {
       lectureId,
       nowPage,
-      comments,
       value,
-      email_notify: emailNotify,
     } = this.state;
-    const { token } = localStorage;
-
+    const { token, user_id: userId } = localStorage;
     const ins = axios.create({
       baseURL: settings.backend_url,
       timeout: 1000,
@@ -160,11 +154,10 @@ class Comment extends Component {
     //write comment
     ins
       .post(`lectures/${lectureId}/comments/${nowPage}`, {
-        comments,
+        user: userId,
         content: value,
-        lectureId,
-        nowPage,
-        email_notify: emailNotify,
+        lecture: lectureId,
+        file_page: nowPage,
       })
       .then(res => {
         this.setState({ submitting: false, value: '' });
@@ -190,7 +183,6 @@ class Comment extends Component {
 
   render() {
     const { comments } = this.state;
-
     return (
       <div>
       <AllCommentBlock className="comment">

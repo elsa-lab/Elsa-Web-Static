@@ -36,7 +36,7 @@ import newsIndex from './components/Manage/News/Index/Index';
 import newsNew from './components/Manage/News/New/New';
 import newsShow from './components/Manage/News/Show/Show';
 import newsEdit from './components/Manage/News/Edit/Edit';
-
+import 'dotenv';
 // router setting
 ReactDOM.render(
   <Router history={browserHistory}>

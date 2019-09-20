@@ -67,7 +67,14 @@ const InputText = styled.div`
   color: white;
   margin-top: 1vh;
   margin-bottom: 1vh;
+  display: inline-block;
 `;
+
+const ErrorText = styled.div`
+    color: red;
+    display: inline-block;
+    margin-left: 1.2em;
+`
 
 const TitleStyleText = styled(TitleText)`
   ${media.lessThan('notebook')`
@@ -107,6 +114,7 @@ class Login extends Component {
     account: '',
     password: '',
     message: '',
+    error: '',
   };
 
   renderMessage = () => {
@@ -130,25 +138,25 @@ class Login extends Component {
       })
       .then((response) => {
         console.log(response.status);
-        if (response.status !== 200) {
+        if (response.status === 400) {
           alert(`Please Try Again ! (${response.status})`);
         } else {
-          // const userId = response.data.user.id;
-          // localStorage.token = response.data.token;
-          // localStorage.user_id = userId;
-          // // redirect to user page
-          // if (
-          //   settings.root_user_types.includes(
-          //     response.data.user.profile.studentType
-          //   )
-          // ) {
-          //   window.location = `${settings.root_url}/management/users`;
-          // } else {
-          //   window.location = `${settings.root_url}/account`;
-          // }
+          const userId = response.data.user.id;
+          localStorage.token = response.data.token;
+          localStorage.user_id = userId;
+          // redirect to user page
+          if (
+            settings.root_user_types.includes(
+              response.data.user.profile.studentType
+            )
+          ) {
+            window.location = `${settings.root_url}/management/users`;
+          } else {
+            window.location = `${settings.root_url}/account`;
+          }
         }
     }, (error) => {
-        alert(error)
+        this.setState({error: "錯誤代碼 : "+error.response.status})
     })
     event.preventDefault();
   };
@@ -173,6 +181,9 @@ class Login extends Component {
   render() {
     return (
       <Row>
+          <MediaQuery query={`(max-width: ${notebook})`}>
+            {matches => (!matches ? <Header fontColor="white" /> : <></>)}
+          </MediaQuery>
         <Col xs={{ span: 24 }} xl={{ span: 9 }}>
           <BackgroundStyleColor color="#aac2ff">
             <MainRow type="flex" justify="center">
@@ -209,14 +220,12 @@ class Login extends Component {
         </Col>
         <Col xs={{ span: 24 }} xl={{ span: 15 }}>
           <BackgroundStyleColor2 color="#6e7794">
-            <MediaQuery query={`(max-width: ${notebook})`}>
-              {matches => (!matches ? <Header fontColor="white" /> : <></>)}
-            </MediaQuery>
             <TeachBlock>
               <Row type="flex" justify="start" align="top">
                 <Col xs={{ span: 18, offset: 2 }} xl={{ span: 10 }}>
                   {this.renderMessage()}
                   <InputText>Email</InputText>
+                  <ErrorText>{this.state.error}</ErrorText>
                   <UserInput
                     size="large"
                     type="text"

@@ -1,0 +1,71 @@
+@import "node_modules/react-image-gallery/styles/scss/image-gallery.scss";
+
+#pdfpage {
+    padding-top: 8em;
+    ::-webkit-scrollbar {
+        width: 7px;
+    }
+
+    ::-webkit-scrollbar-track {
+        border-radius: 10px;
+        background-color: #f1f1f1;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background-color: #c1c1c1;
+    }
+
+    .comment {
+        width: 50%;
+        padding: 4em 0 0 0;
+        border-top: solid 1px #5d5d5d;
+        margin: 3em auto 0em auto;
+    }
+
+    .title-content {
+        text-align: center;
+        margin: 0 0 2em 0;
+        top: 50%;
+        font-family: 'DM Serif Display', serif;
+        h1 {
+            margin: 0;
+            font-size: 38px;
+        }
+        h3 {
+            font-size: 18px;
+        }
+    }
+
+    .image-gallery {
+        .image-gallery-thumbnails-wrapper {
+            margin-left: 2em;
+            width: 13%;
+            .image-gallery-thumbnails {
+                overflow-y: auto;
+                left: 0;
+                .image-gallery-thumbnail {
+                    width: 95%;
+                }
+            }
+        }
+        .image-gallery-slide-wrapper {
+            width: calc(70%);
+            margin-left: calc((17%-2em)/2);
+
+            .image-gallery-fullscreen-button {
+                z-index: 10;
+            }
+            span {
+                position: static;
+
+                .image-gallery-left-nav, .image-gallery-right-nav {
+                    height: 100%;
+                    padding: 0;
+                    opacity: 0;
+                    width: 40%;
+                }
+            }
+        }
+    }
+}

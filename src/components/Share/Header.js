@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Col, Row } from 'antd';
 import { Link } from 'react-router';
+import './style/nav.scss';
 
 const Layout = styled.div`
   width: 100%;
@@ -31,7 +32,19 @@ const LinkCol = styled(Col)`
   }
 `;
 
+
 class Header extends Component {
+    componentDidUpdate = () => {
+        const Nav = document.querySelector('#nav');
+        window.addEventListener('scroll', (e) => {
+            if(window.pageYOffset !== 0) {
+                Nav.style.backgroundColor = "#333";
+                Nav.style.color = "red";
+            } else {
+                Nav.style.backgroundColor = "transparent";
+            }
+        })
+    }
   renderLogin = () => {
     const { token } = localStorage;
     if (token) {
@@ -50,36 +63,36 @@ class Header extends Component {
 
   render() {
     return (
-      <Layout>
-        <Row type="flex" justify="end" align="middle">
-          <Col span={2}>
-            <EachLink color={this.props.fontColor} to="/">
-              <LinkCol>Home</LinkCol>
-            </EachLink>
-          </Col>
-          <Col span={2}>
-            <EachLink color={this.props.fontColor} to="/courses">
-              <LinkCol>Course</LinkCol>
-            </EachLink>
-          </Col>
-          <Col span={3}>
-            <EachLink color={this.props.fontColor} to="/publications">
-              <LinkCol>Publications</LinkCol>
-            </EachLink>
-          </Col>
-          <Col span={2}>
-            <EachLink color={this.props.fontColor} to="/projects">
-              <LinkCol>Projects</LinkCol>
-            </EachLink>
-          </Col>
-          <Col span={2}>
-            <EachLink color={this.props.fontColor} to="/news">
-              <LinkCol>News</LinkCol>
-            </EachLink>
-          </Col>
-          <Col span={2}>{this.renderLogin()}</Col>
-        </Row>
-      </Layout>
+        <div id="nav">
+            <Row type="flex" justify="end" align="middle">
+              <Col span={2}>
+                <EachLink color={this.props.fontColor} to="/">
+                  <LinkCol>Home</LinkCol>
+                </EachLink>
+              </Col>
+              <Col span={2}>
+                <EachLink color={this.props.fontColor} to="/courses">
+                  <LinkCol>Course</LinkCol>
+                </EachLink>
+              </Col>
+              <Col span={3}>
+                <EachLink color={this.props.fontColor} to="/publications">
+                  <LinkCol>Publications</LinkCol>
+                </EachLink>
+              </Col>
+              <Col span={2}>
+                <EachLink color={this.props.fontColor} to="/projects">
+                  <LinkCol>Projects</LinkCol>
+                </EachLink>
+              </Col>
+              <Col span={2}>
+                <EachLink color={this.props.fontColor} to="/news">
+                  <LinkCol>News</LinkCol>
+                </EachLink>
+              </Col>
+              <Col span={2}>{this.renderLogin()}</Col>
+            </Row>
+        </div>
     );
   }
 }

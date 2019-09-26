@@ -54,7 +54,7 @@ ReactDOM.render(
       />
       <Route path="/publications" component={Publications} />
       <Route path="/projects" component={Projects} />
-      <Route path="/project(/:name)" component={SingleProjectPage} />
+      <Route path="/project(/:project_id)" component={SingleProjectPage} />
       <Route path="/news" component={News} />
       <Route path="/news(/:news_id)" component={NewContent} />
       <Route path="/about" component={About} />

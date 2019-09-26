@@ -42,7 +42,7 @@ class NewProject extends Component {
         });
 
         ins
-            .get('/projects/1')
+            .get('/projects/'+this.props.params.project_id)
             .then(res => {
                 this.setState({
                     id: res.data.id,
@@ -78,7 +78,6 @@ class NewProject extends Component {
 
     render() {
         let style;
-        console.log(this.state.cover_image_url)
         if(this.state.loading === true) {
             style = {opacity: 1};
         } else {

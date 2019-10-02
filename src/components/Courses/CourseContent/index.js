@@ -117,137 +117,138 @@ class CourseContent extends Component {
   };
 
   componentWillMount() {
-      const {
-          params: { course_id },
-      } = this.props;
-      const ins = axios.create({
-          baseURL: settings.backend_url,
-          timeout: 1000,
-      });
+    const {
+      params: { course_id },
+    } = this.props;
+    const ins = axios.create({
+      baseURL: settings.backend_url,
+      timeout: 1000,
+    });
 
-      ins
+    ins
       .get(`courses/${course_id}`)
       .then(res => {
-          this.setState({
-              id: res.data.id,
-              title: res.data.title,
-              description: res.data.description,
-              course_no: res.data.course_no,
-              season: res.data.season,
-              year: res.data.year,
-              lectures: res.data.lectures,
-              time: res.data.time
-          });
+        this.setState({
+          id: res.data.id,
+          title: res.data.title,
+          description: res.data.description,
+          course_no: res.data.course_no,
+          season: res.data.season,
+          year: res.data.year,
+          lectures: res.data.lectures,
+          time: res.data.time,
+        });
       })
       .catch(error => {
-          console.log(error);
+        console.log(error);
       });
   }
 
-renderClassContent = course_id => {
+  renderClassContent = course_id => {
     if (this.state.lectures) {
-        let isChangeOrder = false;
-        return this.state.lectures.map(({ id, title, lecture_number }) => {
-            isChangeOrder = !isChangeOrder;
-            return (
-                <a key={id} href={`${this.state.id}/lectures/${id}`}>
-                    <EachBlock color = {isChangeOrder ? 'rgba(0, 0, 0, 0.3)' : 'rgba(0, 0, 0, 0.4)'}>
-                        <Row>
-                            <Col xs={{ span: 12 }} xl={{ span: 8 }}>
-                                <ImageArea image={BackgroundImage} />
-                            </Col>
-                            <Col xs={{ span: 12 }} xl={{ span: 16 }}>
-                                <TextArea>
-                                    <div>
-                                        第 {lecture_number} 章
-                                    </div>
-                                    <Title>{title}</Title>
-                                </TextArea>
-                            </Col>
-                        </Row>
-                    </EachBlock>
-                </a>
-            );
-        });
+      let isChangeOrder = false;
+      return this.state.lectures.map(({ id, title, lecture_number }) => {
+        isChangeOrder = !isChangeOrder;
+        return (
+          <a key={id} href={`${this.state.id}/lectures/${id}`}>
+            <EachBlock
+              color={
+                isChangeOrder ? 'rgba(0, 0, 0, 0.3)' : 'rgba(0, 0, 0, 0.4)'
+              }
+            >
+              <Row>
+                <Col xs={{ span: 12 }} xl={{ span: 8 }}>
+                  <ImageArea image={BackgroundImage} />
+                </Col>
+                <Col xs={{ span: 12 }} xl={{ span: 16 }}>
+                  <TextArea>
+                    <div>第 {lecture_number} 章</div>
+                    <Title>{title}</Title>
+                  </TextArea>
+                </Col>
+              </Row>
+            </EachBlock>
+          </a>
+        );
+      });
     }
-};
+  };
 
-renderLogin = () => {
+  renderLogin = () => {
     const { token } = localStorage;
     if (token) {
-        return (
-            <PageLink to="/logout">
-                <Text color="rgba(0, 0, 0, 0.4)">Sign out</Text>
-            </PageLink>
-        );
+      return (
+        <PageLink to="/logout">
+          <Text color="rgba(0, 0, 0, 0.4)">Sign out</Text>
+        </PageLink>
+      );
     }
     return (
-        <PageLink to="/login">
-            <Text color="rgba(0, 0, 0, 0.4)">Sign in</Text>
-        </PageLink>
+      <PageLink to="/login">
+        <Text color="rgba(0, 0, 0, 0.4)">Sign in</Text>
+      </PageLink>
     );
-};
+  };
 
-render() {
+  render() {
     const {
-        params: { content_id },
+      params: { content_id },
     } = this.props;
     let seasonText;
-    if(this.state.season === 0){
-        seasonText = "下學期";
+    if (this.state.season === 0) {
+      seasonText = '下學期';
     } else {
-        seasonText = "上學期";
+      seasonText = '上學期';
     }
 
-
     return (
-        <Row>
-            <MediaQuery query={`(max-width: ${notebook})`}>
-                {matches => (!matches ? <Header fontColor="#9b9b9b" /> : <></>)}
-            </MediaQuery>
-            <Col xs={{ span: 24 }} xl={{ span: 9 }}>
-                <BackgroundStyleColor color="#f8d188">
-                    <MainRow type="flex" justify="center">
-                        <LogoContent xs={{ span: 22 }} xl={{ span: 18 }}>
-                            <Row type="flex" justify="start" align="middle" gutter={8}>
-                                <Col span={2.5}>
-                                    <IconStyleImage src={IconImg} />
-                                </Col>
-                                <Col span={3}>
-                                    <Title1>NTHU</Title1>
-                                    <Title2>ELSA</Title2>
-                                </Col>
-                            </Row>
-                        </LogoContent>
-                        <SmallContent xs={{ span: 22 }} xl={{ span: 18 }} color="#8c8c8c">
-                            <Row type="flex" justify="start" align="bottom">
-                                <Col span={6}>
-                                    <Hr color="#8c8c8c" />
-                                </Col>
-                                <Col span={12} offset={1}>
-                                    Home / Courses
-                                </Col>
-                            </Row>
-                        </SmallContent>
-                        <BigTitle xs={{ span: 22 }} xl={{ span: 18 }}>
-                            <TitleStyleText>
-                                {this.state.year} {seasonText}
-                            </TitleStyleText>
-                            <MidText>{this.state.title}</MidText>
-                        </BigTitle>
-                        <MedContent xs={{ span: 22 }} xl={{ span: 12 }} color="#8c8c8c">
-                            {this.state.description}
-                        </MedContent>
-                        <Col span={6} />
-                    </MainRow>
-                </BackgroundStyleColor>
-            </Col>
-            <Col xs={{ span: 24 }} xl={{ span: 15 }}>
-                <Blocks>{this.renderClassContent(content_id)}</Blocks>
-            </Col>
-        </Row>
+      <Row>
+        <MediaQuery query={`(max-width: ${notebook})`}>
+          {matches => (!matches ? <Header fontColor="#9b9b9b" /> : <></>)}
+        </MediaQuery>
+        <Col xs={{ span: 24 }} xl={{ span: 9 }}>
+          <BackgroundStyleColor color="#f8d188">
+            <MainRow type="flex" justify="center">
+              <LogoContent xs={{ span: 22 }} xl={{ span: 18 }}>
+                <Row type="flex" justify="start" align="middle" gutter={8}>
+                  <Col span={2.5}>
+                    <IconStyleImage src={IconImg} />
+                  </Col>
+                  <Col span={3}>
+                    <Title1>NTHU</Title1>
+                    <Title2>ELSA</Title2>
+                  </Col>
+                </Row>
+              </LogoContent>
+              <SmallContent xs={{ span: 22 }} xl={{ span: 18 }} color="#8c8c8c">
+                <Row type="flex" justify="start" align="bottom">
+                  <Col span={6}>
+                    <Hr color="#8c8c8c" />
+                  </Col>
+                  <Col span={12} offset={1}>
+                    Home / Courses
+                  </Col>
+                </Row>
+              </SmallContent>
+              <BigTitle xs={{ span: 22 }} xl={{ span: 18 }}>
+                <TitleStyleText>
+                  {this.state.year} {seasonText}
+                </TitleStyleText>
+                <MidText>{this.state.title}</MidText>
+              </BigTitle>
+              <MedContent xs={{ span: 22 }} xl={{ span: 12 }} color="#8c8c8c">
+                {this.state.description}
+              </MedContent>
+              <Col span={6} />
+            </MainRow>
+          </BackgroundStyleColor>
+        </Col>
+        <Col xs={{ span: 24 }} xl={{ span: 15 }}>
+          <Blocks>{this.renderClassContent(content_id)}</Blocks>
+        </Col>
+      </Row>
     );
-}
+  }
 }
 
 CourseContent.propTypes = {

@@ -116,7 +116,7 @@ class Home extends Component {
         <FullPage current={current} />
         <EntryLink>
           <Row type="flex" justify="space-around">
-            <Col xs={{ span: 12 }} xl={{ span: 4 }}>
+            <Col xs={{ span: 12 }} xl={{ span: 0 }}>
               <EachLinkMob to="/projects">
                 <EachTitleEntry color="rgba(137, 155, 206, 0.8)">
                   03#
@@ -162,13 +162,13 @@ class Home extends Component {
                 }
               </MediaQuery>
             </Col>
-            <Col xs={{ span: 12 }} xl={{ span: 4 }}>
+            <Col xs={{ span: 12 }} xl={{ span: 0 }}>
               <EachTitleEntry color="rgba(160, 137, 169, 0.8)">
                 04#
                 <LittleTitle>News</LittleTitle>
               </EachTitleEntry>
             </Col>
-            <Col xs={{ span: 12 }} xl={{ span: 4 }}>
+            <Col xs={{ span: 12 }} xl={{ span: 0 }}>
               <EachLinkMob to="/courses">
                 <EachTitleEntry color="#e9ce9b">
                   01#
@@ -214,7 +214,7 @@ class Home extends Component {
                 }
               </MediaQuery>
             </Col>
-            <Col xs={{ span: 12 }} xl={{ span: 4 }}>
+            <Col xs={{ span: 12 }} xl={{ span: 0 }}>
               <EachTitleEntry color="rgba(154, 180, 179, 0.8)">
                 02#
                 <LittleTitle>Publications</LittleTitle>

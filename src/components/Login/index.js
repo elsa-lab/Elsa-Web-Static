@@ -132,32 +132,36 @@ class Login extends Component {
   };
 
   handleSubmit = event => {
-    axios.post(`${settings.backend_url}/api-token-auth/`, {
+    axios
+      .post(`${settings.backend_url}/api-token-auth/`, {
         username: this.state.account,
         password: this.state.password,
       })
-      .then((response) => {
-        console.log(response.status);
-        if (response.status === 400) {
-          alert(`Please Try Again ! (${response.status})`);
-        } else {
-          const userId = response.data.user.id;
-          localStorage.token = response.data.token;
-          localStorage.user_id = userId;
-          // redirect to user page
-          if (
-            settings.root_user_types.includes(
-              response.data.user.profile.studentType
-            )
-          ) {
-            window.location = `${settings.root_url}/management/users`;
+      .then(
+        response => {
+          console.log(response.status);
+          if (response.status === 400) {
+            alert(`Please Try Again ! (${response.status})`);
           } else {
-            window.location = `${settings.root_url}/account`;
+            const userId = response.data.user.id;
+            localStorage.token = response.data.token;
+            localStorage.user_id = userId;
+            // redirect to user page
+            if (
+              settings.root_user_types.includes(
+                response.data.user.profile.studentType
+              )
+            ) {
+              window.location = `${settings.root_url}/management/users`;
+            } else {
+              window.location = `${settings.root_url}`;
+            }
           }
+        },
+        error => {
+          this.setState({ error: `錯誤代碼 : ${error.response.status}` });
         }
-    }, (error) => {
-        this.setState({error: "錯誤代碼 : "+error.response.status})
-    })
+      );
     event.preventDefault();
   };
 
@@ -177,13 +181,12 @@ class Login extends Component {
     );
   };
 
-
   render() {
     return (
       <Row>
-          <MediaQuery query={`(max-width: ${notebook})`}>
-            {matches => (!matches ? <Header fontColor="white" /> : <></>)}
-          </MediaQuery>
+        <MediaQuery query={`(max-width: ${notebook})`}>
+          {matches => (!matches ? <Header fontColor="white" /> : <></>)}
+        </MediaQuery>
         <Col xs={{ span: 24 }} xl={{ span: 9 }}>
           <BackgroundStyleColor color="#aac2ff">
             <MainRow type="flex" justify="center">

@@ -3,26 +3,13 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Col, Row } from 'antd';
 import { Link } from 'react-router';
+import axios from 'axios';
 
-import BackgroundImage from '../static/background_image_invert_vertical.jpg';
-import BackgroundImageGreen from '../static/background_image_green.jpg';
-import BackgroundImagePurple from '../static/background_image_purple.jpg';
 import Drawer from '../Share/Drawer';
 import Header from '../Share/Header';
-import project1 from '../Content/VirtualToReal';
-import project2 from '../Content/DynamicVideo';
-import project3 from '../Content/DeepPolicy';
 import Logo from '../Share/Logo'
-import axios from 'axios';
 import settings from '../../settings';
-
-import {
-  BackgroundColor,
-  PageLink,
-  SmallContent,
-  Text,
-  TextCol,
-} from '../Share';
+import { BackgroundColor, PageLink, Text, TextCol } from '../Share';
 import { media, notebook } from '../size';
 
 const Blocks = styled.div`
@@ -92,86 +79,70 @@ const ImageArea = styled.div`
   background-position: center center;
 `;
 
-const ProjectsContent = [
-  {
-    content: project1.topic,
-    image: BackgroundImage,
-    link: '/project/Virtual-to-Real',
-  },
-  {
-    content: project2.topic,
-    image: BackgroundImageGreen,
-    link: '/project/Dynamic-Video-Segmentation-Network',
-  },
-  {
-    content: project3.topic,
-    image: BackgroundImagePurple,
-    link: '/project/A-Deep-Policy-Inference-Q-Network',
-  },
-];
 class Projects extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            projects: []
-        }
-    }
-    componentWillMount() {
-        const ins = axios.create({
-            baseURL: settings.backend_url,
-            timeout: 1000,
-        });
-
-        ins
-            .get('/projects')
-            .then(res => {
-                console.log(res.data);
-                this.setState({
-                    projects: res.data,
-                });
-            })
-            .catch(error => {
-                console.log(error);
-            });
-
-
-    }
-
-    renderProject = () => {
-        if( this.state.projects ) {
-            let isChangeOrder = false;
-            return this.state.projects.map(({ id, year, title, subtitle, image_url }) => {
-                console.log(id, year, title, subtitle, image_url)
-                isChangeOrder = !isChangeOrder;
-                return (
-                    <Link key={title} to={'/project/'+id}>
-                        <EachBlock key={title}>
-                            <Row type="flex">
-                                <Col
-                                    span={12}
-                                    xs={{ order: isChangeOrder ? 2 : 1 }}
-                                    xl={{ order: 1 }}
-                                    >
-                                    <TextArea>
-                                        <Year>{year}</Year>
-                                        <Title>{title}</Title>
-                                        <p>{subtitle}</p>
-                                    </TextArea>
-                                </Col>
-                                <Col
-                                    span={12}
-                                    xs={{ order: isChangeOrder ? 1 : 2 }}
-                                    xl={{ order: 2 }}
-                                    >
-                                    <ImageArea image={image_url} />
-                                </Col>
-                            </Row>
-                        </EachBlock>
-                    </Link>
-                );
-            });
-        }
+  constructor(props) {
+    super(props);
+    this.state = {
+      projects: [],
     };
+  }
+
+  componentWillMount() {
+    const ins = axios.create({
+      baseURL: settings.backend_url,
+      timeout: 1000,
+    });
+
+    ins
+      .get('/projects')
+      .then(res => {
+        console.log(res.data);
+        this.setState({
+          projects: res.data,
+        });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
+  renderProject = () => {
+    if (this.state.projects) {
+      let isChangeOrder = false;
+      return this.state.projects.map(
+        ({ id, year, title, subtitle, image_url }) => {
+          console.log(id, year, title, subtitle, image_url);
+          isChangeOrder = !isChangeOrder;
+          return (
+            <Link key={title} to={'/project/' + id}>
+              <EachBlock key={title}>
+                <Row type="flex">
+                  <Col
+                    span={12}
+                    xs={{ order: isChangeOrder ? 2 : 1 }}
+                    xl={{ order: 1 }}
+                  >
+                    <TextArea>
+                      <Year>{year}</Year>
+                      <Title>{title}</Title>
+                      <p>{subtitle}</p>
+                    </TextArea>
+                  </Col>
+                  <Col
+                    span={12}
+                    xs={{ order: isChangeOrder ? 1 : 2 }}
+                    xl={{ order: 2 }}
+                  >
+                    <ImageArea image={image_url} />
+                  </Col>
+                </Row>
+              </EachBlock>
+            </Link>
+          );
+        }
+      );
+    }
+  };
 
   renderLogin = () => {
     const { token } = localStorage;
@@ -188,6 +159,7 @@ class Projects extends Component {
       </PageLink>
     );
   };
+
   renderOtherBlock = () => (
     <Row type="flex" justify="end">
       <Col span={14}>
@@ -203,15 +175,16 @@ class Projects extends Component {
       </Col>
     </Row>
   );
+
   render() {
     return (
       <Row>
-          <MediaQuery query={`(max-width: ${notebook})`}>
-            {matches => (!matches ? <Header fontColor="#9b9b9b" /> : <></>)}
-          </MediaQuery>
+        <MediaQuery query={`(max-width: ${notebook})`}>
+          {matches => (!matches ? <Header fontColor="#9b9b9b" /> : <></>)}
+        </MediaQuery>
         <Col xs={{ span: 24 }} xl={{ span: 9 }}>
           <BackgroundStyleColor color="#a1afd8">
-              <Logo content="Projects"></Logo>
+            <Logo content="Projects" />
           </BackgroundStyleColor>
         </Col>
         <Col xs={{ span: 24 }} xl={{ span: 15 }}>

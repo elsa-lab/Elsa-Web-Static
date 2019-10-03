@@ -26,26 +26,11 @@ import {
 } from '../Share';
 import { media, notebook } from '../size';
 
-const TeachBlock = styled.div`
-  width: 100%;
-  float: right;
-  margin-top: 20vh;
-  padding-left: 5vw;
-
-  ${media.lessThan('notebook')`
-    margin-top: 3vh;
-  `};
-`;
+import Person from './personal';
 
 const BackgroundStyleColor = styled(BackgroundColor)`
   ${media.lessThan('notebook')`
     height: 45vh;
-  `};
-`;
-
-const BackgroundStyleColor2 = styled(BackgroundColor)`
-  ${media.lessThan('notebook')`
-    height: 55vh;
   `};
 `;
 
@@ -59,11 +44,6 @@ const TitleStyleText = styled(TitleText)`
   ${media.lessThan('notebook')`
     font-size: 10vw;
   `};
-`;
-
-const InfoTextArea = styled.div`
-  font-size: 1vw;
-  color: white;
 `;
 
 class Account extends Component {
@@ -83,7 +63,7 @@ class Account extends Component {
       ins
         .get(`user/${userId}`)
         .then(res => {
-          //console.log(res);
+          // console.log(res);
           this.setState({ user: res.data });
         })
         .catch(error => {
@@ -134,19 +114,27 @@ class Account extends Component {
 
   renderManagementLink = () => {
     const { user } = this.state;
+    console.log(this.state);
     if (user) {
-      if (settings.root_user_types.includes(user.profile.studentType)) {
-        return <PageLink to="/management">Management Page</PageLink>;
+      if (user.profile.studentType === '4') {
+        return (
+          <div>
+            {/* <PageLink to="http://35.201.173.113:8080/admin">Management Page</PageLink> */}
+            <Person />
+          </div>
+        );
+      } else {
+        return <Person />;
       }
     }
   };
 
   render() {
     return (
-      <Row>
-          <MediaQuery query={`(max-width: ${notebook})`}>
-            {matches => (!matches ? <Header fontColor="white" /> : <></>)}
-          </MediaQuery>
+      <Row id="account">
+        <MediaQuery query={`(max-width: ${notebook})`}>
+          {matches => (!matches ? <Header fontColor="black" /> : <></>)}
+        </MediaQuery>
         <Col xs={{ span: 24 }} xl={{ span: 9 }}>
           <BackgroundStyleColor color="#ffaaad">
             <MainRow type="flex" justify="center">
@@ -184,22 +172,8 @@ class Account extends Component {
             </MainRow>
           </BackgroundStyleColor>
         </Col>
-        <Col xs={{ span: 24 }} xl={{ span: 15 }}>
-          <BackgroundStyleColor2 color="#906262">
-            <TeachBlock>
-              <Row type="flex" justify="start" align="top">
-                <Col xs={{ span: 18, offset: 2 }} xl={{ span: 10 }}>
-                  <InfoTextArea>
-                    {this.renderManagementLink()}
-
-                    {/* <div>Your Cources</div>
-                    <div>Your Messages</div>
-                    <div>Your News</div> */}
-                  </InfoTextArea>
-                </Col>
-              </Row>
-            </TeachBlock>
-          </BackgroundStyleColor2>
+        <Col className="right" xs={{ span: 24 }} xl={{ span: 15 }}>
+          {this.renderManagementLink()}
         </Col>
       </Row>
     );

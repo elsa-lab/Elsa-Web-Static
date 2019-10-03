@@ -1,0 +1,72 @@
+#person {
+    margin-bottom: 3em;
+    h1, h2, h3, h4, h5, h6, p {
+        color: #474747;
+    }
+    
+    hr {
+        width: 75%;
+        text-align: left;
+        margin: 0.6em 0 1.6em 0;
+        border-bottom: solid 1px #6b6b6b;
+    }
+    .title {
+        font-family: 'Noto Sans TC', sans-serif;
+    }
+    .card-container {
+        h3 {
+            font-family: 'noto sans tc', sans-serif;
+            margin: 1.6em 0 0.6em 0;
+        }
+        .btn {
+            margin: .6em 0;
+        }
+        .card-text {
+            margin: .6em 0;
+        }
+        .card-body {
+            padding: 0;
+
+            hr {
+                width: 100%;
+                border-top: none;
+                border-bottom: solid 1px #b1b1b1;
+                margin: 0;
+            }
+            .form-group {
+                padding: 2em 2em 0.5em 1.5em;
+            
+                h5 {
+                    font-size: 20px;
+                }
+                .form-input {
+                    input {
+                        border: solid 1px #bebebe;
+                        border-radius: 5px;
+                        padding: 0.3em;
+                        margin: 0 0 1em 0;
+                        width: 100%;
+                    }
+                    p {
+                        font-size: 18px;
+                    }
+                }
+            }
+            .submmit {
+                padding: 1em 2em;
+                background-color: #e4e4e7;
+                display: flex;
+                justify-content: end;
+            }
+        }
+    }
+}
+
+#account {
+    .right {
+        background-color: #fafafa;
+        height: 100vh;
+        padding: 8em 0 0 5em;
+        overflow-y: auto;
+    }
+}

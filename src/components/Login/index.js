@@ -2,8 +2,10 @@ import MediaQuery from 'react-responsive';
 import React, { Component } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import { Col, Input, Row } from 'antd';
+import { Col, Row } from 'antd';
 import { Link } from 'react-router';
+
+import './style.scss';
 
 import Header from '../Share/Header';
 import IconImg from '../static/icon.png';
@@ -54,14 +56,6 @@ const IconStyleImage = styled(IconImage)`
   `};
 `;
 
-const UserInput = styled(Input)`
-  background-color: #cfcfcf;
-  width: 100%;
-  height: 4vh;
-  box-shadow: 0 0 0 100px white inset;
-  -webkit-box-shadow: 0 0 0 100px white inset;
-`;
-
 const InputText = styled.div`
   font-weight: bold;
   color: white;
@@ -71,27 +65,15 @@ const InputText = styled.div`
 `;
 
 const ErrorText = styled.div`
-    color: red;
-    display: inline-block;
-    margin-left: 1.2em;
-`
+  color: red;
+  display: inline-block;
+  margin-left: 1.2em;
+`;
 
 const TitleStyleText = styled(TitleText)`
   ${media.lessThan('notebook')`
     font-size: 10vw;
   `};
-`;
-
-const SubmitButton = styled.div`
-  width: 40%;
-  height: 4vh;
-  line-height: 4vh;
-  background-color: #535353;
-  color: white;
-  margin-left: auto;
-  margin-top: 2vh;
-  text-align: center;
-  cursor: pointer;
 `;
 
 const SignUpLinkBlock = styled.div`
@@ -152,7 +134,7 @@ class Login extends Component {
                 response.data.user.profile.studentType
               )
             ) {
-              window.location = `${settings.root_url}/management/users`;
+              window.location = `${settings.root_url}`;
             } else {
               window.location = `${settings.root_url}`;
             }
@@ -183,7 +165,7 @@ class Login extends Component {
 
   render() {
     return (
-      <Row>
+      <Row id="login">
         <MediaQuery query={`(max-width: ${notebook})`}>
           {matches => (!matches ? <Header fontColor="white" /> : <></>)}
         </MediaQuery>
@@ -227,25 +209,30 @@ class Login extends Component {
               <Row type="flex" justify="start" align="top">
                 <Col xs={{ span: 18, offset: 2 }} xl={{ span: 10 }}>
                   {this.renderMessage()}
-                  <InputText>Email</InputText>
-                  <ErrorText>{this.state.error}</ErrorText>
-                  <UserInput
-                    size="large"
-                    type="text"
-                    value={this.state.account}
-                    onChange={e => this.handleChange('account', e)}
-                  />
-                  <InputText>Password</InputText>
-                  <UserInput
-                    size="large"
-                    type="password"
-                    value={this.state.password}
-                    onChange={e => this.handleChange('password', e)}
-                  />
-
-                  <SubmitButton onClick={e => this.handleSubmit(e)} href="#">
-                    Sign In
-                  </SubmitButton>
+                  <form onSubmit={e => this.handleSubmit(e)}>
+                    <InputText>Email</InputText>
+                    <ErrorText>{this.state.error}</ErrorText>
+                    <input
+                      size="large"
+                      type="email"
+                      required
+                      value={this.state.account}
+                      onChange={e => this.handleChange('account', e)}
+                    />
+                    <InputText>Password</InputText>
+                    <input
+                      size="large"
+                      type="password"
+                      required
+                      value={this.state.password}
+                      onChange={e => this.handleChange('password', e)}
+                    />
+                    <input
+                      className="submitbtn"
+                      type="submit"
+                      value="Sign in"
+                    />
+                  </form>
                   <SignUpLink to="/register">
                     <SignUpLinkBlock color="dark">
                       Do not have an acoount ? Create one !

@@ -9,6 +9,7 @@ import BackgroundImage from '../../static/background_image_invert_vertical.jpg';
 import Header from '../../Share/Header';
 import IconImg from '../../static/icon.png';
 import settings from '../../../settings';
+import Drawer from '../../Share/Drawer';
 import {
   BackgroundColor,
   BigTitle,
@@ -26,20 +27,9 @@ import {
 } from '../../Share';
 import { media, notebook } from '../../size';
 
-const Blocks = styled.div`
-  padding-top: 15vh;
-  width: 100%;
-  height: 92vh;
-  overflow-y: scroll;
-
-  ${media.lessThan('notebook')`
-    padding-top: 0;
-    height: 100%;
-  `};
-`;
 const BackgroundStyleColor = styled(BackgroundColor)`
   ${media.lessThan('notebook')`
-    height: 60vh;
+    height: 35vh;
   `};
 `;
 
@@ -128,15 +118,14 @@ class CourseContent extends Component {
     ins
       .get(`courses/${course_id}`)
       .then(res => {
+        console.log(res.data);
         this.setState({
           id: res.data.id,
           title: res.data.title,
           description: res.data.description,
-          course_no: res.data.course_no,
           season: res.data.season,
           year: res.data.year,
           lectures: res.data.lectures,
-          time: res.data.time,
         });
       })
       .catch(error => {
@@ -144,33 +133,36 @@ class CourseContent extends Component {
       });
   }
 
-  renderClassContent = course_id => {
+  renderClassContent = () => {
     if (this.state.lectures) {
       let isChangeOrder = false;
-      return this.state.lectures.map(({ id, title, lecture_number }) => {
-        isChangeOrder = !isChangeOrder;
-        return (
-          <a key={id} href={`${this.state.id}/lectures/${id}`}>
-            <EachBlock
-              color={
-                isChangeOrder ? 'rgba(0, 0, 0, 0.3)' : 'rgba(0, 0, 0, 0.4)'
-              }
-            >
-              <Row>
-                <Col xs={{ span: 12 }} xl={{ span: 8 }}>
-                  <ImageArea image={BackgroundImage} />
-                </Col>
-                <Col xs={{ span: 12 }} xl={{ span: 16 }}>
-                  <TextArea>
-                    <div>第 {lecture_number} 章</div>
-                    <Title>{title}</Title>
-                  </TextArea>
-                </Col>
-              </Row>
-            </EachBlock>
-          </a>
-        );
-      });
+      return this.state.lectures.map(
+        ({ id, title, lecture_number, loading_image }) => {
+          isChangeOrder = !isChangeOrder;
+          return (
+            <a key={id} href={`${this.state.id}/lectures/${id}`}>
+              <EachBlock
+                color={
+                  isChangeOrder ? 'rgba(0, 0, 0, 0.3)' : 'rgba(0, 0, 0, 0.4)'
+                }
+                className="my-3"
+              >
+                <Row>
+                  <Col xs={{ span: 12 }} xl={{ span: 8 }}>
+                    <ImageArea image={loading_image || BackgroundImage} />
+                  </Col>
+                  <Col xs={{ span: 12 }} xl={{ span: 16 }}>
+                    <TextArea>
+                      <div>第 {lecture_number} 章</div>
+                      <Title>{title}</Title>
+                    </TextArea>
+                  </Col>
+                </Row>
+              </EachBlock>
+            </a>
+          );
+        }
+      );
     }
   };
 
@@ -203,13 +195,10 @@ class CourseContent extends Component {
 
     return (
       <Row>
-        <MediaQuery query={`(max-width: ${notebook})`}>
-          {matches => (!matches ? <Header fontColor="#9b9b9b" /> : <></>)}
-        </MediaQuery>
         <Col xs={{ span: 24 }} xl={{ span: 9 }}>
           <BackgroundStyleColor color="#f8d188">
             <MainRow type="flex" justify="center">
-              <LogoContent xs={{ span: 22 }} xl={{ span: 18 }}>
+              <LogoContent xs={{ span: 4 }} xl={{ span: 18 }}>
                 <Row type="flex" justify="start" align="middle" gutter={8}>
                   <Col span={2.5}>
                     <IconStyleImage src={IconImg} />
@@ -220,7 +209,10 @@ class CourseContent extends Component {
                   </Col>
                 </Row>
               </LogoContent>
-              <SmallContent xs={{ span: 22 }} xl={{ span: 18 }} color="#8c8c8c">
+              <Col xs={{ span: 4 }} xl={{ span: 0 }} offset={14} className="mt-xs-4">
+                <Drawer />
+              </Col>
+              <SmallContent xs={{ span: 0 }} xl={{ span: 18 }} color="#8c8c8c">
                 <Row type="flex" justify="start" align="bottom">
                   <Col span={6}>
                     <Hr color="#8c8c8c" />
@@ -236,15 +228,18 @@ class CourseContent extends Component {
                 </TitleStyleText>
                 <MidText>{this.state.title}</MidText>
               </BigTitle>
-              <MedContent xs={{ span: 22 }} xl={{ span: 12 }} color="#8c8c8c">
+              <MedContent xs={{ span: 0 }} xl={{ span: 12 }} color="#8c8c8c">
                 {this.state.description}
               </MedContent>
               <Col span={6} />
             </MainRow>
           </BackgroundStyleColor>
         </Col>
-        <Col xs={{ span: 24 }} xl={{ span: 15 }}>
-          <Blocks>{this.renderClassContent(content_id)}</Blocks>
+        <Col xs={{ span: 24 }} xl={{ span: 15 }} className="pt-md-5 mt-md-5">
+          <MediaQuery query={`(max-width: ${notebook})`}>
+            {matches => (!matches ? <Header fontColor="#9b9b9b" /> : <></>)}
+          </MediaQuery>
+          {this.renderClassContent(content_id)}
         </Col>
       </Row>
     );

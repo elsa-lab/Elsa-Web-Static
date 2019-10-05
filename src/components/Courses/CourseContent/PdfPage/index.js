@@ -7,6 +7,7 @@ import ImageGallery from 'react-image-gallery';
 import Header from '../../../Share/Header';
 import settings from '../../../../settings';
 import { notebook } from '../../../size';
+import Drawer from '../../../Share/Drawer';
 
 import './main.scss';
 
@@ -14,21 +15,11 @@ import Comment from './Comment';
 
 class PdfPage extends Component {
   state = {
-    id: '',
     title: '',
-    description: '',
-    lecture_number: '',
     page: [],
-    lecture_file: {},
     attach_files: [],
     course: {},
-    created_at: '',
-    updated_at: '',
     current: 0,
-  };
-
-  setCurrent = e => {
-    this.setState({ current: e });
   };
 
   componentDidMount() {
@@ -43,23 +34,22 @@ class PdfPage extends Component {
     ins
       .get(`lectures/${lecture_id}`)
       .then(res => {
+        // console.log(res.data);
         this.setState({
-          id: res.data.id,
           title: res.data.title,
-          description: res.data.description,
-          lecture_number: res.data.lecture_number,
           page: res.data.pages,
-          lecture_file: res.data.lecture_file,
           attach_files: res.data.attach_files,
           course: res.data.course,
-          created_at: res.data.created_at,
-          updated_at: res.data.updated_at,
         });
       })
       .catch(error => {
         console.log(error);
       });
   }
+
+  setCurrent = e => {
+    this.setState({ current: e });
+  };
 
   render() {
     const images = [];
@@ -71,8 +61,8 @@ class PdfPage extends Component {
     }
     for (let i = 0; i < this.state.page.length; i++) {
       images.push({
-        original: settings.backend_url + '/' + this.state.page[i],
-        thumbnail: settings.backend_url + '/' + this.state.page[i],
+        original: `${settings.backend_url}/${this.state.page[i]}`,
+        thumbnail: `${settings.backend_url}/${this.state.page[i]}`,
       });
     }
     return (
@@ -80,7 +70,13 @@ class PdfPage extends Component {
         <MediaQuery query={`(max-width: ${notebook})`}>
           {matches => (!matches ? <Header fontColor="#9b9b9b" /> : <></>)}
         </MediaQuery>
-        <div id="pdfpage">
+        <div
+          className="d-md-none offset-10 mt-3"
+          style={{ position: 'fixed', zIndex: 11 }}
+        >
+          <Drawer />
+        </div>
+        <div id="pdfpage" className="pt-3 pt-md-5">
           <div className="title-content">
             <h1>{this.state.title}</h1>
             <h3>
@@ -92,16 +88,18 @@ class PdfPage extends Component {
             slideDuration={80}
             disableThumbnailScroll={false}
             startIndex={this.state.current}
-            showIndex={true}
+            showIndex
             thumbnailPosition="left"
             slideOnThumbnailOver={false}
             showPlayButton={false}
-            showNav={true}
+            showNav
             infinite={false}
             items={images}
           />
+          {this.state.attach_files.length !== 0 ? (
+            <a href={this.state.attach_files}>Attach file</a>
+          ) : null}
           <Comment
-            id={this.props.params.lecture_id}
             lectureId={this.props.params.lecture_id}
             nowPage={this.state.current + 1}
           />

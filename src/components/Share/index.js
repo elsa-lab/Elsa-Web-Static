@@ -10,6 +10,7 @@ export const BackgroundColor = styled.div`
 
 export const MainRow = styled(Row)`
   padding-left: 3vw;
+  padding-top: 5vw;
 `;
 
 export const IconImage = styled.img`
@@ -28,7 +29,6 @@ export const Title2 = styled.p`
 
 export const LogoContent = styled(Col)`
   color: white;
-  margin-top: 4vh;
 `;
 
 export const Hr = styled.hr`

@@ -8,76 +8,18 @@ import BackgroundImage from '../static/background_image_invert_vertical.jpg';
 import Header from '../Share/Header';
 import settings from '../../settings';
 import Logo from '../Share/Logo';
-import {
-  BackgroundColor,
-  PageLink,
-  Text,
-} from '../Share';
+import Drawer from '../Share/Drawer';
+import { BackgroundColor, PageLink, Text } from '../Share';
 import { media, notebook } from '../size';
 
-const Blocks = styled.div`
-  padding-top: 15vh;
-  width: 100%;
-  height: 92vh;
-  overflow-y: auto;
-
-  ${media.lessThan('notebook')`
-    padding-top: 0;
-    height: 100%;
-  `};
-`;
+import './style.scss';
 
 const BackgroundStyleColor = styled(BackgroundColor)`
   ${media.lessThan('notebook')`
-    height: 60vh;
+    height: 13vh;
+    z-index: 11;
+    box-shadow: 0px 1px 10px #0000004a;
   `};
-`;
-
-const EachBlock = styled.div`
-  width: 100%;
-  height: 20vh;
-  background-color: rgba(0, 0, 0, 0.3);
-  margin-bottom: 5vh;
-  color: white;
-  font-size: 1.2vw;
-
-  ${media.lessThan('notebook')`
-    margin-bottom: 0;
-  `};
-`;
-
-const Year = styled.div`
-  margin-bottom: -1vh;
-  font-weight: bold;
-`;
-
-const Title = styled.div`
-  font-size: 2vw;
-  padding-top: 1vh;
-
-  ${media.lessThan('notebook')`
-    font-size:5vw;
-  `};
-`;
-
-const TextArea = styled.div`
-  padding-left: 2.5vw;
-  padding-right: 4vw;
-  padding-top: 4.5vh;
-
-  ${media.lessThan('notebook')`
-    padding-top: 3.5vh;
-    padding-left: 4vw;
-    font-size:4vw;
-  `};
-`;
-
-const ImageArea = styled.div`
-  width: 100%;
-  height: 20vh;
-  background: url(${props => props.image});
-  background-size: cover;
-  background-position: center center;
 `;
 
 class Courses extends Component {
@@ -85,14 +27,10 @@ class Courses extends Component {
     courses: '',
   };
 
-goHome = () => {
-    console.log("home")
-}
-
-componentWillMount() {
+  componentWillMount() {
     const ins = axios.create({
-        baseURL: settings.backend_url,
-        timeout: 1000,
+      baseURL: settings.backend_url,
+      timeout: 1000,
     });
 
     ins
@@ -104,83 +42,92 @@ componentWillMount() {
       .catch(error => {
         console.log(error);
       });
-}
+  }
 
-renderClass = () => {
+  renderClass = () => {
     if (this.state.courses) {
-        return this.state.courses.map(({ id, title, description, year, season, location, course_no, time, lectures}) => {
-          let isChangeOrder = false;
+      return this.state.courses.map(
+        ({ id, title, year, season, course_no, loading_image }) => {
           let seasonText;
-          isChangeOrder = !isChangeOrder;
-          if(season === 0){
-              seasonText = "下學期";
+          if (season === 0) {
+            seasonText = '下學期';
           } else {
-              seasonText = "上學期";
+            seasonText = '上學期';
           }
           return (
-              <a key={id} href={`/courses/${id}`}>
-                  <EachBlock>
-                      <Row type="flex">
-                          <Col
-                              span={12}
-                              xs={{ order: isChangeOrder ? 2 : 1 }}
-                              xl={{ order: 1 }}
-                              >
-                              <TextArea>
-                                  <Year>
-                                      {year} {seasonText}
-                                  </Year>
-                                  <Title>{title}</Title>
-                                  課程代號 : {course_no}
-                              </TextArea>
-                          </Col>
-                          <Col
-                              span={12}
-                              xs={{ order: isChangeOrder ? 1 : 2 }}
-                              xl={{ order: 2 }}
-                              >
-                              <ImageArea image={BackgroundImage} />
-                          </Col>
-                      </Row>
-                  </EachBlock>
-              </a>)
-        });
+            <a key={id} href={`/courses/${id}`}>
+              <div className="media mt-3 py-md-3 course-block align-items-center">
+                <div className="img-area ml-md-3 mr-3">
+                  <img
+                    src={loading_image || BackgroundImage}
+                    className="course-img"
+                    alt=""
+                  />
+                </div>
+                <div className="media-body my-1">
+                  <h6>
+                    {year} {seasonText}
+                  </h6>
+                  <h5>{title}</h5>
+                  <h6 className="course-id">課程代號: {course_no}</h6>
+                </div>
+              </div>
+            </a>
+          );
+        }
+      );
     }
-};
+  };
 
-renderLogin = () => {
+  renderLogin = () => {
     const { token } = localStorage;
     if (token) {
-        return (
-            <PageLink to="/logout">
-                <Text color="rgba(0, 0, 0, 0.4)">Sign out</Text>
-            </PageLink>
-        );
+      return (
+        <PageLink to="/logout">
+          <Text color="rgba(0, 0, 0, 0.4)">Sign out</Text>
+        </PageLink>
+      );
     }
     return (
-        <PageLink to="/login">
-            <Text color="rgba(0, 0, 0, 0.4)">Sign in</Text>
-        </PageLink>
+      <PageLink to="/login">
+        <Text color="rgba(0, 0, 0, 0.4)">Sign in</Text>
+      </PageLink>
     );
-};
+  };
 
-render() {
+  render() {
     return (
-        <Row>
-            <MediaQuery query={`(max-width: ${notebook})`}>
-                {matches => (!matches ? <Header fontColor="#9b9b9b" /> : <></>)}
-            </MediaQuery>
-            <Col xs={{ span: 24 }} xl={{ span: 9 }}>
-                <BackgroundStyleColor color="#f8d188">
-                    <Logo content="Courses"></Logo>
-                </BackgroundStyleColor>
-            </Col>
-            <Col xs={{ span: 24 }} xl={{ span: 15 }}>
-                <Blocks>{this.renderClass()}</Blocks>
-            </Col>
-        </Row>
+      <Row>
+        <Col xs={{ span: 24 }} xl={{ span: 9 }}>
+          <BackgroundStyleColor color="#f8d188">
+            <Logo xs={{ span: 0 }} xl={{ span: 0 }} content="Course" />
+            <Row
+              xs={{ span: 24 }}
+              xl={{ span: 0 }}
+              style={{ padding: `${24}px` }}
+              type="flex"
+              justify="start"
+              align="middle"
+              gutter={8}
+            >
+              <Col xs={{ span: 6 }} xl={{ span: 0 }}>
+                <h3 style={{ color: 'white' }}>Course</h3>
+              </Col>
+              <Col xs={{ span: 4 }} xl={{ span: 0 }} offset={14}>
+                <Drawer />
+              </Col>
+            </Row>
+          </BackgroundStyleColor>
+        </Col>
+        <Col xs={{ span: 24 }} xl={{ span: 15 }} className="mt-md-5 py-md-5">
+          <MediaQuery query={`(max-width: ${notebook})`}>
+            {matches => (!matches ? <Header fontColor="#9b9b9b" /> : <></>)}
+          </MediaQuery>
+          {this.renderClass()}
+        </Col>
+      </Row>
     );
-}
+  }
 }
 
 export default Courses;

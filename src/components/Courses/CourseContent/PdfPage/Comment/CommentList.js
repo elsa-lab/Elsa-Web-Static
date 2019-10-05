@@ -2,7 +2,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import moment from 'moment';
 import styled from 'styled-components';
-import { Comment, List } from 'antd';
+import { Comment as AntComment, List } from 'antd';
+
+import settings from '../../../../../settings';
 
 const ListBlock = styled.div`
   margin-top: -3vh;
@@ -20,22 +22,35 @@ const CommentList = ({ comments }) => (
       itemLayout="horizontal"
       renderItem={props => {
         const {
+          // eslint-disable-next-line react/prop-types
           author: {
             username,
-            profile: { pictureUrl },
+            profile: { nick_name, picture },
           },
           content,
           created_at: createdAt,
         } = props;
-
-        return (
-          <Comment
-            author={username}
-            avatar={pictureUrl}
-            content={content}
-            datetime={timeFormat(createdAt)}
-          />
-        );
+        if (picture) {
+          return (
+            <AntComment
+              avatar={settings.backend_url + picture.file}
+              author={nick_name}
+              content={content}
+              datetime={timeFormat(createdAt)}
+            />
+          );
+        } else {
+          return (
+            <AntComment
+              avatar={
+                <svg width="32" height="32" data-jdenticon-value={username} />
+              }
+              author={nick_name}
+              content={content}
+              datetime={timeFormat(createdAt)}
+            />
+          );
+        }
       }}
     />
   </ListBlock>

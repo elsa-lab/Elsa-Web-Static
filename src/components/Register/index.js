@@ -2,13 +2,12 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Col, Row } from 'antd';
 
 import 'bootstrap/scss/bootstrap.scss';
-import Drawer from '../Share/Drawer';
+
 import settings from '../../settings';
 import './style.scss';
-import { PageLink, Text, TextCol } from '../Share';
+import successIcon from '../static/success.svg';
 
 class Register extends Component {
   state = {
@@ -23,12 +22,6 @@ class Register extends Component {
     nick_name: '',
     student_id: '',
     picture: null,
-  };
-
-  renderMessage = () => {
-    if (this.state.message) {
-      return <div className="message">{this.state.message}</div>;
-    }
   };
 
   handleChange = (id, event) => {
@@ -73,46 +66,31 @@ class Register extends Component {
     }
   };
 
-  validateEmail = () => {
-    const re = /^(([^<>()[\]\\.,;:\s@]+(\.[^<>()[\]\\.,;:\s@]+)*)|(.+))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    // console.log(re)
-    return re.test(this.state.email);
-  };
-
   validatePassword = () => this.state.password === this.state.confirm_password;
 
   validateForm = () => {
-    const {
-      email,
-      password,
-      student_id,
-      nick_name,
-      picture,
-      name,
-      studentType,
-    } = this.state;
-    // if (
-    //   !(
-    //     email &&
-    //     password &&
-    //     student_id &&
-    //     nick_name &&
-    //     picture &&
-    //     name &&
-    //     studentType
-    //   )
-    // ) {
-    //   this.setState({ message: '有資料未填' });
-    //   return false;
-    // } else if (!this.validateEmail()) {
-    //   this.setState({ message: '不正確的 Email 格式' });
-    //   return false;
-    // }
     if (!this.validatePassword()) {
       this.setState({ message: '密碼不一致' });
       return false;
     }
     return true;
+  };
+
+  renderSuccess = () => {
+    const { name } = this.state.name;
+    return (
+      <div className="fancybox card align-items-center justify-content-center">
+        <img src={successIcon} alt="" />
+        <h3 className="card-title">{name}註冊成功</h3>
+        <p className="card-text">請在登入頁面登入</p>
+      </div>
+    );
+  };
+
+  renderMessage = () => {
+    if (this.state.message) {
+      return <h3 className="message">{this.state.message}</h3>;
+    }
   };
 
   handleSubmit = event => {
@@ -131,76 +109,40 @@ class Register extends Component {
     const react_ins = this;
     axios
       .post(`${settings.backend_url}/users`, data)
-      // {
-      //   email: this.state.email,
-      //   username: this.state.email,
-      //   password: this.state.password,
-      //   name: this.state.name,
-      //   nick_name: this.state.nick_name,
-      //   selfIntro: this.state.selfIntro,
-      //   student_id: this.state.student_id,
-      //   researchArea: this.state.researchArea,
-      //   studentType: this.state.studentType,
-      //   picture: this.state.picture,
-      // }
       .then(response => {
-        // console.log(response);
         // redirect to user page
         if (response.data.type === 'error') {
           react_ins.setState({ message: response.data.message }, () =>
             setTimeout(() => react_ins.setState({ message: '' }), 2000)
           );
         } else {
-          // window.location = `${settings.root_url}/login`;
+          document.querySelector('.fancybox').style.transfrom = 'scale(1)';
+          console.log(document.querySelector('.fancybox').style);
+          document.querySelector('.fancybox').style.transform =
+            'translate(-50%, -50%) scale(1)';
+          setTimeout(() => {
+            window.location = `${settings.root_url}/login`;
+          }, 1500);
         }
       })
       .catch(error => {
-        console.log(error);
-        react_ins.setState({ message: 'Unknown error.' }, () =>
-          setTimeout(() => react_ins.setState({ message: '' }), 2000)
-        );
+        // console.log(error.response);
+        // alert("Erro");
+        // if(error.status)
+        window.scrollTo(0, 0);
+        react_ins.setState({ message: error.response.data.message });
       });
     event.preventDefault();
   };
 
-  renderLogin = () => {
-    const { token } = localStorage;
-    if (token) {
-      return (
-        <PageLink to="/logout">
-          <Text color="rgba(0, 0, 0, 0.4)">Sign out</Text>
-        </PageLink>
-      );
-    }
-    return (
-      <PageLink to="/login">
-        <Text color="rgba(0, 0, 0, 0.4)">Sign in</Text>
-      </PageLink>
-    );
-  };
-
-  renderOtherBlock = () => (
-    <Row type="flex" justify="end">
-      <Col span={14}>
-        <TextCol>
-          <PageLink to="/about">
-            <Text color="rgba(0, 0, 0, 0.4)">About Elsa Lab</Text>
-          </PageLink>
-        </TextCol>
-        <TextCol>{this.renderLogin()}</TextCol>
-      </Col>
-      <Col span={5}>
-        <Drawer />
-      </Col>
-    </Row>
-  );
-
   render() {
     return (
       <div id="signUp">
-        <div className="d-flex flex-column fixed-top flex-md-row align-items-center p-3 px-md-4 mb-3">
-          <h5 className="mr-md-auto font-weight-normal">Elsa lab</h5>
-          <nav className="my-2 my-md-0 mr-md-3">
+        <div className="navbar d-flex fixed-top flex-md-row align-items-center p-3 px-md-4 mb-3 color">
+          <h5 className="mr-md-auto d-none d-sm-block font-weight-normal">
+            Elsa lab
+          </h5>
+          <nav className="my-md-0 my-3 mr-md-3">
             <a className="p-2 text-dark" href="/">
               Home
             </a>
@@ -209,17 +151,19 @@ class Register extends Component {
             Sign in
           </a>
         </div>
+        {this.renderSuccess()}
         <div className="container my-4">
           {this.renderMessage()}
           <form onSubmit={e => this.handleSubmit(e)}>
             {/* Email */}
             <div className="form-group">
-              <label>* Email</label>
+              <label><b className="red">*</b> Email (Username)</label>
               <input
                 id="email"
                 name="email"
                 size="large"
                 type="email"
+                autoComplete="username"
                 value={this.state.email}
                 onChange={e => this.handleChange('email', e)}
               />
@@ -227,22 +171,24 @@ class Register extends Component {
             {/* Password */}
             <div className="row form-group">
               <div className="col-md-6">
-                <label>* Password</label>
+                <label><b className="red">*</b> Password</label>
                 <input
                   size="large"
                   type="password"
                   name="password"
                   required
+                  autoComplete="current-password"
                   value={this.state.password}
                   onChange={e => this.handleChange('password', e)}
                 />
               </div>
               <div className="col-md-6">
-                <label>* Confirm Password</label>
+                <label><b className="red">*</b> Confirm password</label>
                 <input
                   size="large"
                   type="password"
                   required
+                  autoComplete="current-password"
                   value={this.state.confirm_password}
                   onChange={e => this.handleChange('confirm_password', e)}
                 />
@@ -251,7 +197,7 @@ class Register extends Component {
             {/* Name */}
             <div className="row form-group">
               <div className="col-md-4">
-                <label>* Name</label>
+                <label><b className="red">*</b> Name</label>
                 <input
                   size="large"
                   type="text"
@@ -262,7 +208,7 @@ class Register extends Component {
                 />
               </div>
               <div className="col-md-4">
-                <label>* Nick name</label>
+                <label><b className="red">*</b> Nick name</label>
                 <input
                   size="large"
                   type="text"
@@ -288,7 +234,7 @@ class Register extends Component {
             {/* Information */}
             <div className="row form-group">
               <div className="col-md-4">
-                <label>* Student ID</label>
+                <label><b className="red">*</b> Student ID</label>
                 <input
                   size="large"
                   type="text"
@@ -309,7 +255,7 @@ class Register extends Component {
                 />
               </div>
               <div className="col-md-4">
-                <label>* Student type</label>
+                <label><b className="red">*</b> Student type</label>
                 <select
                   name="studentType"
                   value={this.state.studentType}
@@ -326,20 +272,18 @@ class Register extends Component {
             </div>
             {/* Picture */}
             <div className="form-group">
-              <label>Profile picture</label>
+              <label><b className="red">*</b> Profile picture</label>
               <input
                 className="form-group-profile"
                 type="file"
                 name="picture"
                 aria-label="File browser example"
                 accept="image/*"
+                required
                 onChange={e => this.handleChange('picture', e)}
               />
             </div>
             <input type="submit" className="summitBtn" value="Sign up" />
-            {/* <div className="summitBtn" onClick={e => this.handleSubmit(e)}>
-              Sign up
-            </div> */}
           </form>
         </div>
       </div>

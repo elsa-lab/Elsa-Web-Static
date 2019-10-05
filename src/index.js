@@ -37,6 +37,8 @@ import newsNew from './components/Manage/News/New/New';
 import newsShow from './components/Manage/News/Show/Show';
 import newsEdit from './components/Manage/News/Edit/Edit';
 import 'dotenv';
+
+import 'bootstrap/scss/bootstrap.scss';
 // router setting
 ReactDOM.render(
   <Router history={browserHistory}>

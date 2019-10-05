@@ -19,6 +19,7 @@
     "immutable": "^4.0.0-rc.12",
     "install": "^0.10.4",
     "is-hotkey": "^0.1.4",
+    "jdenticon": "^2.2.0",
     "jquery-plugin-flippage": "^0.6.4",
     "moment": "^2.20.1",
     "node-sass": "^4.12.0",

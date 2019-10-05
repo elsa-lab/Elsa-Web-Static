@@ -28,8 +28,6 @@ import {
   bigTitleMap,
   medColorMap,
   medContentMap,
-  otherColorMap,
-  smallContentMap,
 } from './StyleMap';
 
 const BackgroundImage = styled.div`
@@ -65,19 +63,24 @@ const IconStyleImage = styled(IconImage)`
 `;
 
 class FullPage extends Component {
-  renderLogin = current => {
+  renderLogin = () => {
     const { token } = localStorage;
     if (token) {
       return (
         <PageLink to="/account">
-          <Text color={otherColorMap[current]}>Account</Text>
+          <Text color="black">Account</Text>
         </PageLink>
       );
     }
     return (
-      <PageLink to="/login">
-        <Text color={otherColorMap[current]}>Sign in</Text>
-      </PageLink>
+      <div>
+        <PageLink to="/login">
+          <Text color="black">Sign in</Text>
+        </PageLink>
+        <PageLink to="/register">
+          <Text color="black">Sign up</Text>
+        </PageLink>
+      </div>
     );
   };
 
@@ -85,7 +88,7 @@ class FullPage extends Component {
     <Row>
       <TextCol span={24}>
         <PageLink to="/about">
-          <Text color={otherColorMap[current]}>About Elsa Lab</Text>
+          <Text color="black">About Elsa Lab</Text>
         </PageLink>
       </TextCol>
       <TextCol span={24}>{this.renderLogin(current)}</TextCol>
@@ -115,7 +118,7 @@ class FullPage extends Component {
                 </Row>
               </LogoContent>
               <SmallContent
-                xs={{ span: 22 }}
+                xs={{ span: 0 }}
                 xl={{ span: 18 }}
                 color={backgroundColorInvertMap[current]}
               >
@@ -124,7 +127,7 @@ class FullPage extends Component {
                     <Hr color={backgroundColorInvertMap[current]} />
                   </Col>
                   <Col span={12} offset={1}>
-                    {smallContentMap[current]}
+                    Professor : Chun-Yi Lee
                   </Col>
                 </Row>
               </SmallContent>
@@ -135,7 +138,11 @@ class FullPage extends Component {
                 </TitleStyleText>
               </BigTitle>
               <Col xs={{ span: 2 }} xl={{ span: 0 }} />
-              <MedContent span={12} color={medColorMap[current]}>
+              <MedContent
+                xl={{ span: 12 }}
+                xs={{ span: 0 }}
+                color={medColorMap[current]}
+              >
                 {medContentMap[current]}
               </MedContent>
               <Col xs={{ span: 10 }} xl={{ span: 0 }} />

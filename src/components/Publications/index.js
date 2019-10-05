@@ -8,14 +8,8 @@ import Drawer from '../Share/Drawer';
 import Header from '../Share/Header';
 import settings from '../../settings';
 import Logo from '../Share/Logo';
-import {
-  BackgroundColor,
-  MedContent,
-  PageLink,
-  Text,
-  TextCol,
-} from '../Share';
-import './style.scss'
+import { BackgroundColor, PageLink, Text, TextCol } from '../Share';
+import './style.scss';
 import { media, notebook } from '../size';
 
 const Blocks = styled.div`
@@ -32,7 +26,7 @@ const Blocks = styled.div`
 
 const BackgroundStyleColor = styled(BackgroundColor)`
   ${media.lessThan('notebook')`
-    height: 60vh;
+    height: 13vh;
   `};
 `;
 
@@ -54,7 +48,6 @@ const EachBlock = styled.div`
     margin-top: 2vh;
   `};
 `;
-
 
 const LinkArea = styled.div`
   width: 100%;
@@ -110,8 +103,7 @@ class Publications extends Component {
         arXiv_url: arXivUrl,
         author,
         year,
-        published_in
-
+        published_in,
       }) => (
         <EachBlock key={publicationId}>
           <Row type="flex">
@@ -119,8 +111,10 @@ class Publications extends Component {
               <div className="textarea">
                 <label>{year}</label>
                 <h1>{title}</h1>
-                <hr/>
-                <h3>{author}, {published_in}</h3>
+                <hr />
+                <h3>
+                  {author}, {published_in}
+                </h3>
               </div>
             </Col>
             <Col span={4}>
@@ -173,12 +167,28 @@ class Publications extends Component {
   render() {
     return (
       <Row>
-          <MediaQuery query={`(max-width: ${notebook})`}>
-            {matches => (!matches ? <Header fontColor="#9b9b9b" /> : <></>)}
-          </MediaQuery>
+        <MediaQuery query={`(max-width: ${notebook})`}>
+          {matches => (!matches ? <Header fontColor="#9b9b9b" /> : <></>)}
+        </MediaQuery>
         <Col xs={{ span: 24 }} xl={{ span: 9 }}>
           <BackgroundStyleColor color="#aec3c2">
-              <Logo content="Publications"></Logo>
+            <Logo xs={{ span: 0 }} xl={{ span: 0 }} content="Publications" />
+            <Row
+              xs={{ span: 24 }}
+              xl={{ span: 0 }}
+              style={{ padding: `${24}px` }}
+              type="flex"
+              justify="start"
+              align="middle"
+              gutter={8}
+            >
+              <Col xs={{ span: 6 }} xl={{ span: 0 }}>
+                <h3 style={{ color: 'white' }}>Publications</h3>
+              </Col>
+              <Col xs={{ span: 4 }} xl={{ span: 0 }} offset={14}>
+                <Drawer />
+              </Col>
+            </Row>
           </BackgroundStyleColor>
         </Col>
         <Col xs={{ span: 24 }} xl={{ span: 15 }}>

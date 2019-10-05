@@ -1,0 +1,37 @@
+.course-block {
+  background-color: rgba(0, 0, 0, 0.3);
+  // border: solid 1px;
+  .img-area {
+    height: 6rem;
+    width: 6rem;
+    overflow: hidden;
+    
+    .course-img {
+      height: 100%;
+      transform: translateX(-25%)
+    }
+  }
+  .media-body {
+    h5 {
+      font-size: 26px;
+      font-weight: 700;
+      white-space: nowrap;
+      width: 90%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: white;
+    }
+    h6 {
+      margin: 0;
+      white-space: nowrap;
+      width: 90%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: white;
+      font-weight: 500;
+    }
+    .course-id {
+      font-size: 18px;
+    }
+  }
+}

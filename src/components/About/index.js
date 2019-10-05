@@ -18,7 +18,6 @@ import {
   PageLink,
   SmallContent,
   Text,
-  TextCol,
   Title1,
   Title2,
   TitleText,
@@ -138,22 +137,6 @@ class About extends Component {
     );
   };
 
-  renderOtherBlock = () => (
-    <Row type="flex" justify="end">
-      <Col span={14}>
-        <TextCol>
-          <PageLink to="/about">
-            <Text color="rgba(0, 0, 0, 0.4)">About Elsa Lab</Text>
-          </PageLink>
-        </TextCol>
-        <TextCol>{this.renderLogin()}</TextCol>
-      </Col>
-      <Col span={5}>
-        <Drawer />
-      </Col>
-    </Row>
-  );
-
   render() {
     return (
       <Row>
@@ -169,8 +152,8 @@ class About extends Component {
                     <Title1>NTHU</Title1>
                     <Title2>ELSA</Title2>
                   </Col>
-                  <Col xs={{ span: 14 }} xl={{ span: 0 }} offset={4}>
-                    {this.renderOtherBlock()}
+                  <Col xs={{ span: 4 }} xl={{ span: 0 }} offset={14}>
+                    <Drawer />
                   </Col>
                 </Row>
               </LogoContent>

@@ -2,9 +2,11 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import { Comment as AntComment, Avatar } from 'antd';
+import { Comment as AntComment } from 'antd';
+import jdenticon from 'jdenticon';
 
 import settings from '../../../../../settings';
+import { media } from '../../../../size';
 
 import CommentList from './CommentList';
 import Editor from './Editor';
@@ -20,6 +22,9 @@ const AllCommentBlock = styled.div`
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  ${media.lessThan('notebook')`
+    padding: 0 0;
+  `};
 `;
 
 const NeedLogin = styled.div`
@@ -27,9 +32,12 @@ const NeedLogin = styled.div`
   margin-top: 1vh;
   margin-bottom: 1vh;
 `;
-
+window.jdenticon_config = {
+  replaceMode: 'observe',
+};
 class Comment extends Component {
   state = {
+    username: '',
     comments: [],
     submitting: false,
     value: '',
@@ -58,8 +66,10 @@ class Comment extends Component {
     ins
       .get(`user/${userId}`)
       .then(res => {
-        // console.log(res);
-        this.setState({ pictureUrl: res.data.profile.pictureUrl });
+        this.setState({
+          pictureUrl: res.data.profile.picture.file,
+          username: res.data.profile.username,
+        });
       })
       .catch(error => {
         console.log(error);
@@ -78,19 +88,41 @@ class Comment extends Component {
 
     // check login or not
     if (token) {
-      return (
-        <AntComment
-          avatar={<Avatar src={pictureUrl} />}
-          content={
-            <Editor
-              onChange={e => this.handleChange('q_content', e)}
-              onSubmit={this.handleSubmit}
-              submitting={submitting}
-              value={value}
-            />
-          }
-        />
-      );
+      if (pictureUrl) {
+        return (
+          <AntComment
+            avatar={settings.backend_url + pictureUrl}
+            content={
+              <Editor
+                onChange={e => this.handleChange('q_content', e)}
+                onSubmit={this.handleSubmit}
+                submitting={submitting}
+                value={value}
+              />
+            }
+          />
+        );
+      } else {
+        return (
+          <AntComment
+            avatar={
+              <svg
+                width="80"
+                height="80"
+                data-jdenticon-value={this.state.username}
+              />
+            }
+            content={
+              <Editor
+                onChange={e => this.handleChange('q_content', e)}
+                onSubmit={this.handleSubmit}
+                submitting={submitting}
+                value={value}
+              />
+            }
+          />
+        );
+      }
     }
 
     return (
@@ -121,7 +153,6 @@ class Comment extends Component {
     ins
       .get(`lectures/${lectureId}/comments/${nowPage}`)
       .then(res => {
-        console.log(res.data);
         this.setState({ comments: res.data });
       })
       .catch(error => {
@@ -137,11 +168,7 @@ class Comment extends Component {
       submitting: true,
     });
 
-    const {
-      lectureId,
-      nowPage,
-      value,
-    } = this.state;
+    const { lectureId, nowPage, value } = this.state;
     const { token, user_id: userId } = localStorage;
     const ins = axios.create({
       baseURL: settings.backend_url,
@@ -151,7 +178,7 @@ class Comment extends Component {
       },
     });
 
-    //write comment
+    // write comment
     ins
       .post(`lectures/${lectureId}/comments/${nowPage}`, {
         user: userId,
@@ -159,7 +186,7 @@ class Comment extends Component {
         lecture: lectureId,
         file_page: nowPage,
       })
-      .then(res => {
+      .then(() => {
         this.setState({ submitting: false, value: '' });
         this.loadComment();
       })
@@ -183,12 +210,13 @@ class Comment extends Component {
 
   render() {
     const { comments } = this.state;
+    // console.log(comments);
     return (
       <div>
-      <AllCommentBlock className="comment">
-      {comments && <CommentList comments={comments} />}
-        {this.renderCommentForm()}
-      </AllCommentBlock>
+        <AllCommentBlock className="comment px-5">
+          {comments && <CommentList comments={comments} />}
+          {this.renderCommentForm()}
+        </AllCommentBlock>
       </div>
     );
   }

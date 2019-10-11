@@ -153,6 +153,7 @@ class Comment extends Component {
     ins
       .get(`lectures/${lectureId}/comments/${nowPage}`)
       .then(res => {
+        console.log(res.data);
         this.setState({ comments: res.data });
       })
       .catch(error => {

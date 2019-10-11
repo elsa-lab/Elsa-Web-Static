@@ -55,7 +55,7 @@ class Header extends Component {
 
   render() {
     return (
-      <div id="nav">
+      <div id="nav" className="sticky-top">
         <Row type="flex" justify="end" align="middle">
           <Col span={2}>
             <EachLink color={this.props.fontColor} to="/">

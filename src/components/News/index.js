@@ -8,12 +8,7 @@ import { Col, Row } from 'antd';
 import Drawer from '../Share/Drawer';
 import Header from '../Share/Header';
 import settings from '../../settings';
-import {
-  BackgroundColor,
-  PageLink,
-  Text,
-  TextCol,
-} from '../Share';
+import { BackgroundColor, PageLink, Text, TextCol } from '../Share';
 import Logo from '../Share/Logo';
 import { media, notebook } from '../size';
 
@@ -99,7 +94,7 @@ class News extends Component {
     ins
       .get('news')
       .then(res => {
-        //console.log(res);
+        // console.log(res);
         this.setState({ news: res.data });
       })
       .catch(error => {
@@ -166,18 +161,16 @@ class News extends Component {
   render() {
     return (
       <Row>
-          <MediaQuery query={`(max-width: ${notebook})`}>
-            {matches => (!matches ? <Header fontColor="#9b9b9b" /> : <></>)}
-          </MediaQuery>
         <Col xs={{ span: 24 }} xl={{ span: 9 }}>
           <BackgroundStyleColor color="#b3a1ba">
-              <Logo content="News"></Logo>
+            <Logo content="News" />
           </BackgroundStyleColor>
         </Col>
         <Col xs={{ span: 24 }} xl={{ span: 15 }}>
-          <BackgroundStyleColor2 color="white">
-            <Blocks>{this.renderNews()}</Blocks>
-          </BackgroundStyleColor2>
+          <MediaQuery query={`(max-width: ${notebook})`}>
+            {matches => (!matches ? <Header fontColor="#9b9b9b" /> : <></>)}
+          </MediaQuery>
+          <Blocks>{this.renderNews()}</Blocks>
         </Col>
       </Row>
     );

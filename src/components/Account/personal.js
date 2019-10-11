@@ -74,7 +74,9 @@ class Person extends Component {
                   <h5 className="col-md-4">Student type</h5>
                   <div className="form-input  col-md-8">
                     <select id="inputState" className="form-control">
-                      <option selected>...</option>
+                      <option selected defaultValue="...">
+                        ...
+                      </option>
                       <option>Course Student</option>
                     </select>
                   </div>

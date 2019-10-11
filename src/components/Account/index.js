@@ -132,9 +132,6 @@ class Account extends Component {
   render() {
     return (
       <Row id="account">
-        <MediaQuery query={`(max-width: ${notebook})`}>
-          {matches => (!matches ? <Header fontColor="black" /> : <></>)}
-        </MediaQuery>
         <Col xs={{ span: 24 }} xl={{ span: 9 }}>
           <BackgroundStyleColor color="#ffaaad">
             <MainRow type="flex" justify="center">
@@ -173,6 +170,9 @@ class Account extends Component {
           </BackgroundStyleColor>
         </Col>
         <Col className="right" xs={{ span: 24 }} xl={{ span: 15 }}>
+          <MediaQuery query={`(max-width: ${notebook})`}>
+            {matches => (!matches ? <Header fontColor="#f7f7f7" /> : <></>)}
+          </MediaQuery>
           {this.renderManagementLink()}
         </Col>
       </Row>

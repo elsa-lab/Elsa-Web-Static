@@ -167,9 +167,6 @@ class Publications extends Component {
   render() {
     return (
       <Row>
-        <MediaQuery query={`(max-width: ${notebook})`}>
-          {matches => (!matches ? <Header fontColor="#9b9b9b" /> : <></>)}
-        </MediaQuery>
         <Col xs={{ span: 24 }} xl={{ span: 9 }}>
           <BackgroundStyleColor color="#aec3c2">
             <Logo xs={{ span: 0 }} xl={{ span: 0 }} content="Publications" />
@@ -191,10 +188,11 @@ class Publications extends Component {
             </Row>
           </BackgroundStyleColor>
         </Col>
-        <Col xs={{ span: 24 }} xl={{ span: 15 }}>
-          <BackgroundStyleColor2 color="white">
-            <Blocks>{this.renderPublications()}</Blocks>
-          </BackgroundStyleColor2>
+        <Col xs={{ span: 24 }} xl={{ span: 15 }} className="right">
+          <MediaQuery query={`(max-width: ${notebook})`}>
+            {matches => (!matches ? <Header fontColor="#9b9b9b" /> : <></>)}
+          </MediaQuery>
+          <Blocks>{this.renderPublications()}</Blocks>
         </Col>
       </Row>
     );

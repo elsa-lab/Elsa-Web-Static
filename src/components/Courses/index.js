@@ -119,7 +119,7 @@ class Courses extends Component {
             </Row>
           </BackgroundStyleColor>
         </Col>
-        <Col xs={{ span: 24 }} xl={{ span: 15 }} className="mt-md-5 py-md-5">
+        <Col xs={{ span: 24 }} xl={{ span: 15 }}>
           <MediaQuery query={`(max-width: ${notebook})`}>
             {matches => (!matches ? <Header fontColor="#9b9b9b" /> : <></>)}
           </MediaQuery>

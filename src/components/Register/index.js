@@ -157,7 +157,9 @@ class Register extends Component {
           <form onSubmit={e => this.handleSubmit(e)}>
             {/* Email */}
             <div className="form-group">
-              <label><b className="red">*</b> Email (Username)</label>
+              <label>
+                <b className="red">*</b> Email (Username)
+              </label>
               <input
                 id="email"
                 name="email"
@@ -171,7 +173,9 @@ class Register extends Component {
             {/* Password */}
             <div className="row form-group">
               <div className="col-md-6">
-                <label><b className="red">*</b> Password</label>
+                <label>
+                  <b className="red">*</b> Password
+                </label>
                 <input
                   size="large"
                   type="password"
@@ -183,7 +187,9 @@ class Register extends Component {
                 />
               </div>
               <div className="col-md-6">
-                <label><b className="red">*</b> Confirm password</label>
+                <label>
+                  <b className="red">*</b> Confirm password
+                </label>
                 <input
                   size="large"
                   type="password"
@@ -197,7 +203,9 @@ class Register extends Component {
             {/* Name */}
             <div className="row form-group">
               <div className="col-md-4">
-                <label><b className="red">*</b> Name</label>
+                <label>
+                  <b className="red">*</b> Name
+                </label>
                 <input
                   size="large"
                   type="text"
@@ -208,7 +216,9 @@ class Register extends Component {
                 />
               </div>
               <div className="col-md-4">
-                <label><b className="red">*</b> Nick name</label>
+                <label>
+                  <b className="red">*</b> Nick name
+                </label>
                 <input
                   size="large"
                   type="text"
@@ -234,7 +244,9 @@ class Register extends Component {
             {/* Information */}
             <div className="row form-group">
               <div className="col-md-4">
-                <label><b className="red">*</b> Student ID</label>
+                <label>
+                  <b className="red">*</b> Student ID
+                </label>
                 <input
                   size="large"
                   type="text"
@@ -255,7 +267,9 @@ class Register extends Component {
                 />
               </div>
               <div className="col-md-4">
-                <label><b className="red">*</b> Student type</label>
+                <label>
+                  <b className="red">*</b> Student type
+                </label>
                 <select
                   name="studentType"
                   value={this.state.studentType}
@@ -264,7 +278,7 @@ class Register extends Component {
                 >
                   <option value="">---</option>
                   <option value="0">Course student</option>
-                  <option value="1">Collage</option>
+                  <option value="1">Undergraduate </option>
                   <option value="2">Master</option>
                   <option value="3">PHD</option>
                 </select>
@@ -272,7 +286,9 @@ class Register extends Component {
             </div>
             {/* Picture */}
             <div className="form-group">
-              <label><b className="red">*</b> Profile picture</label>
+              <label>
+                <b className="red">*</b> Profile picture
+              </label>
               <input
                 className="form-group-profile"
                 type="file"

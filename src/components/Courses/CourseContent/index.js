@@ -209,7 +209,12 @@ class CourseContent extends Component {
                   </Col>
                 </Row>
               </LogoContent>
-              <Col xs={{ span: 4 }} xl={{ span: 0 }} offset={14} className="mt-xs-4">
+              <Col
+                xs={{ span: 4 }}
+                xl={{ span: 0 }}
+                offset={14}
+                className="mt-xs-4"
+              >
                 <Drawer />
               </Col>
               <SmallContent xs={{ span: 0 }} xl={{ span: 18 }} color="#8c8c8c">
@@ -235,7 +240,7 @@ class CourseContent extends Component {
             </MainRow>
           </BackgroundStyleColor>
         </Col>
-        <Col xs={{ span: 24 }} xl={{ span: 15 }} className="pt-md-5 mt-md-5">
+        <Col xs={{ span: 24 }} xl={{ span: 15 }}>
           <MediaQuery query={`(max-width: ${notebook})`}>
             {matches => (!matches ? <Header fontColor="#9b9b9b" /> : <></>)}
           </MediaQuery>

@@ -179,18 +179,16 @@ class Projects extends Component {
   render() {
     return (
       <Row>
-        <MediaQuery query={`(max-width: ${notebook})`}>
-          {matches => (!matches ? <Header fontColor="#9b9b9b" /> : <></>)}
-        </MediaQuery>
         <Col xs={{ span: 24 }} xl={{ span: 9 }}>
           <BackgroundStyleColor color="#a1afd8">
             <Logo content="Projects" />
           </BackgroundStyleColor>
         </Col>
         <Col xs={{ span: 24 }} xl={{ span: 15 }}>
-          <BackgroundStyleColor2 color="white">
-            <Blocks>{this.renderProject()}</Blocks>
-          </BackgroundStyleColor2>
+          <MediaQuery query={`(max-width: ${notebook})`}>
+            {matches => (!matches ? <Header fontColor="#9b9b9b" /> : <></>)}
+          </MediaQuery>
+          <Blocks>{this.renderProject()}</Blocks>
         </Col>
       </Row>
     );

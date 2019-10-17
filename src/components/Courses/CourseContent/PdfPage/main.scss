@@ -1,9 +1,6 @@
 @import "node_modules/react-image-gallery/styles/scss/image-gallery.scss";
 
 #pdfpage {
-    @media (max-width: n) {
-        
-    }
     ::-webkit-scrollbar {
         width: 7px;
     }
@@ -37,19 +34,50 @@
             font-size: 18px;
         }
     }
-
+    @media (min-width: 768px) {
+        .image-gallery {
+            .image-gallery-thumbnails-wrapper {
+                margin-left: 2em;
+                width: 13%;
+                .image-gallery-thumbnails {
+                    overflow-y: auto;
+                    left: 0;
+                    .image-gallery-thumbnail {
+                        width: 95%;
+                    }
+                }
+            }
+            .image-gallery-slide-wrapper {
+                width: calc(75%);
+                margin-left: calc((8%-2em)/2);
+            }
+        }
+    }
+    @media (min-width: 992px) {
+        .image-gallery {
+            .image-gallery-thumbnails-wrapper {
+                margin-left: 2em;
+                width: 13%;
+                .image-gallery-thumbnails {
+                    overflow-y: auto;
+                    left: 0;
+                    .image-gallery-thumbnail {
+                        width: 95%;
+                    }
+                }
+            }
+            .image-gallery-slide-wrapper {
+                width: calc(60%);
+                margin-left: calc((20%-2em)/2);
+            }
+        }
+    }
     .image-gallery {
-        // .image-gallery-thumbnails-wrapper {
-        //     margin-left: 2em;
-        //     width: 13%;
-        //     .image-gallery-thumbnails {
-        //         overflow-y: auto;
-        //         left: 0;
-        //         .image-gallery-thumbnail {
-        //             width: 95%;
-        //         }
-        //     }
-        // }
+        .image-gallery-thumbnails-wrapper {
+            .image-gallery-thumbnails {
+                overflow-y: auto;
+            }
+        }
         .image-gallery-slide-wrapper {
             // width: calc(70%);
             // margin-left: calc((17%-2em)/2);
@@ -69,4 +97,5 @@
             }
         }
     }
+
 }

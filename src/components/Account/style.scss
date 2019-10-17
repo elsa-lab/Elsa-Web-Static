@@ -15,12 +15,26 @@
         font-family: 'Noto Sans TC', sans-serif;
     }
     .card-container {
+        vertical-align: middle;
         h3 {
             font-family: 'noto sans tc', sans-serif;
             margin: 1.6em 0 0.6em 0;
         }
         .btn {
             margin: .6em 0;
+            cursor: pointer;
+        }
+        input[type="file"] {
+            position: absolute;
+            left: 2.9em;
+            margin: .6em 0;
+            // width: 100px;
+            // height: 1px;
+            // padding: 0;
+            // margin: -1px;
+            // overflow: hidden;
+            clip-path: inset(0 0 0 100px);
+            // border: 0;
         }
         .card-text {
             margin: .6em 0;
@@ -41,13 +55,14 @@
                     font-size: 20px;
                 }
                 .form-input {
-                    input {
+                    input, textarea {
                         border: solid 1px #bebebe;
                         border-radius: 5px;
                         padding: 0.3em;
                         margin: 0 0 1em 0;
                         width: 100%;
                     }
+                    
                     p {
                         font-size: 18px;
                     }

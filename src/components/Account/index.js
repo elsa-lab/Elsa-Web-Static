@@ -114,7 +114,7 @@ class Account extends Component {
 
   renderManagementLink = () => {
     const { user } = this.state;
-    console.log(this.state);
+    // console.log(this.state);
     if (user) {
       if (user.profile.studentType === '4') {
         return (

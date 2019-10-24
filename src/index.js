@@ -38,6 +38,7 @@ import newsShow from './components/Manage/News/Show/Show';
 import newsEdit from './components/Manage/News/Edit/Edit';
 import 'dotenv';
 
+import './components/style/index.scss';
 import 'bootstrap/scss/bootstrap.scss';
 // router setting
 ReactDOM.render(
@@ -46,10 +47,7 @@ ReactDOM.render(
       <IndexRoute component={Home} />
       <Route exact path="/" component={Home} />
       <Route path="/courses" component={Courses} />
-      <Route
-        path="/courses(/:course_id)"
-        component={CourseContent}
-      />
+      <Route path="/courses(/:course_id)" component={CourseContent} />
       <Route
         path="/courses(/:course_id)/lectures(/:lecture_id)"
         component={PdfPage}

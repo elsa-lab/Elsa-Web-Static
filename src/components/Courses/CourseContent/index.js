@@ -7,24 +7,9 @@ import { Col, Row } from 'antd';
 
 import BackgroundImage from '../../static/background_image_invert_vertical.jpg';
 import Header from '../../Share/Header';
-import IconImg from '../../static/icon.png';
 import settings from '../../../settings';
-import Drawer from '../../Share/Drawer';
-import {
-  BackgroundColor,
-  BigTitle,
-  Hr,
-  IconImage,
-  LogoContent,
-  MainRow,
-  MedContent,
-  PageLink,
-  SmallContent,
-  Text,
-  Title1,
-  Title2,
-  TitleText,
-} from '../../Share';
+import Logo from '../../Share/Logo';
+import { BackgroundColor, PageLink, Text } from '../../Share';
 import { media, notebook } from '../../size';
 
 const BackgroundStyleColor = styled(BackgroundColor)`
@@ -39,6 +24,7 @@ const EachBlock = styled.div`
   background-color: rgba(0, 0, 0, 0.3);
   margin-left: auto;
   margin-right: auto;
+  margin-top: 5vh;
   margin-bottom: 5vh;
   color: white;
   font-size: 1.5vw;
@@ -77,24 +63,6 @@ const ImageArea = styled.div`
   background: url(${props => props.image});
   background-size: cover;
   background-position: center center;
-`;
-
-const TitleStyleText = styled(TitleText)`
-  ${media.lessThan('notebook')`
-    font-size: 10vw;
-  `};
-`;
-
-const IconStyleImage = styled(IconImage)`
-  ${media.lessThan('notebook')`
-    width: 8vw;
-  `};
-`;
-
-const MidText = styled.div`
-  font-size: 80%;
-  font-style: italic;
-  margin-top: 3vh;
 `;
 
 class CourseContent extends Component {
@@ -194,57 +162,25 @@ class CourseContent extends Component {
     }
 
     return (
-      <Row>
+      <Row id="courseContent">
         <Col xs={{ span: 24 }} xl={{ span: 9 }}>
           <BackgroundStyleColor color="#f8d188">
-            <MainRow type="flex" justify="center">
-              <LogoContent xs={{ span: 4 }} xl={{ span: 18 }}>
-                <Row type="flex" justify="start" align="middle" gutter={8}>
-                  <Col span={2.5}>
-                    <IconStyleImage src={IconImg} />
-                  </Col>
-                  <Col span={3}>
-                    <Title1>NTHU</Title1>
-                    <Title2>ELSA</Title2>
-                  </Col>
-                </Row>
-              </LogoContent>
-              <Col
-                xs={{ span: 4 }}
-                xl={{ span: 0 }}
-                offset={14}
-                className="mt-xs-4"
-              >
-                <Drawer />
-              </Col>
-              <SmallContent xs={{ span: 0 }} xl={{ span: 18 }} color="#8c8c8c">
-                <Row type="flex" justify="start" align="bottom">
-                  <Col span={6}>
-                    <Hr color="#8c8c8c" />
-                  </Col>
-                  <Col span={12} offset={1}>
-                    Home / Courses
-                  </Col>
-                </Row>
-              </SmallContent>
-              <BigTitle xs={{ span: 22 }} xl={{ span: 18 }}>
-                <TitleStyleText>
-                  {this.state.year} {seasonText}
-                </TitleStyleText>
-                <MidText>{this.state.title}</MidText>
-              </BigTitle>
-              <MedContent xs={{ span: 0 }} xl={{ span: 12 }} color="#8c8c8c">
-                {this.state.description}
-              </MedContent>
-              <Col span={6} />
-            </MainRow>
+            <Logo
+              xs={{ span: 0 }}
+              xl={{ span: 0 }}
+              time={this.state.year + seasonText}
+              content={this.state.title}
+              describe={this.state.description}
+            />
           </BackgroundStyleColor>
         </Col>
-        <Col xs={{ span: 24 }} xl={{ span: 15 }}>
+        <Col xs={{ span: 24 }} xl={{ span: 15 }} className="right">
           <MediaQuery query={`(max-width: ${notebook})`}>
             {matches => (!matches ? <Header fontColor="#9b9b9b" /> : <></>)}
           </MediaQuery>
-          {this.renderClassContent(content_id)}
+          <div className="classBlock">
+            {this.renderClassContent(content_id)}
+          </div>
         </Col>
       </Row>
     );

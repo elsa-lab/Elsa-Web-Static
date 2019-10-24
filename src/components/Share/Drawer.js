@@ -4,9 +4,10 @@ import { Drawer as DrawerAntd } from 'antd';
 import { Link } from 'react-router';
 
 const MenuIcon = styled.i`
-  font-size: 8vw;
+  font-size: 8em;
   color: white;
   margin-left: 2vw;
+  margin-top: 3em;
 `;
 
 const EachLink = styled(Link)`

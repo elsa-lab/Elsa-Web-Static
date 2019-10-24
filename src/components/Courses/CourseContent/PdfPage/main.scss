@@ -40,7 +40,6 @@
                 margin-left: 2em;
                 width: 13%;
                 .image-gallery-thumbnails {
-                    overflow-y: auto;
                     left: 0;
                     .image-gallery-thumbnail {
                         width: 95%;
@@ -59,7 +58,6 @@
                 margin-left: 2em;
                 width: 13%;
                 .image-gallery-thumbnails {
-                    overflow-y: auto;
                     left: 0;
                     .image-gallery-thumbnail {
                         width: 95%;
@@ -73,11 +71,6 @@
         }
     }
     .image-gallery {
-        .image-gallery-thumbnails-wrapper {
-            .image-gallery-thumbnails {
-                overflow-y: auto;
-            }
-        }
         .image-gallery-slide-wrapper {
             // width: calc(70%);
             // margin-left: calc((17%-2em)/2);

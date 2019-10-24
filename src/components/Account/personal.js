@@ -34,7 +34,7 @@ class Person extends Component {
         .then(res => {
           this.setState({
             userId: res.data.id,
-            studentType: res.data.profile.nick_name,
+            studentType: res.data.profile.studentType,
             researchArea: res.data.profile.researchArea,
             selfIntro: res.data.profile.selfIntro,
             nick_name: res.data.profile.nick_name,
@@ -70,6 +70,7 @@ class Person extends Component {
 
   handleSubmit = event => {
     // if (!this.validateForm()) return;
+    const { token } = localStorage;
     const data = new FormData();
     data.append('nick_name', this.state.nick_name);
     data.append('selfIntro', this.state.selfIntro);
@@ -77,8 +78,16 @@ class Person extends Component {
     data.append('studentType', this.state.studentType);
     data.append('picture', this.state.picture);
     const react_ins = this;
-    axios
-      .put(`${settings.backend_url}/user/${this.state.userId}`, data)
+    const ins = axios.create({
+      baseURL: settings.backend_url,
+      timeout: 1000,
+      headers: {
+        Authorization: `JWT ${token}`,
+      },
+    });
+
+    ins
+      .put(`user/${this.state.userId}`, data)
       .then(response => {
         // redirect to user page
         if (response.data.type === 'error') {
@@ -158,7 +167,7 @@ class Person extends Component {
                     className="form-control"
                     onChange={e => this.handleChange('studentType', e)}
                   >
-                    <option defaultValue="...">...</option>
+                    <option value={this.state.studentType}>...</option>
                     <option value="0">Course student</option>
                     <option value="1">Undergraduate </option>
                     <option value="2">Master</option>

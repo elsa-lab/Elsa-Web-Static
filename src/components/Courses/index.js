@@ -36,7 +36,7 @@ class Courses extends Component {
     ins
       .get('/courses')
       .then(res => {
-        // console.log(res.data);
+        console.log(res.data);
         this.setState({ courses: res.data });
       })
       .catch(error => {
@@ -47,29 +47,34 @@ class Courses extends Component {
   renderClass = () => {
     if (this.state.courses) {
       return this.state.courses.map(
-        ({ id, title, year, season, course_no, loading_image }) => {
+        ({ id, title, year, season, course_no, landing_image }) => {
+          if (landing_image) {
+            console.log(landing_image.file);
+          }
           let seasonText;
+          let landingImage;
           if (season === 0) {
             seasonText = '下學期';
           } else {
             seasonText = '上學期';
           }
+          if (landing_image) {
+            landingImage = settings.backend_url + landing_image.file;
+          } else {
+            landingImage = BackgroundImage;
+          }
           return (
             <a key={id} href={`/courses/${id}`}>
-              <div className="media mt-3 py-md-3 course-block align-items-center">
-                <div className="img-area ml-md-3 mr-3">
-                  <img
-                    src={loading_image || BackgroundImage}
-                    className="course-img"
-                    alt=""
-                  />
-                </div>
-                <div className="media-body my-1">
+              <div className="media mt-3 course-block justify-content-center align-items-center">
+                <div className="media-content">
                   <h6>
                     {year} {seasonText}
                   </h6>
                   <h5>{title}</h5>
                   <h6 className="course-id">課程代號: {course_no}</h6>
+                </div>
+                <div className="img-area">
+                  <img src={landingImage} className="course-img" alt="" />
                 </div>
               </div>
             </a>
@@ -97,33 +102,22 @@ class Courses extends Component {
 
   render() {
     return (
-      <Row>
+      <Row id="course">
         <Col xs={{ span: 24 }} xl={{ span: 9 }}>
           <BackgroundStyleColor color="#f8d188">
-            <Logo xs={{ span: 0 }} xl={{ span: 0 }} content="Course" />
-            <Row
-              xs={{ span: 24 }}
+            <Logo
+              xs={{ span: 0 }}
               xl={{ span: 0 }}
-              style={{ padding: `${24}px` }}
-              type="flex"
-              justify="start"
-              align="middle"
-              gutter={8}
-            >
-              <Col xs={{ span: 6 }} xl={{ span: 0 }}>
-                <h3 style={{ color: 'white' }}>Course</h3>
-              </Col>
-              <Col xs={{ span: 4 }} xl={{ span: 0 }} offset={14}>
-                <Drawer />
-              </Col>
-            </Row>
+              content="Course"
+              describe={this.state.description}
+            />
           </BackgroundStyleColor>
         </Col>
-        <Col xs={{ span: 24 }} xl={{ span: 15 }}>
+        <Col xs={{ span: 24 }} xl={{ span: 15 }} className="right">
           <MediaQuery query={`(max-width: ${notebook})`}>
             {matches => (!matches ? <Header fontColor="#9b9b9b" /> : <></>)}
           </MediaQuery>
-          {this.renderClass()}
+          <div className="block">{this.renderClass()}</div>
         </Col>
       </Row>
     );

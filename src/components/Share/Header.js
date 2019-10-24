@@ -25,18 +25,6 @@ const LinkCol = styled(Col)`
 `;
 
 class Header extends Component {
-  componentDidUpdate = () => {
-    const Nav = document.querySelector('#nav');
-    window.addEventListener('scroll', e => {
-      if (window.pageYOffset !== 0) {
-        Nav.style.backgroundColor = '#333';
-        Nav.style.color = 'red';
-      } else {
-        Nav.style.backgroundColor = 'transparent';
-      }
-    });
-  };
-
   renderLogin = () => {
     const { token } = localStorage;
     if (token) {

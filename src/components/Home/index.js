@@ -57,6 +57,7 @@ const BlackLayer = styled.div`
   position: absolute;
   top: 0;
   left: 0;
+  transition: 0.3s;
 
   :hover {
     cursor: pointer;
@@ -71,6 +72,7 @@ const Text = styled.div`
   margin: auto;
   width: 100%;
   height: 100%;
+  transition: 0.3s;
 
   :hover {
     color: rgba(255, 255, 255, 1);

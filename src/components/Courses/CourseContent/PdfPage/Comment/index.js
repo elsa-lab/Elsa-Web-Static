@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import { Comment as AntComment } from 'antd';
 import jdenticon from 'jdenticon';
+import { Comment as AntComment } from 'antd';
 
 import settings from '../../../../../settings';
 import { media } from '../../../../size';
@@ -33,6 +33,9 @@ const NeedLogin = styled.div`
   margin-bottom: 1vh;
 `;
 window.jdenticon_config = {
+  replaceMode: 'observe',
+};
+jdenticon.config = {
   replaceMode: 'observe',
 };
 class Comment extends Component {
@@ -85,7 +88,6 @@ class Comment extends Component {
   renderCommentForm = () => {
     const { token } = localStorage;
     const { submitting, value, pictureUrl } = this.state;
-
     // check login or not
     if (token) {
       if (pictureUrl) {
@@ -153,7 +155,7 @@ class Comment extends Component {
     ins
       .get(`lectures/${lectureId}/comments/${nowPage}`)
       .then(res => {
-        console.log(res.data);
+        // console.log(res.data);
         this.setState({ comments: res.data });
       })
       .catch(error => {

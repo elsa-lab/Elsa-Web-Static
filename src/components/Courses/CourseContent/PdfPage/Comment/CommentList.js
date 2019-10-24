@@ -30,7 +30,8 @@ const CommentList = ({ comments }) => (
           content,
           created_at: createdAt,
         } = props;
-        if (picture) {
+        if (picture.file) {
+          console.log(picture.file);
           return (
             <AntComment
               avatar={settings.backend_url + picture.file}

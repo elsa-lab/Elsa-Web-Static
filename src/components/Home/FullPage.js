@@ -117,12 +117,8 @@ class FullPage extends Component {
                   </Col>
                 </Row>
               </LogoContent>
-              <SmallContent
-                xs={{ span: 0 }}
-                xl={{ span: 18 }}
-                color={backgroundColorInvertMap[current]}
-              >
-                <Row type="flex" justify="start" align="bottom">
+              <SmallContent xs={{ span: 0 }} xl={{ span: 18 }} color="#a9a9a9">
+                <Row type="flex" justify="start" align="middle">
                   <Col span={6}>
                     <Hr color={backgroundColorInvertMap[current]} />
                   </Col>
@@ -138,11 +134,7 @@ class FullPage extends Component {
                 </TitleStyleText>
               </BigTitle>
               <Col xs={{ span: 2 }} xl={{ span: 0 }} />
-              <MedContent
-                xl={{ span: 12 }}
-                xs={{ span: 0 }}
-                color={medColorMap[current]}
-              >
+              <MedContent xl={{ span: 12 }} xs={{ span: 0 }} color="#a9a9a9">
                 {medContentMap[current]}
               </MedContent>
               <Col xs={{ span: 10 }} xl={{ span: 0 }} />

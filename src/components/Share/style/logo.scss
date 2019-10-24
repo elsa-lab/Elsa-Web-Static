@@ -1,37 +1,81 @@
-.mainRow {
-    padding: 3em 0 0 5em;
-    z-index: 11;
+#logo {
+    height: 100%;
+    .mainRow {
+        padding-left: 6vw;
+        padding-top: 5vw;
+        z-index: 11;
 
-    a {
-        display: inline-block;
-        cursor: pointer;
+        a {
+            display: inline-block;
+            cursor: pointer;
 
-        .iconBox {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content:flex-start;
-            align-items: center;
-            .iconImg {
-                width: 50px;
-                margin-right: 5px;
-                img {
-                    width: 100%;
+            .iconBox {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content:flex-start;
+                align-items: center;
+                .iconImg {
+                    width: 35px;
+                    margin-right: 5px;
+                    img {
+                        width: 100%;
+                    }
                 }
-            }
-            .iconText {
-                h3 {
-                    color: #f7f7f7;
-                    margin: 0;
-                    line-height: 1.2em;
+                .iconText {
+                    h3 {
+                        color: #f7f7f7;
+                        font-size: 15px;
+                        margin: 0;
+                        line-height: 1.2em;
+                    }
                 }
             }
         }
-    }
+        
+        .smallContent {
+            margin: 3em 0 3em 0;
+            font-size: 16px;
+            vertical-align: middle;
+            color: #f7f7f7;
+            
+            hr {
+                width: 25%;
+                border-top: none;
+                border-bottom: solid 2px #f7f7f7;
+                margin: 0 1em 0 0;
+                vertical-align: middle;
+                display: inline-block;
+            }
+        }
 
-    h1 {
-        color: #f7f7f7;
-        font-size: 4vw;
-        margin-top: 6vh;
-        font-weight: bold;
+        h1 {
+            color: #f7f7f7;
+            font-size: 3vw;
+            font-weight: bold;
+        }
+        
+        h3 {
+            color: #f7f7f7;
+            font-size: 3vw;
+            margin-top: 6vh;
+        }
+        
+        p {
+            color: #f7f7f7;
+            font-size: 1vw;
+        }
+    }
+    
+    .mainRow-mobile {
+        display: flex;
+        height: 100%;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 2em;
+        
+        i {
+            color: white;
+            font-size: 1.5em;
+        }
     }
 }

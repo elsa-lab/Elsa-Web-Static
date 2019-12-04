@@ -18,7 +18,6 @@ const EntryLink = styled.div`
   padding-right: 3.5vw;
   width: 100%;
   top: 70%;
-  left: 0;
 
   ${media.lessThan('notebook')`
     padding: 0;

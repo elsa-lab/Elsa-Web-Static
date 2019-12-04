@@ -1,0 +1,96 @@
+#about {
+  .description {
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+    font-size: 48px;
+  }
+  
+  .square-container {
+    flex-wrap: wrap;
+    overflow-y: hidden;
+    margin-top: 154px;
+
+    .square-row {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .square {
+      width: calc(100% / 3);
+      padding-top: calc(100% / 3);
+      overflow: hidden;
+      position: relative;
+      img, svg {
+        height: 100.1%;
+        position: absolute;
+        top: 0;left: 50%;
+        transform: translateX(-50%);
+        filter: grayscale(100%);
+        transition: 0.5s;
+        transform-origin: center;
+        cursor: pointer;
+      }
+    }
+
+    .square:hover {
+      img, svg {
+        filter: none;
+        height: 105%;
+      }
+    }
+    
+    .square-content {
+      height: 0;
+      overflow: hidden;
+      width: 100%;
+      z-index: 2;
+      transition: 0.8s;
+      opacity: 0;
+
+      .square-content-title {
+
+        h1 {
+          font-size: 28px;
+          font-weight: bold;
+          line-height: 16px;
+        }
+
+        h2 {
+          font-size: 24px;
+        }
+      }
+
+      .square-card {
+        font-weight: bold;
+
+        .title {
+          margin-bottom: 0.4em;
+          font-size: 24px;
+        }
+        
+        .content-block {
+          margin-bottom: 1em;
+
+          .year {
+            font-size: 20px;
+          }
+
+          p {
+            font-size: 18px;
+            font-weight: 500;
+            margin: 0;
+          }
+        }
+      }
+    }
+
+    .expended {
+      height: 570px;
+      padding: 2.8em;
+    }
+  }
+}

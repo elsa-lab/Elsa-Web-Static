@@ -1,131 +1,108 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+
+import ProjectHeader from '../Share/ProjectHeader';
+import settings from '../../settings';
 
 import Topic from './template/Topic';
-import Award from './template/Awarding';
 import Abstract from './template/Abstract';
 import Video from './template/Video';
 import Proposed from './template/Proposed';
+import Result from './template/Result';
 import Conclusion from './template/Conclusion';
+import Footer from './template/Footer';
 import './main.scss';
 import anime from './Ellipsis-2.2s-200px.svg';
 
-import Header from '../Share/Header';
-
-import axios from 'axios';
-import settings from '../../settings';
-import Particles from 'react-particles-js';
-
-
 class NewProject extends Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-        id: '',
-        topic: {
-          title: '',
-          subtitle: '',
-          year: '',
-          description: '',
-        },
-        cover_image_url: '',
-        video_url: '',
-        abstract: '',
-        conclusion: '',
-        created_at: '',
-        loading: true
-      }
-    }
-    componentWillMount() {
-        const ins = axios.create({
-            baseURL: settings.backend_url,
-            timeout: 1000,
+  constructor(props) {
+    super(props);
+    this.state = {
+      id: '',
+      topic: {
+        title: '',
+        subtitle: '',
+        year: '',
+        description: '',
+      },
+      video_url: '',
+      abstract: '',
+      sections: '',
+      conclusion: '',
+      loading: true,
+    };
+  }
+
+  componentWillMount() {
+    const ins = axios.create({
+      baseURL: settings.backend_url,
+      timeout: 1000,
+    });
+
+    ins
+      .get(`/projects/${this.props.params.project_id}`)
+      .then(res => {
+        this.setState({
+          id: res.data.id,
+          topic: {
+            title: res.data.title,
+            year: res.data.year,
+            subtitle: res.data.subtitle,
+            description: res.data.description,
+          },
+          video_url: res.data.video_url,
+          abstract: res.data.content,
+          conclusion: res.data.conclusion,
+          sections: res.data.sections,
         });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
 
-        ins
-            .get('/projects/'+this.props.params.project_id)
-            .then(res => {
-                this.setState({
-                    id: res.data.id,
-                    topic: {
-                        title: res.data.title,
-                        year: res.data.year,
-                        subtitle: res.data.subtitle,
-                        description: res.data.description
-                    },
-                    cover_image_url: res.data.image_url,
-                    video_url: res.data.video_url,
-                    abstract: res.data.content,
-                    conclusion: res.data.conclusion,
-                    created_at: res.data.created_at
-                });
-            })
-            .catch(error => {
-                console.log(error);
-            });
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({ loading: false });
+    }, 1000);
+  }
 
-
-    }
-
-    componentDidMount(){
-        setTimeout(
-            function() {
-                this.setState({loading: false});
-            }
-            .bind(this),
-            1000
-        );
-    }
-
-    render() {
-        let style;
-        if(this.state.loading === true) {
-            style = {opacity: 1};
-        } else {
-            style = {opacity: 0};
-        }
+  renderSection = () => {
+    if (this.state.sections.length === 1) {
       return (
-        <div>
-            <Header fontColor="#9b9b9b" />
-            <div id="loading" style={style}><img src={anime} alt=""/></div>;
-            <Particles
-                params={{
-                    "particles": {
-                        "number": {
-                            "value": 200
-                        },
-                        "line_linked": {
-                            "enable": true,
-                            "distance": 70,
-                            "opacity": 0.4,
-                            "color": "#636363"
-                        },
-                        "move": {
-                            "speed": 1
-                        },
-                        "opacity": {
-                            "anim": {
-                                "enable": true,
-                                "opacity_min": 0.05,
-                                "speed": 2,
-                                "sync": false
-                            },
-                            "value": 0.1
-                        },
-                        color: {"value":"#000000"}
-                    }
-                }}
-                className="particles"
-            />
-            <Topic projectName={this.state.topic.title} content={this.state.topic} />
-            <Award projectName={this.state.topic.title} imageUrl={this.state.cover_image_url}></Award>
-            <Abstract projectName={this.state.topic.title} content={this.state.abstract}></Abstract>
-            <Video projectName={this.state.topic.title} videoUrl={this.state.video_url}></Video>
-            {/*<Proposed projectName={this.state.topic.title} content={content.proposedMethodology}></Proposed>
-        <Conclusion projectName={this.state.topic.title} content={content.experimentalResults}></Conclusion>*/}
-        </div>
+        <div className="section-block">{this.state.sections[0].title}</div>
       );
     }
-}
+  };
 
+  render() {
+    let style;
+    if (this.state.loading === true) {
+      style = { opacity: 1 };
+    } else {
+      style = { opacity: 0, zIndex: 0 };
+    }
+
+    return (
+      <div id="singleProject">
+        <ProjectHeader fontColor="#364b8b" />
+        <div id="loading" style={style}>
+          <img src={anime} alt="" />
+        </div>
+
+        <Topic
+          projectName={this.state.topic.title}
+          content={this.state.topic}
+        />
+        <Abstract content={this.state.abstract} />
+        <Video videoUrl={this.state.video_url} />
+        <Proposed content={this.state.sections} />
+        <Result content={this.state} />
+        <Conclusion content={this.state.conclusion} />
+        <Footer />
+      </div>
+    );
+  }
+}
 
 export default NewProject;

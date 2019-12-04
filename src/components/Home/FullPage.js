@@ -26,7 +26,6 @@ import {
   backgroundColorInvertMap,
   backgroundImageMap,
   bigTitleMap,
-  medColorMap,
   medContentMap,
 } from './StyleMap';
 
@@ -57,8 +56,9 @@ const TitleStyleText = styled(TitleText)`
 `;
 
 const IconStyleImage = styled(IconImage)`
+  width: 35px;
   ${media.lessThan('notebook')`
-    width: 8vw;
+    width: 35px;
   `};
 `;
 
@@ -88,7 +88,7 @@ class FullPage extends Component {
     <Row>
       <TextCol span={24}>
         <PageLink to="/about">
-          <Text color="black">About Elsa Lab</Text>
+          <Text color="black">About</Text>
         </PageLink>
       </TextCol>
       <TextCol span={24}>{this.renderLogin(current)}</TextCol>
@@ -102,9 +102,9 @@ class FullPage extends Component {
       <Row>
         <Col xs={{ span: 24 }} xl={{ span: 9 }}>
           <BackgroundStyleColor>
-            <MainRow type="flex" justify="center">
+            <MainRow type="flex" justify="start">
               <LogoContent xs={{ span: 22 }} xl={{ span: 18 }}>
-                <Row type="flex" justify="start" align="middle" gutter={8}>
+                <Row type="flex" justify="start" align="middle" gutter={5}>
                   <Col>
                     <IconStyleImage src={IconImg} />
                   </Col>
@@ -119,12 +119,8 @@ class FullPage extends Component {
               </LogoContent>
               <SmallContent xs={{ span: 0 }} xl={{ span: 18 }} color="#a9a9a9">
                 <Row type="flex" justify="start" align="middle">
-                  <Col span={6}>
-                    <Hr color={backgroundColorInvertMap[current]} />
-                  </Col>
-                  <Col span={12} offset={1}>
-                    Professor : Chun-Yi Lee
-                  </Col>
+                  <Hr color={backgroundColorInvertMap[current]} />
+                  Professor : Chun-Yi Lee
                 </Row>
               </SmallContent>
               <BigTitle xs={{ span: 20 }} xl={{ span: 18 }}>
@@ -134,11 +130,11 @@ class FullPage extends Component {
                 </TitleStyleText>
               </BigTitle>
               <Col xs={{ span: 2 }} xl={{ span: 0 }} />
-              <MedContent xl={{ span: 12 }} xs={{ span: 0 }} color="#a9a9a9">
+              <MedContent xl={{ span: 14 }} xs={{ span: 0 }} color="#a9a9a9">
                 {medContentMap[current]}
               </MedContent>
               <Col xs={{ span: 10 }} xl={{ span: 0 }} />
-              <OtherLink xs={{ span: 0 }} xl={{ span: 6 }}>
+              <OtherLink xs={{ span: 0 }} xl={{ span: 4 }}>
                 {this.renderOtherBlock(current)}
               </OtherLink>
             </MainRow>

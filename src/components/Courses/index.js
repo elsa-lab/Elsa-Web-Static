@@ -8,7 +8,6 @@ import BackgroundImage from '../static/background_image_invert_vertical.jpg';
 import Header from '../Share/Header';
 import settings from '../../settings';
 import Logo from '../Share/Logo';
-import Drawer from '../Share/Drawer';
 import { BackgroundColor, PageLink, Text } from '../Share';
 import { media, notebook } from '../size';
 
@@ -48,9 +47,6 @@ class Courses extends Component {
     if (this.state.courses) {
       return this.state.courses.map(
         ({ id, title, year, season, course_no, landing_image }) => {
-          if (landing_image) {
-            console.log(landing_image.file);
-          }
           let seasonText;
           let landingImage;
           if (season === 0) {

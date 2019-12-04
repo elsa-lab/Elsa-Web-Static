@@ -28,13 +28,7 @@
             position: absolute;
             left: 2.9em;
             margin: .6em 0;
-            // width: 100px;
-            // height: 1px;
-            // padding: 0;
-            // margin: -1px;
-            // overflow: hidden;
             clip-path: inset(0 0 0 100px);
-            // border: 0;
         }
         .card-text {
             margin: .6em 0;
@@ -72,7 +66,6 @@
                 padding: 1em 2em;
                 background-color: #e4e4e7;
                 display: flex;
-                justify-content: end;
             }
         }
     }

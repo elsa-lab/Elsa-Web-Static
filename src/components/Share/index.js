@@ -9,39 +9,47 @@ export const BackgroundColor = styled.div`
 `;
 
 export const MainRow = styled(Row)`
-  padding-left: 3vw;
+  padding-left: 6vw;
   padding-top: 5vw;
+  z-index: 11;
 `;
 
 export const IconImage = styled.img`
-  width: 2vw;
+  width: 35px;
 `;
 
 export const Title1 = styled.p`
-  font-size: 0.75vw;
+  font-size: 13px;
+  line-height: 1.2em;
   margin: 0;
 `;
 
 export const Title2 = styled.p`
-  font-size: 1vw;
+  font-size: 18px;
+  line-height: 1.2em;
   margin: 0;
 `;
 
 export const LogoContent = styled(Col)`
   color: white;
+  padding: 0 15px;
 `;
 
 export const Hr = styled.hr`
-  width: 100%;
+  width: 105px;
   height: 2px;
+  vertical-align: middle;
   border: 0;
   background-color: #a9a9a9;
+  margin: 0 0.6em 0 0;
+  display: inline-block;
 `;
 
 export const SmallContent = styled(Col)`
   color: ${props => props.color};
   font-size: 1vw;
   margin-top: 5vh;
+  padding: 0 15px;
 `;
 
 export const BigTitle = styled(Col)`
@@ -49,6 +57,7 @@ export const BigTitle = styled(Col)`
   color: white;
   margin-top: 6vh;
   font-weight: bold;
+  padding-left: 15px;
 `;
 
 export const TitleText = styled.div`
@@ -59,6 +68,7 @@ export const MedContent = styled(Col)`
   color: ${props => props.color};
   font-size: 1vw;
   margin-top: 5vh;
+  padding-left: 15px;
 `;
 
 export const TextCol = styled.div`

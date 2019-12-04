@@ -45,7 +45,7 @@ const EachBlock = styled.div`
 
 const LinkArea = styled.div`
   width: 100%;
-  height: 20vh;
+  height: 100%;
 `;
 
 const LinkBlock = styled.div`
@@ -163,30 +163,22 @@ class Publications extends Component {
       <Row>
         <Col xs={{ span: 24 }} xl={{ span: 9 }}>
           <BackgroundStyleColor color="#aec3c2">
-            <Logo xs={{ span: 0 }} xl={{ span: 0 }} content="Publications" />
-            <Row
-              xs={{ span: 24 }}
+            <Logo
+              xs={{ span: 0 }}
               xl={{ span: 0 }}
-              style={{ padding: `${24}px` }}
-              type="flex"
-              justify="start"
-              align="middle"
-              gutter={8}
-            >
-              <Col xs={{ span: 6 }} xl={{ span: 0 }}>
-                <h3 style={{ color: 'white' }}>Publications</h3>
-              </Col>
-              <Col xs={{ span: 4 }} xl={{ span: 0 }} offset={14}>
-                <Drawer />
-              </Col>
-            </Row>
+              content="Publications"
+              describe={this.state.description}
+            />
           </BackgroundStyleColor>
         </Col>
         <Col xs={{ span: 24 }} xl={{ span: 15 }} className="right">
           <MediaQuery query={`(max-width: ${notebook})`}>
             {matches => (!matches ? <Header fontColor="#9b9b9b" /> : <></>)}
           </MediaQuery>
-          <Blocks>{this.renderPublications()}</Blocks>
+          <Blocks>
+            <h1 id="conference">Conference</h1>
+            {this.renderPublications()}
+          </Blocks>
         </Col>
       </Row>
     );

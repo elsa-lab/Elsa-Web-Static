@@ -1,34 +1,68 @@
 import React from 'react';
-import './style/proposed.scss';
+import Swiper from 'react-id-swiper';
 
-import pros1 from '../../static/System_structure_img_green.png'
+import 'react-id-swiper/lib/styles/scss/swiper.scss';
+import deco from '../../static/ProjectDeco.svg';
 
-import Fade from 'react-reveal/Fade';
+const params = {
+  slidesPerView: 3,
+  spaceBetween: 80,
+  autoplay: {
+    delay: 2500,
+    disableOnInteraction: false,
+  },
+};
 
-const Proposed = ({ projectName, content }) => (
-    <div className="section" id="Proposed">
-        <Fade top duration={600} distance="0.3em">
-            <h1>Proposed Methodology</h1>
-        </Fade>
-        <Fade delay={300} cascade duration={1000}>
-            <div className="cardContent">
-                <div className="card">
-                    <img src={pros1} alt=""/>
-                    <h1 className="content">{content[0].title}</h1>
-                </div>
-                <div className="card">
-                    <img src={pros1} alt=""/>
-                    <h1 className="content">{content[1].title}</h1>
-                </div>
-                <div className="card">
-                    <img src={pros1} alt=""/>
-                    <h1 className="content">{content[2].title}</h1>
-                </div>
-            </div>
-        </Fade>
+const Proposed = ({ content }) => (
+  <div id="proposed">
+    <div className="main-content">
+      <h1> Proposed Methodology </h1>
+      <Swiper {...params}>
+        <div className="section-block">
+          <div className="section-title">{content && content[0].title}</div>
+          <div className="seemore">See more</div>
+          <div className="project-deco">
+            <img src={deco} alt="" />
+          </div>
+        </div>
+        <div className="section-block">
+          <div className="section-title">{content && content[0].title}</div>
+          <div className="seemore">See more</div>
+          <div className="project-deco">
+            <img src={deco} alt="" />
+          </div>
+        </div>
+        <div className="section-block">
+          <div className="section-title">{content && content[0].title}</div>
+          <div className="seemore">See more</div>
+          <div className="project-deco">
+            <img src={deco} alt="" />
+          </div>
+        </div>
+        <div className="section-block">
+          <div className="section-title">{content && content[0].title}</div>
+          <div className="seemore">See more</div>
+          <div className="project-deco">
+            <img src={deco} alt="" />
+          </div>
+        </div>
+        <div className="section-block">
+          <div className="section-title">{content && content[0].title}</div>
+          <div className="seemore">See more</div>
+          <div className="project-deco">
+            <img src={deco} alt="" />
+          </div>
+        </div>
+        <div className="section-block">
+          <div className="section-title">{content && content[0].title}</div>
+          <div className="seemore">See more</div>
+          <div className="project-deco">
+            <img src={deco} alt="" />
+          </div>
+        </div>
+      </Swiper>
     </div>
-
+  </div>
 );
-
 
 export default Proposed;

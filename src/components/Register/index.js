@@ -1,13 +1,28 @@
 /* eslint-disable jsx-a11y/label-has-for */
 /* eslint-disable jsx-a11y/label-has-associated-control */
+import MediaQuery from 'react-responsive';
 import React, { Component } from 'react';
 import axios from 'axios';
+import styled from 'styled-components';
+import { Col, Row } from 'antd';
 
 import 'bootstrap/scss/bootstrap.scss';
 
 import settings from '../../settings';
+import { BackgroundColor } from '../Share';
+import Logo from '../Share/Logo';
+import Header from '../Share/Header';
 import './style.scss';
 import successIcon from '../static/success.svg';
+import { media, notebook } from '../size';
+
+const BackgroundStyleColor = styled(BackgroundColor)`
+  ${media.lessThan('notebook')`
+    height: 13vh;
+    z-index: 11;
+    box-shadow: 0px 1px 10px #0000004a;
+  `};
+`;
 
 class Register extends Component {
   state = {
@@ -137,172 +152,176 @@ class Register extends Component {
 
   render() {
     return (
-      <div id="signUp">
-        <div className="navbar d-flex fixed-top flex-md-row align-items-center p-3 px-md-4 mb-3 color">
-          <h5 className="mr-md-auto d-none d-sm-block font-weight-normal">
-            Elsa lab
-          </h5>
-          <nav className="my-md-0 my-3 mr-md-3">
-            <a className="p-2 text-dark" href="/">
-              Home
-            </a>
-          </nav>
-          <a className="btn btn-outline-primary" href="/login">
-            Sign in
-          </a>
-        </div>
-        {this.renderSuccess()}
-        <div className="container my-4">
-          {this.renderMessage()}
-          <form onSubmit={e => this.handleSubmit(e)}>
-            {/* Email */}
-            <div className="form-group">
-              <label>
-                <b className="red">*</b> Email (Username)
-              </label>
-              <input
-                id="email"
-                name="email"
-                size="large"
-                type="email"
-                autoComplete="username"
-                value={this.state.email}
-                onChange={e => this.handleChange('email', e)}
-              />
+      <Row>
+        <Col xs={{ span: 24 }} xl={{ span: 9 }}>
+          <BackgroundStyleColor color="#b0d4b6">
+            <Logo
+              xs={{ span: 0 }}
+              xl={{ span: 0 }}
+              content="Sign Up"
+              describe="Sign Up to get new account  for ELSA Lab"
+            />
+          </BackgroundStyleColor>
+        </Col>
+        <Col xs={{ span: 24 }} xl={{ span: 15 }} className="right">
+          <MediaQuery query={`(max-width: ${notebook})`}>
+            {matches => (!matches ? <Header fontColor="#9b9b9b" /> : <></>)}
+          </MediaQuery>
+          <div id="signUp">
+            {this.renderSuccess()}
+            <div className="container my-4">
+              {this.renderMessage()}
+              <form onSubmit={e => this.handleSubmit(e)}>
+                {/* Email */}
+                <div className="form-group">
+                  <label>
+                    <b className="red">*</b> Email (Username)
+                  </label>
+                  <input
+                    id="email"
+                    name="email"
+                    size="large"
+                    type="email"
+                    autoComplete="username"
+                    value={this.state.email}
+                    onChange={e => this.handleChange('email', e)}
+                  />
+                </div>
+                {/* Password */}
+                <div className="row form-group">
+                  <div className="col-md-6">
+                    <label>
+                      <b className="red">*</b> Password
+                    </label>
+                    <input
+                      size="large"
+                      type="password"
+                      name="password"
+                      required
+                      autoComplete="current-password"
+                      value={this.state.password}
+                      onChange={e => this.handleChange('password', e)}
+                    />
+                  </div>
+                  <div className="col-md-6">
+                    <label>
+                      <b className="red">*</b> Confirm password
+                    </label>
+                    <input
+                      size="large"
+                      type="password"
+                      required
+                      autoComplete="current-password"
+                      value={this.state.confirm_password}
+                      onChange={e => this.handleChange('confirm_password', e)}
+                    />
+                  </div>
+                </div>
+                {/* Name */}
+                <div className="row form-group">
+                  <div className="col-md-4">
+                    <label>
+                      <b className="red">*</b> Name
+                    </label>
+                    <input
+                      size="large"
+                      type="text"
+                      name="name"
+                      required
+                      value={this.state.name}
+                      onChange={e => this.handleChange('name', e)}
+                    />
+                  </div>
+                  <div className="col-md-4">
+                    <label>
+                      <b className="red">*</b> Nick name
+                    </label>
+                    <input
+                      size="large"
+                      type="text"
+                      name="nickname"
+                      required
+                      value={this.state.nick_name}
+                      onChange={e => this.handleChange('nick_name', e)}
+                    />
+                  </div>
+                </div>
+                {/* Intro */}
+                <div className="form-group">
+                  <label>Self introduction</label>
+                  <input
+                    id="selfIntro"
+                    name="selfIntro"
+                    size="large"
+                    type="text"
+                    value={this.state.selfIntro}
+                    onChange={e => this.handleChange('selfIntro', e)}
+                  />
+                </div>
+                {/* Information */}
+                <div className="row form-group">
+                  <div className="col-md-4">
+                    <label>
+                      <b className="red">*</b> Student ID
+                    </label>
+                    <input
+                      size="large"
+                      type="text"
+                      name="student_id"
+                      required
+                      value={this.state.student_id}
+                      onChange={e => this.handleChange('student_id', e)}
+                    />
+                  </div>
+                  <div className="col-md-4">
+                    <label>Reasearch area</label>
+                    <input
+                      size="large"
+                      name="researchArea"
+                      type="text"
+                      value={this.state.researchArea}
+                      onChange={e => this.handleChange('researchArea', e)}
+                    />
+                  </div>
+                  <div className="col-md-4">
+                    <label>
+                      <b className="red">*</b> Student type
+                    </label>
+                    <select
+                      name="studentType"
+                      value={this.state.studentType}
+                      required
+                      onChange={e => this.handleChange('studentType', e)}
+                    >
+                      <option value="">---</option>
+                      <option value="0">Course student</option>
+                      <option value="1">Undergraduate </option>
+                      <option value="2">Master</option>
+                      <option value="3">PHD</option>
+                    </select>
+                  </div>
+                </div>
+                {/* Picture */}
+                <div className="form-group">
+                  <label>
+                    <b className="red">*</b> Profile picture
+                  </label>
+                  <input
+                    className="form-group-profile"
+                    type="file"
+                    name="picture"
+                    aria-label="File browser example"
+                    accept="image/*"
+                    required
+                    onChange={e => this.handleChange('picture', e)}
+                  />
+                </div>
+                <input type="submit" className="summitBtn" value="Sign up" />
+              </form>
             </div>
-            {/* Password */}
-            <div className="row form-group">
-              <div className="col-md-6">
-                <label>
-                  <b className="red">*</b> Password
-                </label>
-                <input
-                  size="large"
-                  type="password"
-                  name="password"
-                  required
-                  autoComplete="current-password"
-                  value={this.state.password}
-                  onChange={e => this.handleChange('password', e)}
-                />
-              </div>
-              <div className="col-md-6">
-                <label>
-                  <b className="red">*</b> Confirm password
-                </label>
-                <input
-                  size="large"
-                  type="password"
-                  required
-                  autoComplete="current-password"
-                  value={this.state.confirm_password}
-                  onChange={e => this.handleChange('confirm_password', e)}
-                />
-              </div>
-            </div>
-            {/* Name */}
-            <div className="row form-group">
-              <div className="col-md-4">
-                <label>
-                  <b className="red">*</b> Name
-                </label>
-                <input
-                  size="large"
-                  type="text"
-                  name="name"
-                  required
-                  value={this.state.name}
-                  onChange={e => this.handleChange('name', e)}
-                />
-              </div>
-              <div className="col-md-4">
-                <label>
-                  <b className="red">*</b> Nick name
-                </label>
-                <input
-                  size="large"
-                  type="text"
-                  name="nickname"
-                  required
-                  value={this.state.nick_name}
-                  onChange={e => this.handleChange('nick_name', e)}
-                />
-              </div>
-            </div>
-            {/* Intro */}
-            <div className="form-group">
-              <label>Self introduction</label>
-              <input
-                id="selfIntro"
-                name="selfIntro"
-                size="large"
-                type="text"
-                value={this.state.selfIntro}
-                onChange={e => this.handleChange('selfIntro', e)}
-              />
-            </div>
-            {/* Information */}
-            <div className="row form-group">
-              <div className="col-md-4">
-                <label>
-                  <b className="red">*</b> Student ID
-                </label>
-                <input
-                  size="large"
-                  type="text"
-                  name="student_id"
-                  required
-                  value={this.state.student_id}
-                  onChange={e => this.handleChange('student_id', e)}
-                />
-              </div>
-              <div className="col-md-4">
-                <label>Reasearch area</label>
-                <input
-                  size="large"
-                  name="researchArea"
-                  type="text"
-                  value={this.state.researchArea}
-                  onChange={e => this.handleChange('researchArea', e)}
-                />
-              </div>
-              <div className="col-md-4">
-                <label>
-                  <b className="red">*</b> Student type
-                </label>
-                <select
-                  name="studentType"
-                  value={this.state.studentType}
-                  required
-                  onChange={e => this.handleChange('studentType', e)}
-                >
-                  <option value="">---</option>
-                  <option value="0">Course student</option>
-                  <option value="1">Undergraduate </option>
-                  <option value="2">Master</option>
-                  <option value="3">PHD</option>
-                </select>
-              </div>
-            </div>
-            {/* Picture */}
-            <div className="form-group">
-              <label>
-                <b className="red">*</b> Profile picture
-              </label>
-              <input
-                className="form-group-profile"
-                type="file"
-                name="picture"
-                aria-label="File browser example"
-                accept="image/*"
-                required
-                onChange={e => this.handleChange('picture', e)}
-              />
-            </div>
-            <input type="submit" className="summitBtn" value="Sign up" />
-          </form>
-        </div>
-      </div>
+          </div>
+        </Col>
+      </Row>
     );
   }
 }

@@ -1,12 +1,14 @@
 import MediaQuery from 'react-responsive';
 import React, { Component } from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 import { Col, Row } from 'antd';
+import jdenticon from 'jdenticon';
 
+import settings from '../../settings';
 import Drawer from '../Share/Drawer';
 import Header from '../Share/Header';
 import IconImg from '../static/icon.png';
-import TeacherImageSrc from '../static/home/teacher.png';
 import {
   BackgroundColor,
   BigTitle,
@@ -24,39 +26,9 @@ import {
 } from '../Share';
 import { media, notebook } from '../size';
 
-const TeachBlock = styled.div`
-  width: 100%;
-  float: right;
-  margin-top: 10vh;
-`;
-
-const MemberBlock = styled.div`
-  width: 100%;
-  height: 20vh;
-  text-align: center;
-  margin-top: 10vh;
-`;
-
-const MemberImageArea = styled.div`
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 3vh;
-`;
-
-const MemberImage = styled.img`
-  display: inline-block;
-  height: auto;
-  width: 18%;
-  margin: 2%;
-
-  ${media.lessThan('notebook')`
-  `};
-`;
-
-const MemberYear = styled.div`
-  margin-top: 3vh;
-`;
+jdenticon.config = {
+  replaceMode: 'observe',
+};
 
 const BackgroundStyleColor = styled(BackgroundColor)`
   ${media.lessThan('notebook')`
@@ -64,49 +36,9 @@ const BackgroundStyleColor = styled(BackgroundColor)`
   `};
 `;
 
-const BackgroundStyleColor2 = styled(BackgroundColor)`
-  overflow: auto;
-  height: 100vh;
-`;
-
 const IconStyleImage = styled(IconImage)`
   ${media.lessThan('notebook')`
     width: 8vw;
-  `};
-`;
-
-const TeacherImage = styled.img`
-  width: 13vw;
-  border-radius: 100%;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-
-  ${media.lessThan('notebook')`
-    width: 35vw;
-    margin-top: -3vh;
-  `};
-`;
-
-const Profile = styled.div`
-  font-size: 1vw;
-  color: white;
-  text-align: center;
-  margin-top: 2vh;
-
-  ${media.lessThan('notebook')`
-    text-align: left;
-  `};
-`;
-
-const ExperienceAndEducation = styled.div`
-  font-size: 0.9vw;
-  line-height: 140%;
-  color: white;
-  margin-top: -2vh;
-
-  ${media.lessThan('notebook')`
-    margin-top: 3vh;
   `};
 `;
 
@@ -121,6 +53,27 @@ const MedContentBlock = styled.div`
 `;
 
 class About extends Component {
+  state = {
+    lab_member: '',
+  };
+
+  componentWillMount() {
+    const ins = axios.create({
+      baseURL: settings.backend_url,
+      timeout: 1000,
+    });
+
+    ins
+      .get('/lab_member')
+      .then(res => {
+        console.log(res.data);
+        this.setState({ lab_member: res.data });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }
+
   renderLogin = () => {
     const { token } = localStorage;
     if (token) {
@@ -137,9 +90,99 @@ class About extends Component {
     );
   };
 
+  renderMember = () => {
+    if (this.state.lab_member) {
+      // eslint-disable-next-line no-return-assign
+      return this.state.lab_member.map(({ id, profile }, index) => (
+        <div
+          key={id}
+          name={index}
+          className="square"
+          onClick={() => this.expenContent(index)}
+        >
+          {profile.picture.file && (
+            <img src={settings.backend_url + profile.picture.file} alt="" />
+          )}
+          {!profile.picture.file && <svg data-jdenticon-value={profile.name} />}
+        </div>
+      ));
+    }
+  };
+
+  expenContent = num => {
+    const tmp = document.querySelector('.square-content');
+    const square = document.querySelectorAll('.square');
+    const row = document.createElement('div');
+    const titleBlock = document.createElement('div');
+    const name = document.createElement('h1');
+    const email = document.createElement('h2');
+    const cardLeft = document.createElement('div');
+    const cardRight = document.createElement('div');
+    const leftContent = document.createElement('div');
+    const rightContent = document.createElement('div');
+    row.classList.add('row', 'square-content');
+    titleBlock.classList.add('square-content-title', 'col-md-12');
+    cardLeft.classList.add('square-card', 'col-md-5');
+    cardRight.classList.add('square-card', 'col-md-7');
+
+    row.appendChild(titleBlock, cardLeft, cardRight);
+    titleBlock.appendChild(name, email);
+    cardLeft.appendChild(leftContent);
+    cardRight.appendChild(rightContent);
+    name.innerHTML = this.state.lab_member[num].profile.name;
+
+    if (document.querySelectorAll('.square-content').length !== 0) {
+      tmp.classList.remove('expended');
+      tmp.style.opacity = '0';
+      setTimeout(() => {
+        tmp.parentNode.removeChild(tmp);
+      }, 800);
+      if (num % 3 === 2) {
+        square[num].insertAdjacentElement('afterend', row);
+      } else if (num % 3 === 1 && square.length >= num + 1) {
+        square[num + 1].insertAdjacentElement('afterend', row);
+      } else if (num % 3 === 0 && num + 2 < square.length) {
+        square[num + 2].insertAdjacentElement('afterend', row);
+      } else if (num + 1 === square.length) {
+        square[num].insertAdjacentElement('afterend', row);
+      } else if (num + 2 === square.length) {
+        square[num + 1].insertAdjacentElement('afterend', row);
+      } else {
+        square[num].insertAdjacentElement('afterend', row);
+      }
+      setTimeout(() => {
+        row.classList.add('expended');
+      }, 800);
+      setTimeout(() => {
+        row.style.opacity = '1';
+      }, 1600);
+    } else {
+      if (num % 3 === 2) {
+        square[num].insertAdjacentElement('afterend', row);
+      } else if (num % 3 === 1 && square.length >= num + 1) {
+        square[num + 1].insertAdjacentElement('afterend', row);
+      } else if (num % 3 === 0 && num + 2 < square.length) {
+        square[num + 2].insertAdjacentElement('afterend', row);
+      } else if (num + 1 === square.length) {
+        square[num].insertAdjacentElement('afterend', row);
+      } else if (num + 2 === square.length) {
+        square[num + 1].insertAdjacentElement('afterend', row);
+      } else {
+        square[num].insertAdjacentElement('afterend', row);
+      }
+      setTimeout(() => {
+        row.classList.add('expended');
+      }, 100);
+      setTimeout(() => {
+        row.style.opacity = '1';
+      }, 900);
+    }
+  };
+
   render() {
     return (
-      <Row>
+      <Row id="about">
+        {/* left side */}
         <Col xs={{ span: 24 }} xl={{ span: 9 }}>
           <BackgroundStyleColor color="#ffbb87">
             <MainRow type="flex" justify="center">
@@ -199,104 +242,117 @@ class About extends Component {
             </MainRow>
           </BackgroundStyleColor>
         </Col>
-        <Col xs={{ span: 24 }} xl={{ span: 15 }}>
-          <BackgroundStyleColor2 color="#9c8370">
-            <MediaQuery query={`(max-width: ${notebook})`}>
-              {matches => (!matches ? <Header fontColor="white" /> : <></>)}
-            </MediaQuery>
-            <TeachBlock>
-              <Row type="flex" justify="center" align="top">
-                <Col xs={{ span: 24 }} xl={{ span: 10 }}>
-                  <Row type="flex" justify="start">
-                    <Col xs={{ span: 12 }} xl={{ span: 24 }}>
-                      <TeacherImage src={TeacherImageSrc} />
-                    </Col>
-                    <Col xs={{ span: 12 }} xl={{ span: 24 }}>
-                      <Profile>
-                        <b>
-                          Professor - <br />
-                          Chun-Yi Lee ( 李濬屹 ) <br />
-                          Ph.D. <br />
-                          cylee@cs.nthu.edu.tw
-                        </b>
-                      </Profile>
-                    </Col>
-                  </Row>
-                </Col>
-                <Col xs={{ span: 18 }} xl={{ span: 6 }}>
-                  <ExperienceAndEducation>
-                    <div>
-                      <b>Work Experience</b>
+        {/* right side */}
+        <Col className="right" xs={{ span: 24 }} xl={{ span: 15 }}>
+          {/* navbar   */}
+          <MediaQuery query={`(max-width: ${notebook})`}>
+            {matches => (!matches ? <Header fontColor="white" /> : <></>)}
+          </MediaQuery>
+          <div className="d-flex square-container">
+            {this.renderMember()}
+            {/* <div className="square-row">
+              <div className="square" onClick={() => this.expenContent(0)}>
+                <img src={picture} alt="" />
+              </div>
+              <div className="square" onClick={() => this.expenContent(0)}>
+                <img src={picture2} alt="" />
+              </div>
+              <div className="square" onClick={() => this.expenContent(0)}>
+                <img src={picture3} alt="" />
+              </div>
+              <div className="square-content row">
+                <div className="square-content-title col-md-12">
+                  <h1 className="name">Professor - Chun-Yi Lee, Ph.D.</h1>
+                  <h2 className="email">cylee@cs.nthu.edu.tw</h2>
+                </div>
+                <div className="square-card col-md-5">
+                  <div className="title">Work Experience</div>
+                  <div className="content">
+                    <div className="content-block">
+                      <div className="year">2015~</div>
+                      <p>Assistant Professor</p>
+                      <p>Department of Computer Science</p>
+                      <p>National Tsing Hua University</p>
                     </div>
-                    <br />
-                    <div>
-                      <b>2015 ~ </b>
+                    <div className="content-block">
+                      <div className="year">2012 ~ 2015</div>
+                      <p>Senior Hardware Engineer, </p>
+                      <p>Oracle America, Inc.</p>
                     </div>
-                    <div>Assistant Professor</div>
-                    <div>Department of Computer Science</div>
-                    <div>National Tsing Hua University</div>
-                    <br />
-                    <div>
-                      <b>2012 ~ 2015</b>
+                  </div>
+                </div>
+                <div className="square-card col-md-7">
+                  <div className="title">Education</div>
+                  <div className="content-block">
+                    <div className="year">2007 ~ 2012</div>
+                    <p>Ph.D., Department of Electrical Engineering,</p>
+                    <p>Princeton University</p>
+                  </div>
+                  <div className="content-block">
+                    <div className="year">2003 ~ 2005</div>
+                    <p>M.S., Department of Electrical Engineering,</p>
+                    <p>National Taiwan University</p>
+                  </div>
+                  <div className="content-block">
+                    <div className="year">1999 ~ 2003</div>
+                    <p>B.S., Department of Electrical Engineering,</p>
+                    <p>National Taiwan University </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="square-row">
+              <div className="square" onClick={() => this.expenContent(1)}>
+                <img src={picture3} alt="" />
+              </div>
+              <div className="square" onClick={() => this.expenContent(1)}>
+                <img src={picture} alt="" />
+              </div>
+              <div className="square" onClick={() => this.expenContent(1)}>
+                <img src={picture2} alt="" />
+              </div>
+              <div className="square-content row">
+                <div className="square-content-title col-md-12">
+                  <h1 className="name">Professor - Chun-Yi Lee, Ph.D.</h1>
+                  <h2 className="email">cylee@cs.nthu.edu.tw</h2>
+                </div>
+                <div className="square-card col-md-5">
+                  <div className="title">Work Experience</div>
+                  <div className="content">
+                    <div className="content-block">
+                      <div className="year">2015~</div>
+                      <p>Assistant Professor</p>
+                      <p>Department of Computer Science</p>
+                      <p>National Tsing Hua University</p>
                     </div>
-                    <div>Senior Hardware Engineer,</div>
-                    <div> Oracle America, Inc. </div>
-                    <br />
-                    <div> _ </div>
-                    <br />
-                    <div>
-                      <b>Education</b>
+                    <div className="content-block">
+                      <div className="year">2012 ~ 2015</div>
+                      <p>Senior Hardware Engineer, </p>
+                      <p>Oracle America, Inc.</p>
                     </div>
-                    <br />
-                    <div>
-                      <b>2007 ~ 2012</b>
-                    </div>
-                    <div>Ph.D., Department of Electrical Engineering,</div>
-                    <div>Princeton University</div>
-                    <br />
-                    <div>
-                      <b>2003 ~ 2005</b>
-                    </div>
-                    <div>M.S., Department of Electrical Engineering,</div>
-                    <div>National Taiwan University</div>
-                    <br />
-                    <div>
-                      <b>1999 ~ 2003</b>
-                    </div>
-                    <div>B.S., Department of Electrical Engineering,</div>
-                    <div>National Taiwan University</div>
-                    <br />
-                  </ExperienceAndEducation>
-                </Col>
-              </Row>
-              <MemberBlock>
-                <MemberYear>
-                  ———————————————————————— 2018 ————————————————————————
-                </MemberYear>
-                <MemberImageArea>
-                  <MemberImage src={TeacherImageSrc} />
-                  <MemberImage src={TeacherImageSrc} />
-                  <MemberImage src={TeacherImageSrc} />
-                </MemberImageArea>
-                <MemberYear>
-                  ———————————————————————— 2017 ————————————————————————
-                </MemberYear>
-                <MemberImageArea>
-                  <MemberImage src={TeacherImageSrc} />
-                  <MemberImage src={TeacherImageSrc} />
-                  <MemberImage src={TeacherImageSrc} />
-                </MemberImageArea>
-                <MemberYear>
-                  ———————————————————————— 2016 ————————————————————————
-                </MemberYear>
-                <MemberImageArea>
-                  <MemberImage src={TeacherImageSrc} />
-                  <MemberImage src={TeacherImageSrc} />
-                  <MemberImage src={TeacherImageSrc} />
-                </MemberImageArea>
-              </MemberBlock>
-            </TeachBlock>
-          </BackgroundStyleColor2>
+                  </div>
+                </div>
+                <div className="square-card col-md-7">
+                  <div className="title">Education</div>
+                  <div className="content-block">
+                    <div className="year">2007 ~ 2012</div>
+                    <p>Ph.D., Department of Electrical Engineering,</p>
+                    <p>Princeton University</p>
+                  </div>
+                  <div className="content-block">
+                    <div className="year">2003 ~ 2005</div>
+                    <p>M.S., Department of Electrical Engineering,</p>
+                    <p>National Taiwan University</p>
+                  </div>
+                  <div className="content-block">
+                    <div className="year">1999 ~ 2003</div>
+                    <p>B.S., Department of Electrical Engineering,</p>
+                    <p>National Taiwan University </p>
+                  </div>
+                </div>
+              </div>
+            </div> */}
+          </div>
         </Col>
       </Row>
     );

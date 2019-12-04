@@ -30,12 +30,6 @@ const BackgroundStyleColor = styled(BackgroundColor)`
   `};
 `;
 
-const BackgroundStyleColor2 = styled(BackgroundColor)`
-  ${media.lessThan('notebook')`
-    height: 100%;
-  `};
-`;
-
 const EachBlock = styled.div`
   width: 100%;
   height: 20vh;

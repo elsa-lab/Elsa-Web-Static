@@ -52,8 +52,6 @@ class PdfPage extends Component {
   };
 
   render() {
-    
-    
     const images = [];
     let seasonText;
     if (this.state.course.season === 0) {

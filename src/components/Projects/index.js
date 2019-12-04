@@ -7,7 +7,7 @@ import axios from 'axios';
 
 import Drawer from '../Share/Drawer';
 import Header from '../Share/Header';
-import Logo from '../Share/Logo'
+import Logo from '../Share/Logo';
 import settings from '../../settings';
 import { BackgroundColor, PageLink, Text, TextCol } from '../Share';
 import { media, notebook } from '../size';
@@ -27,11 +27,6 @@ const Blocks = styled.div`
 const BackgroundStyleColor = styled(BackgroundColor)`
   ${media.lessThan('notebook')`
     height: 60vh;
-  `};
-`;
-const BackgroundStyleColor2 = styled(BackgroundColor)`
-  ${media.lessThan('notebook')`
-    height: 100%;
   `};
 `;
 

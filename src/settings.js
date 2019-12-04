@@ -1,7 +1,7 @@
 // FIXME: root_url 的 Port 若要改，static server 的 Port 也要改
 const settings = {
-  root_url: 'http://www.elsalab.ai',
-  // root_url: 'http://localhost:3000',
+  // root_url: 'http://www.elsalab.ai',
+  root_url: 'http://localhost:3000',
   // backend_url: 'http://35.201.173.113:8080',
   backend_url: 'http://35.201.173.113:8080',
   // backend_url: 'http://127.0.0.1:8000',

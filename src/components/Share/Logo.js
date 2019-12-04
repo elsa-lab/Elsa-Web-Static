@@ -42,15 +42,19 @@ class Logo extends Component {
               </div>
               <div className="iconText">
                 <h3>NTHU</h3>
-                <h3>ELSA</h3>
+                <h4>ELSA</h4>
               </div>
             </div>
           </a>
           <div className="smallContent col-md-10">
-            <hr /> Professor : Chun-Yi Lee
+            <hr />
+            Professor : Chun-Yi Lee
           </div>
           <h3 className="col-md-10">{this.props.time}</h3>
-          <h1 className="col-md-10">{this.props.content}</h1>
+          <h1 className="col-md-10">
+            <br />
+            {this.props.content}
+          </h1>
           <p className="col-md-10 ml-1 mt-4">{this.props.describe}</p>
         </div>
         <div className="mainRow-mobile d-xl-none">

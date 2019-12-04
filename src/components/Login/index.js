@@ -8,23 +8,9 @@ import { Link } from 'react-router';
 import './style.scss';
 
 import Header from '../Share/Header';
-import IconImg from '../static/icon.png';
 import settings from '../../settings';
-import {
-  BackgroundColor,
-  BigTitle,
-  Hr,
-  IconImage,
-  LogoContent,
-  MainRow,
-  MedContent,
-  PageLink,
-  SmallContent,
-  Text,
-  Title1,
-  Title2,
-  TitleText,
-} from '../Share';
+import Logo from '../Share/Logo';
+import { BackgroundColor, PageLink, Text } from '../Share';
 import { media, notebook } from '../size';
 
 const TeachBlock = styled.div`
@@ -50,12 +36,6 @@ const BackgroundStyleColor2 = styled(BackgroundColor)`
   `};
 `;
 
-const IconStyleImage = styled(IconImage)`
-  ${media.lessThan('notebook')`
-    width: 8vw;
-  `};
-`;
-
 const InputText = styled.div`
   font-weight: bold;
   color: white;
@@ -70,17 +50,12 @@ const ErrorText = styled.div`
   margin-left: 1.2em;
 `;
 
-const TitleStyleText = styled(TitleText)`
-  ${media.lessThan('notebook')`
-    font-size: 10vw;
-  `};
-`;
-
 const SignUpLinkBlock = styled.div`
   background-color: rgba(161, 161, 161, 0.6);
   color: white;
   width: 100%;
   height: 4vh;
+  font-size: 12px;
   line-height: 4vh;
   margin-top: 2vh;
   text-align: center;
@@ -166,44 +141,20 @@ class Login extends Component {
   render() {
     return (
       <Row id="login">
-        <MediaQuery query={`(max-width: ${notebook})`}>
-          {matches => (!matches ? <Header fontColor="white" /> : <></>)}
-        </MediaQuery>
         <Col xs={{ span: 24 }} xl={{ span: 9 }}>
           <BackgroundStyleColor color="#aac2ff">
-            <MainRow type="flex" justify="center">
-              <LogoContent xs={{ span: 22 }} xl={{ span: 18 }}>
-                <Row type="flex" justify="start" align="middle" gutter={8}>
-                  <Col>
-                    <IconStyleImage src={IconImg} />
-                  </Col>
-                  <Col>
-                    <Title1>NTHU</Title1>
-                    <Title2>ELSA</Title2>
-                  </Col>
-                </Row>
-              </LogoContent>
-              <SmallContent xs={{ span: 22 }} xl={{ span: 18 }} color="#8c8c8c">
-                <Row type="flex" justify="start" align="bottom">
-                  <Col span={6}>
-                    <Hr color="#8c8c8c" />
-                  </Col>
-                  <Col span={12} offset={1}>
-                    <b>Home</b>
-                  </Col>
-                </Row>
-              </SmallContent>
-              <BigTitle xs={{ span: 22 }} xl={{ span: 18 }}>
-                <TitleStyleText>Sign In</TitleStyleText>
-              </BigTitle>
-              <MedContent xs={{ span: 22 }} xl={{ span: 12 }} color="#8c8c8c">
-                Sign in to get more informations
-              </MedContent>
-              <Col span={6} />
-            </MainRow>
+            <Logo
+              xs={{ span: 0 }}
+              xl={{ span: 0 }}
+              content="Login"
+              describe={this.state.description}
+            />
           </BackgroundStyleColor>
         </Col>
         <Col xs={{ span: 24 }} xl={{ span: 15 }}>
+          <MediaQuery query={`(max-width: ${notebook})`}>
+            {matches => (!matches ? <Header fontColor="white" /> : <></>)}
+          </MediaQuery>
           <BackgroundStyleColor2 color="#6e7794">
             <TeachBlock>
               <Row type="flex" justify="start" align="top">

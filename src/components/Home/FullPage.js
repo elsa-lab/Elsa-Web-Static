@@ -39,10 +39,6 @@ const BackgroundImage = styled.div`
 
 const BackgroundStyleColor = styled(BackgroundColor)`
   background-color: #333;
-  ${media.lessThan('notebook')`
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
-    height: 70vh;
-  `};
 `;
 
 const OtherLink = styled(Col)`
@@ -50,14 +46,14 @@ const OtherLink = styled(Col)`
 `;
 
 const TitleStyleText = styled(TitleText)`
-  ${media.lessThan('notebook')`
+  ${media.lessThan('md')`
     font-size: 10vw;
   `};
 `;
 
 const IconStyleImage = styled(IconImage)`
   width: 35px;
-  ${media.lessThan('notebook')`
+  ${media.lessThan('md')`
     width: 35px;
   `};
 `;
@@ -100,10 +96,10 @@ class FullPage extends Component {
 
     return (
       <Row>
-        <Col xs={{ span: 24 }} xl={{ span: 9 }}>
+        <Col xs={24} md={9}>
           <BackgroundStyleColor>
             <MainRow type="flex" justify="start">
-              <LogoContent xs={{ span: 22 }} xl={{ span: 18 }}>
+              <LogoContent xs={24} md={18}>
                 <Row type="flex" justify="start" align="middle" gutter={5}>
                   <Col>
                     <IconStyleImage src={IconImg} />
@@ -112,35 +108,33 @@ class FullPage extends Component {
                     <Title1>NTHU</Title1>
                     <Title2>ELSA</Title2>
                   </Col>
-                  <Col xs={{ span: 10 }} xl={{ span: 0 }} offset={8}>
+                  <Col md={0} offset={14}>
                     {this.renderOtherBlock()}
                   </Col>
                 </Row>
               </LogoContent>
-              <SmallContent xs={{ span: 0 }} xl={{ span: 18 }} color="#a9a9a9">
+              <SmallContent xs={0} md={24} color="#a9a9a9">
                 <Row type="flex" justify="start" align="middle">
                   <Hr color={backgroundColorInvertMap[current]} />
                   Professor : Chun-Yi Lee
                 </Row>
               </SmallContent>
-              <BigTitle xs={{ span: 20 }} xl={{ span: 18 }}>
+              <BigTitle xs={20} md={18}>
                 <TitleStyleText>
                   {current !== 0 ? <br /> : ''}
                   {bigTitleMap[current]}
                 </TitleStyleText>
               </BigTitle>
-              <Col xs={{ span: 2 }} xl={{ span: 0 }} />
-              <MedContent xl={{ span: 14 }} xs={{ span: 0 }} color="#a9a9a9">
+              <MedContent xs={0} md={14} color="#a9a9a9">
                 {medContentMap[current]}
               </MedContent>
-              <Col xs={{ span: 10 }} xl={{ span: 0 }} />
-              <OtherLink xs={{ span: 0 }} xl={{ span: 4 }}>
+              <OtherLink xs={0} md={4} offset={1}>
                 {this.renderOtherBlock(current)}
               </OtherLink>
             </MainRow>
           </BackgroundStyleColor>
         </Col>
-        <Col xs={{ span: 0 }} xl={{ span: 15 }}>
+        <Col xs={0} md={15}>
           <BackgroundImage image={backgroundImageMap[current]} />
         </Col>
       </Row>

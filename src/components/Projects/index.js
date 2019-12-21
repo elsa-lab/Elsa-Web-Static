@@ -8,9 +8,10 @@ import axios from 'axios';
 import Drawer from '../Share/Drawer';
 import Header from '../Share/Header';
 import Logo from '../Share/Logo';
+import MobileContent from '../Share/MobileContent';
 import settings from '../../settings';
 import { BackgroundColor, PageLink, Text, TextCol } from '../Share';
-import { media, notebook } from '../size';
+import { media, xl, lg, md, sm } from '../size';
 
 const Blocks = styled.div`
   padding-top: 15vh;
@@ -18,15 +19,17 @@ const Blocks = styled.div`
   height: 92vh;
   overflow-y: auto;
 
-  ${media.lessThan('notebook')`
+  ${media.lessThan('md')`
     padding-top: 0;
     height: 100%;
   `};
 `;
 
 const BackgroundStyleColor = styled(BackgroundColor)`
-  ${media.lessThan('notebook')`
-    height: 60vh;
+  ${media.lessThan('md')`
+    height: 13vh;
+    z-index: 11;
+    position: fixed;
   `};
 `;
 
@@ -38,7 +41,7 @@ const EachBlock = styled.div`
   color: white;
   font-size: 1.2vw;
 
-  ${media.lessThan('notebook')`
+  ${media.lessThan('md')`
     margin-bottom: 0;
   `};
 `;
@@ -50,7 +53,7 @@ const Title = styled.div`
   font-size: 1.6vw;
   padding-top: 1vh;
 
-  ${media.lessThan('notebook')`
+  ${media.lessThan('md')`
     padding-top: 1vh;
     font-size:4vw;
   `};
@@ -60,7 +63,7 @@ const TextArea = styled.div`
   padding-right: 4vw;
   padding-top: 2vh;
 
-  ${media.lessThan('notebook')`
+  ${media.lessThan('md')`
     padding-top: 3.5vh;
     padding-left: 4vw;
     font-size:2vw;
@@ -106,10 +109,9 @@ class Projects extends Component {
       let isChangeOrder = false;
       return this.state.projects.map(
         ({ id, year, title, subtitle, image_url }) => {
-          console.log(id, year, title, subtitle, image_url);
           isChangeOrder = !isChangeOrder;
           return (
-            <Link key={title} to={'/project/' + id}>
+            <Link key={title} to={`/project/${id}`}>
               <EachBlock key={title}>
                 <Row type="flex">
                   <Col
@@ -174,16 +176,19 @@ class Projects extends Component {
   render() {
     return (
       <Row>
-        <Col xs={{ span: 24 }} xl={{ span: 9 }}>
+        <Col xs={24} md={9}>
           <BackgroundStyleColor color="#a1afd8">
             <Logo content="Projects" />
           </BackgroundStyleColor>
         </Col>
-        <Col xs={{ span: 24 }} xl={{ span: 15 }}>
-          <MediaQuery query={`(max-width: ${notebook})`}>
+        <Col xs={24} md={15}>
+          <MediaQuery query={`(max-width: ${md})`}>
             {matches => (!matches ? <Header fontColor="#9b9b9b" /> : <></>)}
           </MediaQuery>
-          <Blocks>{this.renderProject()}</Blocks>
+          <Blocks>
+            <MobileContent color="#a1afd8" content="Project" />
+            {this.renderProject()}
+          </Blocks>
         </Col>
       </Row>
     );

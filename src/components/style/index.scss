@@ -1,3 +1,5 @@
+@import 'utility/var';
+
 * {
   box-sizing: border-box;
 }
@@ -13,5 +15,22 @@ body, html {
   overflow: auto;
 }
 
-@import './course.scss';
+.mobile-nav-content {
+  padding: 3em 2.5em;
+  margin-top: 13vh;
+  hr {
+    margin: auto 0;
+    border-top: solid 2px #8c8c8c;
+  }
+  b {
+    color: #8c8c8c;
+  }
+  h1 {
+    padding: 0;
+    color: white;
+    font-weight: bold;
+    margin-top: 0.6em;
+  }
+}
+
 @import './about.scss';

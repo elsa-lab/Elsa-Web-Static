@@ -6,10 +6,10 @@ import ImageGallery from 'react-image-gallery';
 
 import Header from '../../../Share/Header';
 import settings from '../../../../settings';
-import { notebook } from '../../../size';
+import { media, xl, lg, md, sm } from '../../../size';
 import Drawer from '../../../Share/Drawer';
 
-import './main.scss';
+import '../../../style/course.scss';
 
 import Comment from './Comment';
 
@@ -67,7 +67,7 @@ class PdfPage extends Component {
     }
     return (
       <div>
-        <MediaQuery query={`(max-width: ${notebook})`}>
+        <MediaQuery query={`(max-width: ${md})`}>
           {matches => (!matches ? <Header fontColor="#9b9b9b" /> : <></>)}
         </MediaQuery>
         <div

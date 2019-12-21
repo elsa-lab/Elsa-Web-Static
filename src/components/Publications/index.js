@@ -4,13 +4,13 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { Col, Row } from 'antd';
 
-import Drawer from '../Share/Drawer';
 import Header from '../Share/Header';
 import settings from '../../settings';
 import Logo from '../Share/Logo';
-import { BackgroundColor, PageLink, Text, TextCol } from '../Share';
-import './style.scss';
-import { media, notebook } from '../size';
+import MobileContent from '../Share/MobileContent';
+import { BackgroundColor, PageLink, Text } from '../Share';
+import '../style/publication.scss';
+import { media, xl, lg, md, sm } from '../size';
 
 const Blocks = styled.div`
   padding-top: 15vh;
@@ -18,15 +18,9 @@ const Blocks = styled.div`
   height: 92vh;
   overflow-y: auto;
 
-  ${media.lessThan('notebook')`
+  ${media.lessThan('md')`
     padding-top: 0;
     height: 100%;
-  `};
-`;
-
-const BackgroundStyleColor = styled(BackgroundColor)`
-  ${media.lessThan('notebook')`
-    height: 13vh;
   `};
 `;
 
@@ -37,7 +31,7 @@ const EachBlock = styled.div`
   color: white;
   font-size: 1.2vw;
 
-  ${media.lessThan('notebook')`
+  ${media.lessThan('md')`
     margin-bottom: 0;
     margin-top: 2vh;
   `};
@@ -101,9 +95,9 @@ class Publications extends Component {
       }) => (
         <EachBlock key={publicationId}>
           <Row type="flex">
-            <Col span={20} color="#0B322B">
+            <Col xs={18} md={20} color="#0B322B">
               <div className="textarea">
-                <label>{year}</label>
+                <text>{year}</text>
                 <h1>{title}</h1>
                 <hr />
                 <h3>
@@ -111,7 +105,7 @@ class Publications extends Component {
                 </h3>
               </div>
             </Col>
-            <Col span={4}>
+            <Col xs={6} md={4}>
               <LinkArea>
                 <LinkBlock color="rgba(0, 0, 0, 0.3)">
                   <LinkText href={arXivUrl}>arXiv</LinkText>
@@ -142,41 +136,21 @@ class Publications extends Component {
     );
   };
 
-  renderOtherBlock = () => (
-    <Row type="flex" justify="end">
-      <Col span={14}>
-        <TextCol>
-          <PageLink to="/about">
-            <Text color="rgba(0, 0, 0, 0.4)">About Elsa Lab</Text>
-          </PageLink>
-        </TextCol>
-        <TextCol>{this.renderLogin()}</TextCol>
-      </Col>
-      <Col span={5}>
-        <Drawer />
-      </Col>
-    </Row>
-  );
-
   render() {
     return (
       <Row>
-        <Col xs={{ span: 24 }} xl={{ span: 9 }}>
-          <BackgroundStyleColor color="#aec3c2">
-            <Logo
-              xs={{ span: 0 }}
-              xl={{ span: 0 }}
-              content="Publications"
-              describe={this.state.description}
-            />
-          </BackgroundStyleColor>
+        <Col sm={24} md={9}>
+          <BackgroundColor color="#aec3c2">
+            <Logo content="Publications" describe={this.state.description} />
+          </BackgroundColor>
         </Col>
-        <Col xs={{ span: 24 }} xl={{ span: 15 }} className="right">
-          <MediaQuery query={`(max-width: ${notebook})`}>
+        <Col sm={24} md={15} className="right">
+          <MediaQuery query={`(max-width: ${md})`}>
             {matches => (!matches ? <Header fontColor="#9b9b9b" /> : <></>)}
           </MediaQuery>
           <Blocks>
-            <h1 id="conference">Conference</h1>
+            <MobileContent color="#aec3c2" content="Publication" />
+            {/* <h1 id="conference">Conference</h1> */}
             {this.renderPublications()}
           </Blocks>
         </Col>

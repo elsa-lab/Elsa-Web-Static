@@ -1,0 +1,20 @@
+#login {
+  input {
+    border: 1px solid #696969;
+    width: 100%;
+    border-radius: 5px; 
+    padding: 0.25rem;
+  }
+  .submitbtn {
+    width: 30%;    
+    left: 100%;
+    position: relative;
+    transform: translateX(-100%);
+    margin: 1em 0;
+    font-size: 18px;
+    border-radius: 0;
+    cursor: pointer;
+    background-color:#535353;
+    color: white;
+  }
+}

@@ -2,10 +2,18 @@ import styled from 'styled-components';
 import { Col, Row } from 'antd';
 import { Link } from 'react-router';
 
+import { media } from '../size';
+
 export const BackgroundColor = styled.div`
   background-color: ${props => props.color};
   height: 100vh;
   width: 100%;
+  ${media.lessThan('md')`
+    height: 13vh;
+    display: inline-block;
+    position: fixed;
+    z-index: 11;
+  `};
 `;
 
 export const MainRow = styled(Row)`
@@ -62,6 +70,9 @@ export const BigTitle = styled(Col)`
 
 export const TitleText = styled.div`
   line-height: 1.2;
+  ${media.lessThan('md')`
+    margin-bottom: 0.5em;
+  `};
 `;
 
 export const MedContent = styled(Col)`

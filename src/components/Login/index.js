@@ -5,13 +5,13 @@ import styled from 'styled-components';
 import { Col, Row } from 'antd';
 import { Link } from 'react-router';
 
-import './style.scss';
+import '../style/login.scss';
 
 import Header from '../Share/Header';
 import settings from '../../settings';
 import Logo from '../Share/Logo';
 import { BackgroundColor, PageLink, Text } from '../Share';
-import { media, notebook } from '../size';
+import { media, xl, lg, md, sm } from '../size';
 
 const TeachBlock = styled.div`
   width: 100%;
@@ -19,19 +19,19 @@ const TeachBlock = styled.div`
   margin-top: 20vh;
   padding-left: 5vw;
 
-  ${media.lessThan('notebook')`
+  ${media.lessThan('md')`
     margin-top: 3vh;
   `};
 `;
 
 const BackgroundStyleColor = styled(BackgroundColor)`
-  ${media.lessThan('notebook')`
+  ${media.lessThan('md')`
     height: 45vh;
   `};
 `;
 
 const BackgroundStyleColor2 = styled(BackgroundColor)`
-  ${media.lessThan('notebook')`
+  ${media.lessThan('md')`
     height: 55vh;
   `};
 `;
@@ -152,7 +152,7 @@ class Login extends Component {
           </BackgroundStyleColor>
         </Col>
         <Col xs={{ span: 24 }} xl={{ span: 15 }}>
-          <MediaQuery query={`(max-width: ${notebook})`}>
+          <MediaQuery query={`(max-width: ${md})`}>
             {matches => (!matches ? <Header fontColor="white" /> : <></>)}
           </MediaQuery>
           <BackgroundStyleColor2 color="#6e7794">

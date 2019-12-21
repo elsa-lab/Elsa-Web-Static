@@ -1,30 +1,7 @@
-import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import styled from 'styled-components';
-import { Col, Row } from 'antd';
-import { Link } from 'react-router';
 
 import './style/nav.scss';
 import logo from '../static/icon.png';
-
-const EachLink = styled(Link)`
-  color: ${props => props.color};
-  text-decoration: none !important;
-`;
-
-const LinkCol = styled(Col)`
-  font-size: 1vw;
-  text-align: center;
-  padding-top: 3vh;
-  padding-bottom: 1vh;
-
-  ${EachLink}:hover & {
-    cursor: pointer;
-    color: white;
-    background-color: black;
-    opacity: 0.5;
-  }
-`;
 
 class ProjectHeader extends Component {
   renderLogin = () => {
@@ -91,9 +68,5 @@ class ProjectHeader extends Component {
     );
   }
 }
-
-ProjectHeader.propTypes = {
-  fontColor: PropTypes.string.isRequired,
-};
 
 export default ProjectHeader;

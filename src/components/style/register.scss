@@ -1,0 +1,100 @@
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+
+#signUp {
+    .container {
+        padding-top: 10%;
+        
+        .red {
+            color: red;
+        }
+        
+        .message {
+            color: red;
+            font-family: '微軟正黑體';
+            font-weight: bold;
+        }
+        .form-group {
+            label {
+                font-family: 'Noto serif', serif;
+                font-weight: 700;
+                color: #333;
+            }
+            input {
+                display: block;
+                width: 100%;
+                padding: .5rem .75rem;
+                font-size: 1rem;
+                line-height: 1.25;
+                color: #495057;
+                margin-bottom: 1.5rem;
+                background-color: #fff;
+                background-image: none;
+                background-clip: padding-box;
+                border: 1px solid rgba(0,0,0,.15);
+                border-radius: .25rem;
+                transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+            }
+
+            select {
+                display: block;
+                width: 100%;
+                padding: .4rem .75rem;
+                font-size: 1rem;
+                line-height: 1.25;
+                color: #495057;
+                margin-bottom: 1.5rem;
+                background-color: #fff;
+                background-image: none;
+                background-clip: padding-box;
+                border: 1px solid rgba(0,0,0,.15);
+                border-radius: .25rem;
+            }
+
+            .form-group-profile {
+                background-color: transparent;
+                border: none;
+                padding: 0;
+                font-family: '微軟正黑體';
+            }            
+        }
+
+        .summitBtn {
+            width: 100%;
+            margin-top: 2rem;
+            cursor: pointer;
+            padding: .7rem 0;
+            font-size: 1rem;
+            line-height: 1.25;
+            background-color: #535353;
+            color: #f7f7f7;
+            text-align: center;
+            border-radius: .25rem;
+            transition: 0.3s;
+            &:hover {
+                background-color: #a7afbb;
+                color: #535353;
+            }
+        }
+    }
+    .fancybox {
+        width: 20rem;
+        height: 15rem;
+        position: fixed;
+        left: 50%; top: 50%;
+        z-index: 11;
+        transform: translate(-50%, -50%) scale(0);
+        box-shadow: 10px 10px 10px #33333340;
+        transition: 0.5s;
+        img {
+            width: 60px;
+            margin-bottom: 1rem;
+        }
+    }
+}

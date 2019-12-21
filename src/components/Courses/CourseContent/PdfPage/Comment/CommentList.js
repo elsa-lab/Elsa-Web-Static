@@ -30,7 +30,7 @@ const CommentList = ({ comments }) => (
           content,
           created_at: createdAt,
         } = props;
-        if (picture.file) {
+        if (picture) {
           console.log(picture.file);
           return (
             <AntComment
@@ -59,6 +59,7 @@ const CommentList = ({ comments }) => (
 
 CommentList.propTypes = {
   comments: PropTypes.array.isRequired,
+  content: PropTypes.string.isRequired,
 };
 
 export default CommentList;

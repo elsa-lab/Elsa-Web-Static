@@ -25,28 +25,28 @@ import {
   Title2,
   TitleText,
 } from '../Share';
-import { media, notebook } from '../size';
+import { media, xl, lg, md, sm } from '../size';
 
 const BackgroundStyleColor = styled(BackgroundColor)`
-  ${media.lessThan('notebook')`
+  ${media.lessThan('md')`
     height: 45vh;
   `};
 `;
 
 const BackgroundStyleColor2 = styled(BackgroundColor)`
-  ${media.lessThan('notebook')`
+  ${media.lessThan('md')`
     height: 55vh;
   `};
 `;
 
 const IconStyleImage = styled(IconImage)`
-  ${media.lessThan('notebook')`
+  ${media.lessThan('md')`
     width: 8vw;
   `};
 `;
 
 const TitleStyleText = styled(TitleText)`
-  ${media.lessThan('notebook')`
+  ${media.lessThan('md')`
     font-size: 10vw;
   `};
 `;
@@ -192,7 +192,7 @@ class Manage extends Component {
         </Col>
         <Col xs={{ span: 24 }} xl={{ span: 15 }}>
           <BackgroundStyleColor2 color="#906262">
-            <MediaQuery query={`(max-width: ${notebook})`}>
+            <MediaQuery query={`(max-width: ${md})`}>
               {matches => (!matches ? <Header fontColor="white" /> : <></>)}
             </MediaQuery>
             <ManageArea>{this.props.children}</ManageArea>

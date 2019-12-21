@@ -36,7 +36,7 @@ const Title = styled.p`
 // const NavBarRightCol = styled(Col)`
 //   font-size: 2.5vmin;
 
-//   ${media.lessThan('notebook')`
+//   ${media.lessThan('md')`
 //     font-size: 4vmin;
 //     padding-right: 2vmin;
 //   `};

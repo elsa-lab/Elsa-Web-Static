@@ -1,11 +1,15 @@
 import { generateMedia } from 'styled-media-query';
 
-const desktop = '1600px';
-const notebook = '1200px';
+const xl = '1140px';
+const lg = '960px';
+const md = '720px';
+const sm = '480px';
 
 const media = generateMedia({
-  desktop,
-  notebook,
+  xl,
+  lg,
+  md,
+  sm,
 });
 
-export { media, desktop, notebook };
+export { media, xl, lg, md, sm };

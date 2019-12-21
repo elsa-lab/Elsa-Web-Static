@@ -21,7 +21,7 @@ const Card = styled.div`
   padding: 4vmin 4vmin 2vmin;
   font-size: 3vmin;
 
-  ${media.lessThan('notebook')`
+  ${media.lessThan('md')`
     margin-bottom: 4vmin;
     height: 35vmin;
   `};

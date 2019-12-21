@@ -24,26 +24,26 @@ import {
   Title2,
   TitleText,
 } from '../Share';
-import { media, notebook } from '../size';
+import { media, xl, lg, md, sm } from '../size';
 
 jdenticon.config = {
   replaceMode: 'observe',
 };
 
 const BackgroundStyleColor = styled(BackgroundColor)`
-  ${media.lessThan('notebook')`
+  ${media.lessThan('md')`
     height: 70vh;
   `};
 `;
 
 const IconStyleImage = styled(IconImage)`
-  ${media.lessThan('notebook')`
+  ${media.lessThan('md')`
     width: 8vw;
   `};
 `;
 
 const TitleStyleText = styled(TitleText)`
-  ${media.lessThan('notebook')`
+  ${media.lessThan('md')`
     font-size: 10vw;
   `};
 `;
@@ -100,6 +100,7 @@ class About extends Component {
           className="square"
           onClick={() => this.expenContent(index)}
         >
+          <h1>{profile.name}</h1>
           {profile.picture.file && (
             <img src={settings.backend_url + profile.picture.file} alt="" />
           )}
@@ -113,23 +114,48 @@ class About extends Component {
     const tmp = document.querySelector('.square-content');
     const square = document.querySelectorAll('.square');
     const row = document.createElement('div');
+    const contentBlock = document.createElement('div');
     const titleBlock = document.createElement('div');
     const name = document.createElement('h1');
     const email = document.createElement('h2');
+    const selfIntroTitle = document.createElement('h3');
+    const researchAreaTitle = document.createElement('h3');
+    const educationTitle = document.createElement('h3');
+    const selfIntro = document.createElement('p');
+    const reserachArea = document.createElement('p');
+    const education = document.createElement('p');
     const cardLeft = document.createElement('div');
     const cardRight = document.createElement('div');
     const leftContent = document.createElement('div');
     const rightContent = document.createElement('div');
-    row.classList.add('row', 'square-content');
+    row.classList.add('square-content');
+    contentBlock.classList.add('content-block', 'row', 'col-md-12');
     titleBlock.classList.add('square-content-title', 'col-md-12');
     cardLeft.classList.add('square-card', 'col-md-5');
     cardRight.classList.add('square-card', 'col-md-7');
 
-    row.appendChild(titleBlock, cardLeft, cardRight);
-    titleBlock.appendChild(name, email);
+    row.appendChild(titleBlock);
+    row.appendChild(contentBlock);
+    contentBlock.appendChild(cardLeft);
+    contentBlock.appendChild(cardRight);
+    titleBlock.appendChild(name);
+    titleBlock.appendChild(email);
     cardLeft.appendChild(leftContent);
     cardRight.appendChild(rightContent);
+    leftContent.appendChild(selfIntroTitle);
+    leftContent.appendChild(selfIntro);
+    leftContent.appendChild(researchAreaTitle);
+    leftContent.appendChild(reserachArea);
+    rightContent.appendChild(educationTitle);
+    rightContent.appendChild(education);
+    selfIntroTitle.innerHTML = 'Self Introduction';
+    educationTitle.innerHTML = 'Education';
+    researchAreaTitle.innerHTML = 'Reserch Area';
+    selfIntro.innerHTML = this.state.lab_member[num].profile.selfIntro;
+    education.innerHTML = this.state.lab_member[num].profile.education;
+    reserachArea.innerHTML = this.state.lab_member[num].profile.researchArea;
     name.innerHTML = this.state.lab_member[num].profile.name;
+    email.innerHTML = this.state.lab_member[num].username;
 
     if (document.querySelectorAll('.square-content').length !== 0) {
       tmp.classList.remove('expended');
@@ -245,7 +271,7 @@ class About extends Component {
         {/* right side */}
         <Col className="right" xs={{ span: 24 }} xl={{ span: 15 }}>
           {/* navbar   */}
-          <MediaQuery query={`(max-width: ${notebook})`}>
+          <MediaQuery query={`(max-width: ${md})`}>
             {matches => (!matches ? <Header fontColor="white" /> : <></>)}
           </MediaQuery>
           <div className="d-flex square-container">

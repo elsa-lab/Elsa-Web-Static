@@ -1,5 +1,175 @@
-#courseContent {
-  .classBlock {
-    padding-top: 15vh;
+@import "node_modules/react-image-gallery/styles/scss/image-gallery.scss";
+@import 'utility/var';
+
+.course-block {
+  background-color: rgba(0, 0, 0, 0.3);
+  height: 20vh;
+
+  .media-content {
+    padding-left: 1em;
+
+    h5 {
+      font-size: $title-face * 1.2;
+      font-weight: medium;
+      white-space: nowrap;
+      font-family: $font-family;
+      width: 90%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: white;
+    }
+
+    h6 {
+      font-size: $title-face;
+      margin: 0;
+      white-space: nowrap;
+      font-family: $font-family;
+      width: 90%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: white;
+      font-weight: 500;
+    }
+
+    .course-id {
+      font-size: $title-face;
+    }
+  }
+
+  .img-area {
+    height: 100%;
+    overflow: hidden;
+    text-align: center;
+
+    .course-img {
+      width: 100%;
+      min-height: 20vh;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+    }
   }
 }
+
+  a {
+    text-decoration: none !important;
+  }
+
+#course {
+  overflow: hidden;
+
+  .right {
+    height: 100%;
+    overflow-y: auto;
+    
+    .block {
+      width: 100%;
+      height: 92vh;
+      overflow-y: auto;
+
+      @include sm {
+        padding-top: 0;
+      }
+
+      @include md {
+        padding-top: 15vh;
+      }
+    }
+  }
+}
+
+#pdfpage {
+    ::-webkit-scrollbar {
+        width: 7px;
+    }
+
+    ::-webkit-scrollbar-track {
+        border-radius: 10px;
+        background-color: #f1f1f1;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background-color: #c1c1c1;
+    }
+
+    .comment {
+        padding: 4em 0 0 0;
+        border-top: solid 1px #5d5d5d;
+        margin: 3em auto 0em auto;
+    }
+
+    .title-content {
+        text-align: center;
+        margin: 0 0 2em 0;
+        top: 50%;
+        font-family: 'DM Serif Display', serif;
+        h1 {
+            margin: 0;
+            font-size: 38px;
+        }
+        h3 {
+            font-size: 18px;
+        }
+    }
+    @media (min-width: 768px) {
+        .image-gallery {
+            .image-gallery-thumbnails-wrapper {
+                margin-left: 2em;
+                width: 13%;
+                .image-gallery-thumbnails {
+                    left: 0;
+                    .image-gallery-thumbnail {
+                        width: 95%;
+                    }
+                }
+            }
+            .image-gallery-slide-wrapper {
+                width: calc(75%);
+                margin-left: calc((8%-2em)/2);
+            }
+        }
+    }
+    @media (min-width: 992px) {
+        .image-gallery {
+            .image-gallery-thumbnails-wrapper {
+                margin-left: 2em;
+                width: 13%;
+                .image-gallery-thumbnails {
+                    left: 0;
+                    .image-gallery-thumbnail {
+                        width: 95%;
+                    }
+                }
+            }
+            .image-gallery-slide-wrapper {
+                width: calc(60%);
+                margin-left: calc((20%-2em)/2);
+            }
+        }
+    }
+    .image-gallery {
+        .image-gallery-slide-wrapper {
+            // width: calc(70%);
+            // margin-left: calc((17%-2em)/2);
+
+            .image-gallery-fullscreen-button {
+                z-index: 10;
+            }
+            span {
+                position: static;
+
+                .image-gallery-left-nav, .image-gallery-right-nav {
+                    height: 100%;
+                    padding: 0;
+                    opacity: 0;
+                    width: 40%;
+                }
+            }
+        }
+    }
+
+}
+
+

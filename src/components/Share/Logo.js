@@ -34,7 +34,7 @@ class Logo extends Component {
   render() {
     return (
       <div id="logo">
-        <div className="mainRow d-none d-sm-none d-md-none d-lg-none d-xl-block">
+        <div className="mainRow d-none d-sm-none d-md-block d-lg-block d-xl-block">
           <a style={{ textDecoration: 'none' }} className="col-md-10" href="/">
             <div className="iconBox">
               <div className="iconImg">
@@ -57,10 +57,18 @@ class Logo extends Component {
           </h1>
           <p className="col-md-10 ml-1 mt-4">{this.props.describe}</p>
         </div>
-        <div className="mainRow-mobile d-xl-none">
-          <h3 className="d-xl-none" style={{ color: 'white' }}>
-            {this.props.content}
-          </h3>
+        <div className="mainRow-mobile d-md-none d-lg-none d-xl-none">
+          <a style={{ textDecoration: 'none' }} href="/">
+            <div className="iconBox">
+              <div className="iconImg">
+                <img src={IconImg} alt="" />
+              </div>
+              <div className="iconText">
+                <h3>NTHU</h3>
+                <h4>ELSA</h4>
+              </div>
+            </div>
+          </a>
           <i className="fas fa-bars d-xl-none" onClick={this.showDrawer} />
           <DrawerAntd
             title="Elsa Lab"

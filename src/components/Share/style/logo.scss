@@ -1,43 +1,48 @@
 #logo {
     height: 100%;
+
+    a {
+        display: inline-block;
+        cursor: pointer;
+
+        .iconBox {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            align-items: center;
+
+            .iconImg {
+                width: 35px;
+                margin-right: 5px;
+
+                img {
+                    width: 100%;
+                }
+            }
+
+            .iconText {
+                h3 {
+                    color: #f7f7f7;
+                    font-size: 13px;
+                    margin: 0;
+                    line-height: 1.2em;
+                }
+
+                h4 {
+                    color: #f7f7f7;
+                    font-size: 18px;
+                    margin: 0;
+                    line-height: 1.2em;
+                }
+            }
+        }
+    }
+
     .mainRow {
         padding-left: 6vw;
         padding-top: 5vw;
         z-index: 11;
-
-        a {
-            display: inline-block;
-            cursor: pointer;
-
-            .iconBox {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content:flex-start;
-                align-items: center;
-                .iconImg {
-                    width: 35px;
-                    margin-right: 5px;
-                    img {
-                        width: 100%;
-                    }
-                }
-                .iconText {
-                    h3 {
-                        color: #f7f7f7;
-                        font-size: 13px;
-                        margin: 0;
-                        line-height: 1.2em;
-                    }
-                    h4 {
-                        color: #f7f7f7;
-                        font-size: 18px;
-                        margin: 0;
-                        line-height: 1.2em;
-                    }
-                }
-            }
-        }
-        
+       
         .smallContent {
             font-size: 1vw;
             margin-top: 5vh;
@@ -78,9 +83,15 @@
         display: flex;
         height: 100%;
         align-items: center;
+        vertical-align: middle;
         justify-content: space-between;
-        padding: 0 2em;
+        padding: 0.5em 2em;
+        flex-wrap: wrap;
         
+        h3 {
+            margin: 0;
+        }
+
         i {
             color: white;
             font-size: 1.5em;

@@ -21,7 +21,7 @@ const Blocks = styled.div`
   height: 85vh;
   overflow-y: scroll;
 
-  ${media.lessThan('notebook')`
+  ${media.lessThan('md')`
     padding-top: 0;
     height: 100%;
   `};

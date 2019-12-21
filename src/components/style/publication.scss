@@ -1,0 +1,90 @@
+@import 'utility/var';
+
+.textarea {
+    padding: 1.5em 3em;
+    box-sizing: border-box;
+    display: inline-block;
+
+    text {
+        font-family: $font-family;
+        color: #f7f7f7;
+        font-size: $title-face;
+    }
+
+    h1 {
+        color: #f7f7f7;
+        margin: 0;
+        font-size: $title-face * 1.2;
+        line-height: 1.3em;
+        letter-spacing: 0px;
+    }
+
+    hr {
+        border-top: none;
+        border-left: none;
+        border-bottom: solid 3px #f7f7f7;
+        width: 7%;
+        margin: 1.2em 0 1.2em 0;
+    }
+
+    h3 {
+        line-height: 1.3em;
+        font-size: $title-face * 0.8;
+        font-weight: 300;
+        color: #f7f7f7;
+        margin-bottom: 0;
+    }
+
+    @include xl {
+        h1 {
+            font-size: $title-face * 1.4;
+        }
+
+        h3 {
+            font-size: $title-face;
+        }
+    }
+    @include lg {
+        h1 {
+            font-size: $title-face * 1.2;
+        }
+
+        h3 {
+            font-size: $title-face * 0.8;
+        }
+    }
+    @include md {
+        h1 {
+            font-size: $title-face * 1.2;
+        }
+
+        h3 {
+            font-size: $title-face * 0.8;
+        }
+    }
+    @include sm {
+        text {
+            font-size: $title-face *0.8;
+        }
+        h1 {
+            font-size: $title-face;
+        }
+
+        h3 {
+            font-size: $title-face * 0.6;
+        }
+    }
+}
+.right {
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#conference {
+    font-family: 'Noto serif', serif;
+    width: 50%;
+    margin: 0 1em 1em 0.5em;
+    padding-bottom: 0.3em;
+    border-bottom: solid 1px;
+}

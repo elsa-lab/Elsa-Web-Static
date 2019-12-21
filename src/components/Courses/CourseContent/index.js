@@ -9,60 +9,16 @@ import BackgroundImage from '../../static/background_image_invert_vertical.jpg';
 import Header from '../../Share/Header';
 import settings from '../../../settings';
 import Logo from '../../Share/Logo';
+import MobileContent from '../../Share/MobileContent';
 import { BackgroundColor, PageLink, Text } from '../../Share';
-import { media, notebook } from '../../size';
+import { media, xl, lg, md, sm } from '../../size';
 
 const BackgroundStyleColor = styled(BackgroundColor)`
-  ${media.lessThan('notebook')`
-    height: 35vh;
+  ${media.lessThan('md')`
+    height: 13vh;
+    z-index: 11;
+    position: fixed;
   `};
-`;
-
-const EachBlock = styled.div`
-  width: 80%;
-  height: 20vh;
-  background-color: rgba(0, 0, 0, 0.3);
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 5vh;
-  margin-bottom: 5vh;
-  color: white;
-  font-size: 1.5vw;
-
-  ${media.lessThan('notebook')`
-    width: 100%;
-    background-color: ${props => props.color};
-    margin-bottom: 0;
-  `};
-`;
-
-const Title = styled.div`
-  font-size: 2vw;
-  line-height: 120%;
-
-  ${media.lessThan('notebook')`
-    font-size:5vw;
-  `};
-`;
-
-const TextArea = styled.div`
-  padding-left: 2.5vw;
-  padding-right: 4vw;
-  padding-top: 3vh;
-
-  ${media.lessThan('notebook')`
-    padding-top: 3.5vh;
-    padding-left: 4vw;
-    font-size:4vw;
-  `};
-`;
-
-const ImageArea = styled.div`
-  width: 100%;
-  height: 20vh;
-  background: url(${props => props.image});
-  background-size: cover;
-  background-position: center center;
 `;
 
 class CourseContent extends Component {
@@ -86,7 +42,7 @@ class CourseContent extends Component {
     ins
       .get(`courses/${course_id}`)
       .then(res => {
-        console.log(res.data);
+        // console.log(res.data);
         this.setState({
           id: res.data.id,
           title: res.data.title,
@@ -103,30 +59,35 @@ class CourseContent extends Component {
 
   renderClassContent = () => {
     if (this.state.lectures) {
-      let isChangeOrder = false;
+      let changeOrder = false;
       return this.state.lectures.map(
         ({ id, title, lecture_number, loading_image }) => {
-          isChangeOrder = !isChangeOrder;
+          changeOrder = !changeOrder;
           return (
             <a key={id} href={`${this.state.id}/lectures/${id}`}>
-              <EachBlock
-                color={
-                  isChangeOrder ? 'rgba(0, 0, 0, 0.3)' : 'rgba(0, 0, 0, 0.4)'
-                }
-                className="my-3"
-              >
-                <Row>
-                  <Col xs={{ span: 12 }} xl={{ span: 8 }}>
-                    <ImageArea image={loading_image || BackgroundImage} />
-                  </Col>
-                  <Col xs={{ span: 12 }} xl={{ span: 16 }}>
-                    <TextArea>
-                      <div>第 {lecture_number} 章</div>
-                      <Title>{title}</Title>
-                    </TextArea>
-                  </Col>
-                </Row>
-              </EachBlock>
+              <div className="media mt-3 course-block justify-content-center align-items-center">
+                <div
+                  className={`media-content col-6 col-md-7 order-sm-1 ${
+                    changeOrder ? 'order-1' : 'order-2'
+                  }`}
+                >
+                  <h6>
+                    <div>第 {lecture_number} 章</div>
+                  </h6>
+                  <h5>{title}</h5>
+                </div>
+                <div
+                  className={`img-area col-6 col-md-5 order-sm-2 ${
+                    changeOrder ? 'order-2' : 'order-1'
+                  }`}
+                >
+                  <img
+                    src={loading_image || BackgroundImage}
+                    className="course-img"
+                    alt=""
+                  />
+                </div>
+              </div>
             </a>
           );
         }
@@ -163,7 +124,7 @@ class CourseContent extends Component {
 
     return (
       <Row id="courseContent">
-        <Col xs={{ span: 24 }} xl={{ span: 9 }}>
+        <Col xs={24} md={9}>
           <BackgroundStyleColor color="#f8d188">
             <Logo
               xs={{ span: 0 }}
@@ -174,11 +135,12 @@ class CourseContent extends Component {
             />
           </BackgroundStyleColor>
         </Col>
-        <Col xs={{ span: 24 }} xl={{ span: 15 }} className="right">
-          <MediaQuery query={`(max-width: ${notebook})`}>
+        <Col xs={24} md={15} className="right">
+          <MediaQuery query={`(max-width: ${md})`}>
             {matches => (!matches ? <Header fontColor="#9b9b9b" /> : <></>)}
           </MediaQuery>
           <div className="classBlock">
+            <MobileContent color="#f8d188" content="Course" />
             {this.renderClassContent(content_id)}
           </div>
         </Col>

@@ -22,7 +22,7 @@ const Blocks = styled.div`
   height: 85vh;
   overflow-y: scroll;
 
-  ${media.lessThan('notebook')`
+  ${media.lessThan('md')`
     padding-top: 0;
     height: 100%;
   `};
@@ -83,7 +83,7 @@ const EachBlock = styled.div`
   color: white;
   font-size: 1.2vw;
 
-  ${media.lessThan('notebook')`
+  ${media.lessThan('md')`
     margin-bottom: 0;
     margin-top: 2vh;
   `};
@@ -94,7 +94,7 @@ const TextArea = styled.div`
   padding-right: 4vw;
   padding-top: 4.5vh;
 
-  ${media.lessThan('notebook')`
+  ${media.lessThan('md')`
     padding-top: 3.5vh;
     padding-left: 4vw;
     font-size:4vw;

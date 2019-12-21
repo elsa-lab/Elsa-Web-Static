@@ -26,7 +26,7 @@ import {
   Title2,
   TitleText,
 } from '../../Share';
-import { media, notebook } from '../../size';
+import { media, xl, lg, md, sm } from '../../size';
 
 const Blocks = styled.div`
   padding-top: 15vh;
@@ -34,20 +34,20 @@ const Blocks = styled.div`
   height: 92vh;
   overflow-y: scroll;
 
-  ${media.lessThan('notebook')`
+  ${media.lessThan('md')`
     padding-top: 0;
     height: 100%;
   `};
 `;
 
 const BackgroundStyleColor = styled(BackgroundColor)`
-  ${media.lessThan('notebook')`
+  ${media.lessThan('md')`
     height: 60vh;
   `};
 `;
 
 const BackgroundStyleColor2 = styled(BackgroundColor)`
-  ${media.lessThan('notebook')`
+  ${media.lessThan('md')`
     height: 100%;
   `};
 `;
@@ -61,13 +61,13 @@ const ImageArea = styled.div`
 `;
 
 const TitleStyleText = styled(TitleText)`
-  ${media.lessThan('notebook')`
+  ${media.lessThan('md')`
     font-size: 10vw;
   `};
 `;
 
 const IconStyleImage = styled(IconImage)`
-  ${media.lessThan('notebook')`
+  ${media.lessThan('md')`
     width: 8vw;
   `};
 `;
@@ -169,7 +169,7 @@ class NewContent extends Component {
         </Col>
         <Col xs={{ span: 24 }} xl={{ span: 15 }}>
           <BackgroundStyleColor2 color="white">
-            <MediaQuery query={`(max-width: ${notebook})`}>
+            <MediaQuery query={`(max-width: ${md})`}>
               {matches => (!matches ? <Header fontColor="#9b9b9b" /> : <></>)}
             </MediaQuery>
             <Blocks>

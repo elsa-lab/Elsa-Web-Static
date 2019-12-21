@@ -8,7 +8,7 @@ import BackgroundCourses from '../static/home/Courses.jpg';
 import BackgroundNews from '../static/home/News.jpg';
 import BackgroundProjects from '../static/home/Projects.jpg';
 import BackgroundPublications from '../static/home/Publications.jpg';
-import { media, notebook } from '../size';
+import { media, xl, lg, md, sm } from '../size';
 
 import FullPage from './FullPage';
 
@@ -19,7 +19,7 @@ const EntryLink = styled.div`
   width: 100%;
   top: 70%;
 
-  ${media.lessThan('notebook')`
+  ${media.lessThan('md')`
     padding: 0;
     top: 40%;
   `};
@@ -29,7 +29,7 @@ const ImageEntry = styled.img`
   width: 100%;
   border: 5px white solid;
 
-  ${media.lessThan('notebook')`
+  ${media.lessThan('md')`
     border: 0;
   `};
 `;
@@ -93,7 +93,7 @@ const EachLinkMob = styled(EachLink)`
   pointer-events: none;
   cursor: default;
 
-  ${media.lessThan('notebook')`
+  ${media.lessThan('md')`
     pointer-events: auto;
     cursor: pointer;
   `};
@@ -118,16 +118,16 @@ class Home extends Component {
         <FullPage current={current} />
         <EntryLink>
           <Row type="flex" justify="space-around">
-            <Col xs={{ span: 12 }} xl={{ span: 0 }}>
+            <Col xs={12} md={0}>
               <EachLinkMob to="/projects">
                 <EachTitleEntry color="rgba(137, 155, 206, 0.8)">
                   <LittleTitle>Projects</LittleTitle>
                 </EachTitleEntry>
               </EachLinkMob>
             </Col>
-            <Col xs={{ span: 12 }} xl={{ span: 4 }}>
+            <Col xs={12} md={4}>
               <ImageEntry src={BackgroundCourses} />
-              <MediaQuery query={`(max-width: ${notebook})`}>
+              <MediaQuery query={`(max-width: ${md})`}>
                 {matches =>
                   !matches ? (
                     <BlackLayer
@@ -144,9 +144,9 @@ class Home extends Component {
                 }
               </MediaQuery>
             </Col>
-            <Col xs={{ span: 12 }} xl={{ span: 4 }}>
+            <Col xs={12} md={4}>
               <ImageEntry src={BackgroundPublications} />
-              <MediaQuery query={`(max-width: ${notebook})`}>
+              <MediaQuery query={`(max-width: ${md})`}>
                 {matches =>
                   !matches ? (
                     <BlackLayer
@@ -163,21 +163,21 @@ class Home extends Component {
                 }
               </MediaQuery>
             </Col>
-            <Col xs={{ span: 12 }} xl={{ span: 0 }}>
+            <Col xs={12} md={0}>
               <EachTitleEntry color="rgba(160, 137, 169, 0.8)">
                 <LittleTitle>News</LittleTitle>
               </EachTitleEntry>
             </Col>
-            <Col xs={{ span: 12 }} xl={{ span: 0 }}>
+            <Col xs={12} md={0}>
               <EachLinkMob to="/courses">
                 <EachTitleEntry color="#e9ce9b">
                   <LittleTitle>Courses</LittleTitle>
                 </EachTitleEntry>
               </EachLinkMob>
             </Col>
-            <Col xs={{ span: 12 }} xl={{ span: 4 }}>
+            <Col xs={12} md={4}>
               <ImageEntry src={BackgroundProjects} />
-              <MediaQuery query={`(max-width: ${notebook})`}>
+              <MediaQuery query={`(max-width: ${md})`}>
                 {matches =>
                   !matches ? (
                     <BlackLayer
@@ -194,9 +194,9 @@ class Home extends Component {
                 }
               </MediaQuery>
             </Col>
-            <Col xs={{ span: 12 }} xl={{ span: 4 }}>
+            <Col xs={12} md={4}>
               <ImageEntry src={BackgroundNews} />
-              <MediaQuery query={`(max-width: ${notebook})`}>
+              <MediaQuery query={`(max-width: ${md})`}>
                 {matches =>
                   !matches ? (
                     <BlackLayer
@@ -213,7 +213,7 @@ class Home extends Component {
                 }
               </MediaQuery>
             </Col>
-            <Col xs={{ span: 12 }} xl={{ span: 0 }}>
+            <Col xs={12} md={0}>
               <EachTitleEntry color="rgba(154, 180, 179, 0.8)">
                 <LittleTitle>Publications</LittleTitle>
               </EachTitleEntry>

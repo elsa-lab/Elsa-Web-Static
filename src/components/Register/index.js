@@ -12,12 +12,12 @@ import settings from '../../settings';
 import { BackgroundColor } from '../Share';
 import Logo from '../Share/Logo';
 import Header from '../Share/Header';
-import './style.scss';
+import '../style/register.scss';
 import successIcon from '../static/success.svg';
-import { media, notebook } from '../size';
+import { media, xl, lg, md, sm } from '../size';
 
 const BackgroundStyleColor = styled(BackgroundColor)`
-  ${media.lessThan('notebook')`
+  ${media.lessThan('md')`
     height: 13vh;
     z-index: 11;
     box-shadow: 0px 1px 10px #0000004a;
@@ -164,7 +164,7 @@ class Register extends Component {
           </BackgroundStyleColor>
         </Col>
         <Col xs={{ span: 24 }} xl={{ span: 15 }} className="right">
-          <MediaQuery query={`(max-width: ${notebook})`}>
+          <MediaQuery query={`(max-width: ${md})`}>
             {matches => (!matches ? <Header fontColor="#9b9b9b" /> : <></>)}
           </MediaQuery>
           <div id="signUp">

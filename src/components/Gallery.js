@@ -25,7 +25,7 @@ const Title = styled.div`
   margin-top: 6vmin;
   margin-bottom: 2vmin;
 
-  ${media.lessThan('notebook')`
+  ${media.lessThan('md')`
     font-size: 7vmin;
     margin-bottom: 4vmin;
   `};

@@ -22,7 +22,7 @@ const AllCommentBlock = styled.div`
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  ${media.lessThan('notebook')`
+  ${media.lessThan('md')`
     padding: 0 0;
   `};
 `;

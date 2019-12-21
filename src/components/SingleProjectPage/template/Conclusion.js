@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Conclusion = ({ content }) => (
   <div id="conclusion">
@@ -9,5 +10,9 @@ const Conclusion = ({ content }) => (
     <div className="deco-square" />
   </div>
 );
+
+Conclusion.propTypes = {
+  content: PropTypes.string.isRequired,
+};
 
 export default Conclusion;

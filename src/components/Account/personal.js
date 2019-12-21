@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import settings from '../../settings';
 
-import './style.scss';
+import '../style/account.scss';
 
 class Person extends Component {
   state = {

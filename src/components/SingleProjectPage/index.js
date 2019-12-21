@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 
 import ProjectHeader from '../Share/ProjectHeader';
 import settings from '../../settings';
+import anime from '../static/Ellipsis-2.2s-200px.svg';
 
 import Topic from './template/Topic';
 import Abstract from './template/Abstract';
@@ -11,8 +13,7 @@ import Proposed from './template/Proposed';
 import Result from './template/Result';
 import Conclusion from './template/Conclusion';
 import Footer from './template/Footer';
-import './main.scss';
-import anime from './Ellipsis-2.2s-200px.svg';
+import '../style/singleProject.scss';
 
 class NewProject extends Component {
   constructor(props) {
@@ -55,6 +56,7 @@ class NewProject extends Component {
           conclusion: res.data.conclusion,
           sections: res.data.sections,
         });
+        // console.log(res.data);
       })
       .catch(error => {
         console.log(error);
@@ -84,7 +86,7 @@ class NewProject extends Component {
     }
 
     return (
-      <div id="singleProject">
+      <div key={this.state.id} id="singleProject">
         <ProjectHeader fontColor="#364b8b" />
         <div id="loading" style={style}>
           <img src={anime} alt="" />
@@ -104,5 +106,11 @@ class NewProject extends Component {
     );
   }
 }
+
+NewProject.propTypes = {
+  params: PropTypes.shape({
+    project_id: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 export default NewProject;

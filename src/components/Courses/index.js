@@ -8,16 +8,17 @@ import BackgroundImage from '../static/background_image_invert_vertical.jpg';
 import Header from '../Share/Header';
 import settings from '../../settings';
 import Logo from '../Share/Logo';
+import MobileContent from '../Share/MobileContent';
 import { BackgroundColor, PageLink, Text } from '../Share';
-import { media, notebook } from '../size';
+import { media, xl, lg, md, sm } from '../size';
 
-import './style.scss';
+import '../style/course.scss';
 
 const BackgroundStyleColor = styled(BackgroundColor)`
-  ${media.lessThan('notebook')`
+  ${media.lessThan('md')`
     height: 13vh;
     z-index: 11;
-    box-shadow: 0px 1px 10px #0000004a;
+    position: fixed;
   `};
 `;
 
@@ -35,7 +36,7 @@ class Courses extends Component {
     ins
       .get('/courses')
       .then(res => {
-        console.log(res.data);
+        // console.log(res.data);
         this.setState({ courses: res.data });
       })
       .catch(error => {
@@ -45,8 +46,10 @@ class Courses extends Component {
 
   renderClass = () => {
     if (this.state.courses) {
+      let changeOrder = false;
       return this.state.courses.map(
         ({ id, title, year, season, course_no, landing_image }) => {
+          changeOrder = !changeOrder;
           let seasonText;
           let landingImage;
           if (season === 0) {
@@ -62,14 +65,22 @@ class Courses extends Component {
           return (
             <a key={id} href={`/courses/${id}`}>
               <div className="media mt-3 course-block justify-content-center align-items-center">
-                <div className="media-content">
+                <div
+                  className={`media-content col-6 order-sm-1 ${
+                    changeOrder ? 'order-1' : 'order-2'
+                  }`}
+                >
                   <h6>
                     {year} {seasonText}
                   </h6>
                   <h5>{title}</h5>
                   <h6 className="course-id">課程代號: {course_no}</h6>
                 </div>
-                <div className="img-area">
+                <div
+                  className={`img-area col-6 order-sm-2 ${
+                    changeOrder ? 'order-2' : 'order-1'
+                  }`}
+                >
                   <img src={landingImage} className="course-img" alt="" />
                 </div>
               </div>
@@ -99,7 +110,7 @@ class Courses extends Component {
   render() {
     return (
       <Row id="course">
-        <Col xs={{ span: 24 }} xl={{ span: 9 }}>
+        <Col xs={24} md={9} xl={9}>
           <BackgroundStyleColor color="#f8d188">
             <Logo
               xs={{ span: 0 }}
@@ -109,11 +120,14 @@ class Courses extends Component {
             />
           </BackgroundStyleColor>
         </Col>
-        <Col xs={{ span: 24 }} xl={{ span: 15 }} className="right">
-          <MediaQuery query={`(max-width: ${notebook})`}>
+        <Col xs={24} md={15} className="right">
+          <MediaQuery query={`(max-width: ${md})`}>
             {matches => (!matches ? <Header fontColor="#9b9b9b" /> : <></>)}
           </MediaQuery>
-          <div className="block">{this.renderClass()}</div>
+          <div className="block">
+            <MobileContent color="#f8d188" content="Course" />
+            {this.renderClass()}
+          </div>
         </Col>
       </Row>
     );

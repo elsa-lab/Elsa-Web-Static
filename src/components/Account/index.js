@@ -9,12 +9,12 @@ import Header from '../Share/Header';
 import settings from '../../settings';
 import Logo from '../Share/Logo';
 import { BackgroundColor, PageLink, Text, TextCol } from '../Share';
-import { media, notebook } from '../size';
+import { media, xl, lg, md, sm } from '../size';
 
 import Person from './personal';
 
 const BackgroundStyleColor = styled(BackgroundColor)`
-  ${media.lessThan('notebook')`
+  ${media.lessThan('md')`
     height: 45vh;
   `};
 `;
@@ -102,16 +102,11 @@ class Account extends Component {
       <Row id="account">
         <Col xs={{ span: 24 }} xl={{ span: 9 }}>
           <BackgroundStyleColor color="#ffaaad">
-            <Logo
-              xs={{ span: 0 }}
-              xl={{ span: 0 }}
-              content="Account"
-              describe="Here is your information"
-            />
+            <Logo content="Account" describe="Here is your information" />
           </BackgroundStyleColor>
         </Col>
         <Col className="right" xs={{ span: 24 }} xl={{ span: 15 }}>
-          <MediaQuery query={`(max-width: ${notebook})`}>
+          <MediaQuery query={`(max-width: ${md})`}>
             {matches => (!matches ? <Header fontColor="#f7f7f7" /> : <></>)}
           </MediaQuery>
           {this.renderManagementLink()}

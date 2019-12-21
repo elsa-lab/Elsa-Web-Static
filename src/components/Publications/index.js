@@ -97,7 +97,7 @@ class Publications extends Component {
           <Row type="flex">
             <Col xs={18} md={20} color="#0B322B">
               <div className="textarea">
-                <text>{year}</text>
+                <p>{year}</p>
                 <h1>{title}</h1>
                 <hr />
                 <h3>

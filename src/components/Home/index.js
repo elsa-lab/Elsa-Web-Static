@@ -21,7 +21,7 @@ const EntryLink = styled.div`
 
   ${media.lessThan('md')`
     padding: 0;
-    top: 40%;
+    top: 50%;
   `};
 `;
 

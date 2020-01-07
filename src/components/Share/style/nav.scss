@@ -1,3 +1,5 @@
+@import '../../style/utility/var';
+
 #nav {
     width: 100%;
     margin-right: 2vw;
@@ -13,18 +15,38 @@
 #project-nav {
     padding: 0 10%;
     margin-top: 5%;
-    z-index: 10;
+    z-index: 11;
+    transition: 0.5s;
 
-    img {
-        vertical-align: sub;
-    }
+    .navbar-brand {
+        img {
+            vertical-align: sub;
+            width: 45px;
+                        
+            @include md {
+                width: 35px;
+            }
+            
+            @include sm {
+                width: 35px;
+            }
+        }
 
-    .logo-content {
-        display: inline-block;
-        line-height: 1em;
-        color: #144992;
-        margin-left: 5px;
-        font-size: 18px;
+        .logo-content {
+            display: inline-block;
+            line-height: 1em;
+            color: #144992;
+            margin-left: 5px;
+            font-size: $title-face;
+            
+            @include md {
+                font-size: $title-face * 0.7;
+            }
+            
+            @include sm {
+                font-size: $title-face * 0.7;
+            }
+        }
     }
 
     ul {
@@ -36,6 +58,15 @@
             color: #144992;
             font-family: 'Alata', sans-serif;
             transition: 0.5s;
+            font-size: $title-face;
+            
+            @include md {
+                font-size: $title-face * 0.8;
+            }
+            
+            @include sm {
+                font-size: $title-face * 0.8;
+            }
 
             &:hover {
                 background-color: #89a3ff;

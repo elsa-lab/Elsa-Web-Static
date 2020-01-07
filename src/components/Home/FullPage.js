@@ -39,6 +39,9 @@ const BackgroundImage = styled.div`
 
 const BackgroundStyleColor = styled(BackgroundColor)`
   background-color: #333;
+  ${media.lessThan('md')`
+    height: initial;
+  `};
 `;
 
 const OtherLink = styled(Col)`
@@ -108,7 +111,7 @@ class FullPage extends Component {
                     <Title1>NTHU</Title1>
                     <Title2>ELSA</Title2>
                   </Col>
-                  <Col md={0} offset={14}>
+                  <Col xs={3} md={0} offset={15}>
                     {this.renderOtherBlock()}
                   </Col>
                 </Row>
@@ -119,12 +122,6 @@ class FullPage extends Component {
                   Professor : Chun-Yi Lee
                 </Row>
               </SmallContent>
-              <BigTitle xs={20} md={18}>
-                <TitleStyleText>
-                  {current !== 0 ? <br /> : ''}
-                  {bigTitleMap[current]}
-                </TitleStyleText>
-              </BigTitle>
               <MedContent xs={0} md={14} color="#a9a9a9">
                 {medContentMap[current]}
               </MedContent>
@@ -133,6 +130,12 @@ class FullPage extends Component {
               </OtherLink>
             </MainRow>
           </BackgroundStyleColor>
+          <BigTitle xs={20} md={18}>
+            <TitleStyleText>
+              {current !== 0 ? <br /> : ''}
+              {bigTitleMap[current]}
+            </TitleStyleText>
+          </BigTitle>
         </Col>
         <Col xs={0} md={15}>
           <BackgroundImage image={backgroundImageMap[current]} />

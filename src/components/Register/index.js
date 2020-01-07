@@ -153,7 +153,7 @@ class Register extends Component {
   render() {
     return (
       <Row>
-        <Col xs={{ span: 24 }} xl={{ span: 9 }}>
+        <Col xs={24} md={9} xl={9}>
           <BackgroundStyleColor color="#b0d4b6">
             <Logo
               xs={{ span: 0 }}
@@ -163,7 +163,7 @@ class Register extends Component {
             />
           </BackgroundStyleColor>
         </Col>
-        <Col xs={{ span: 24 }} xl={{ span: 15 }} className="right">
+        <Col xs={24} md={15} xl={15} className="right">
           <MediaQuery query={`(max-width: ${md})`}>
             {matches => (!matches ? <Header fontColor="#9b9b9b" /> : <></>)}
           </MediaQuery>

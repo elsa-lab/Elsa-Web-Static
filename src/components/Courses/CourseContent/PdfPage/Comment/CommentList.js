@@ -31,7 +31,7 @@ const CommentList = ({ comments }) => (
           created_at: createdAt,
         } = props;
         if (picture) {
-          console.log(picture.file);
+          // console.log(picture.file);
           return (
             <AntComment
               avatar={settings.backend_url + picture.file}
@@ -59,7 +59,6 @@ const CommentList = ({ comments }) => (
 
 CommentList.propTypes = {
   comments: PropTypes.array.isRequired,
-  content: PropTypes.string.isRequired,
 };
 
 export default CommentList;

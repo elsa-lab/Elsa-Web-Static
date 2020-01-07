@@ -4,10 +4,9 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import ImageGallery from 'react-image-gallery';
 
-import Header from '../../../Share/Header';
+import ProjectHeader from '../../../Share/ProjectHeader';
 import settings from '../../../../settings';
 import { media, xl, lg, md, sm } from '../../../size';
-import Drawer from '../../../Share/Drawer';
 
 import '../../../style/course.scss';
 
@@ -67,16 +66,8 @@ class PdfPage extends Component {
     }
     return (
       <div>
-        <MediaQuery query={`(max-width: ${md})`}>
-          {matches => (!matches ? <Header fontColor="#9b9b9b" /> : <></>)}
-        </MediaQuery>
-        <div
-          className="d-md-none offset-10 mt-3"
-          style={{ position: 'fixed', zIndex: 11 }}
-        >
-          <Drawer />
-        </div>
-        <div id="pdfpage" className="pt-3 pt-md-5">
+        <div id="pdfpage">
+          <ProjectHeader fontColor="#364b8b" />
           <div className="title-content">
             <h1>{this.state.title}</h1>
             <h3>

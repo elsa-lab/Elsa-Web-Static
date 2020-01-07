@@ -10,6 +10,7 @@ import '../style/login.scss';
 import Header from '../Share/Header';
 import settings from '../../settings';
 import Logo from '../Share/Logo';
+import MobileContent from '../Share/MobileContent';
 import { BackgroundColor, PageLink, Text } from '../Share';
 import { media, xl, lg, md, sm } from '../size';
 
@@ -26,19 +27,15 @@ const TeachBlock = styled.div`
 
 const BackgroundStyleColor = styled(BackgroundColor)`
   ${media.lessThan('md')`
-    height: 45vh;
-  `};
-`;
-
-const BackgroundStyleColor2 = styled(BackgroundColor)`
-  ${media.lessThan('md')`
-    height: 55vh;
+    height: 13vh;
+    z-index: 11;
+    position: fixed;
   `};
 `;
 
 const InputText = styled.div`
   font-weight: bold;
-  color: white;
+  color: #333;
   margin-top: 1vh;
   margin-bottom: 1vh;
   display: inline-block;
@@ -141,7 +138,7 @@ class Login extends Component {
   render() {
     return (
       <Row id="login">
-        <Col xs={{ span: 24 }} xl={{ span: 9 }}>
+        <Col xs={24} md={9} xl={9}>
           <BackgroundStyleColor color="#aac2ff">
             <Logo
               xs={{ span: 0 }}
@@ -151,11 +148,12 @@ class Login extends Component {
             />
           </BackgroundStyleColor>
         </Col>
-        <Col xs={{ span: 24 }} xl={{ span: 15 }}>
+        <Col xs={24} md={15} xl={15}>
           <MediaQuery query={`(max-width: ${md})`}>
             {matches => (!matches ? <Header fontColor="white" /> : <></>)}
           </MediaQuery>
-          <BackgroundStyleColor2 color="#6e7794">
+          <div className="block">
+            <MobileContent color="#aac2ff" content="Login" />
             <TeachBlock>
               <Row type="flex" justify="start" align="top">
                 <Col xs={{ span: 18, offset: 2 }} xl={{ span: 10 }}>
@@ -192,7 +190,7 @@ class Login extends Component {
                 </Col>
               </Row>
             </TeachBlock>
-          </BackgroundStyleColor2>
+          </div>
         </Col>
       </Row>
     );

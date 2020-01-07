@@ -86,22 +86,24 @@ class NewProject extends Component {
     }
 
     return (
-      <div key={this.state.id} id="singleProject">
+      <div>
         <ProjectHeader fontColor="#364b8b" />
-        <div id="loading" style={style}>
-          <img src={anime} alt="" />
-        </div>
+        <div key={this.state.id} id="singleProject">
+          <div id="loading" style={style}>
+            <img src={anime} alt="" />
+          </div>
 
-        <Topic
-          projectName={this.state.topic.title}
-          content={this.state.topic}
-        />
-        <Abstract content={this.state.abstract} />
-        <Video videoUrl={this.state.video_url} />
-        <Proposed content={this.state.sections} />
-        <Result content={this.state} />
-        <Conclusion content={this.state.conclusion} />
-        <Footer />
+          <Topic
+            projectName={this.state.topic.title}
+            content={this.state.topic}
+          />
+          <Abstract content={this.state.abstract} />
+          <Video videoUrl={this.state.video_url} />
+          <Proposed content={this.state.sections} />
+          <Result content={this.state} />
+          <Conclusion content={this.state.conclusion} />
+          <Footer />
+        </div>
       </div>
     );
   }

@@ -18,8 +18,12 @@ export const BackgroundColor = styled.div`
 
 export const MainRow = styled(Row)`
   padding-left: 6vw;
-  padding-top: 5vw;
+  padding-top: 5vh;
   z-index: 11;
+  ${media.lessThan('md')`
+    padding-left: 0;
+    padding-bottom: 5vh;
+  `};
 `;
 
 export const IconImage = styled.img`
@@ -63,9 +67,11 @@ export const SmallContent = styled(Col)`
 export const BigTitle = styled(Col)`
   font-size: 4vw;
   color: white;
-  margin-top: 6vh;
+  margin-top: 21vh;
   font-weight: bold;
   padding-left: 15px;
+  width: 100%;
+  background-color: #333;
 `;
 
 export const TitleText = styled.div`

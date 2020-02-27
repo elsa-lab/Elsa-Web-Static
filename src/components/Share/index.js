@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Col, Row } from 'antd';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import { media } from '../size';
 
@@ -67,11 +67,13 @@ export const SmallContent = styled(Col)`
 export const BigTitle = styled(Col)`
   font-size: 4vw;
   color: white;
-  margin-top: 21vh;
+  margin-top: 10vh;
   font-weight: bold;
   padding-left: 15px;
   width: 100%;
-  background-color: #333;
+  ${media.lessThan('md')`
+    margin-top: 17vh;
+  `};
 `;
 
 export const TitleText = styled.div`

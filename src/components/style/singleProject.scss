@@ -50,13 +50,19 @@ $grey: #929292;
         transform: translateY(-50%);
         left: 15%;
         bottom: 0;
-
+        @include sm {
+            left: 10%;
+        }
+        
         .topic-year {
             font-size: $title-face * 1.8;
             color: $light-blue;
             font-family: $font-family;
             line-height: 1.1em;
             margin: 0;
+            @include sm {
+                font-size: $title-face * 1.4;
+            }
         }
 
         .topic-content {
@@ -66,12 +72,18 @@ $grey: #929292;
             margin-bottom: 0.3em;
             line-height: 1.1em;
             font-family: $font-family;
+            @include sm {
+                font-size: $title-face * 1.8;
+            }
         }
 
         .topic-author {
             font-size: $title-face * 1.4;
             color: $grey;
             font-family: $font-family;
+            @include sm {
+                font-size: $title-face;
+            }
         }
     }
 }
@@ -87,12 +99,20 @@ $grey: #929292;
         width: 40%;
         text-align: justify;
         z-index: 1;
+        
+        @include sm {
+            width: 80%;
+            right: -10%;
+        }
 
         h1 {
             color: $light-blue;
             font-size: $title-face * 2;
             font-family: $font-family;
             transform: skewX(-10deg);
+            @include sm {
+                font-size: $title-face *1.5;
+            }
         }
 
         p {
@@ -123,6 +143,10 @@ $grey: #929292;
         left: 23%;
         position: relative;
         z-index: 1;
+        
+        @include sm {
+            left: 0;
+        }
 
         h1 {
             font-family: $font-family;
@@ -130,11 +154,19 @@ $grey: #929292;
             margin-bottom: 1em;
             color: $light-blue;
             transform: skewX(-10deg);
+            @include sm {
+                padding-left: 10%;
+                font-size: $title-face *1.5;
+            }
         }
 
         iframe {
             width: calc(1920px / 2.5);
             height: calc(1080px / 2.5);
+            @include sm {
+                width: 100%;
+                height: 400px;
+            }
         }
     }
 
@@ -155,6 +187,9 @@ $grey: #929292;
     .main-content {
         width: 70%;
         margin: 0 auto;
+        @include sm {
+            width: 80%;
+        }
 
         h1 {
             font-size: $title-face * 2;
@@ -162,11 +197,19 @@ $grey: #929292;
             font-family: $font-family;
             margin-bottom: 1em;
             transform: skewX(-10deg);
+            @include sm {
+                font-size: $title-face * 1.5;
+            }
         }
 
         .section-block {
             cursor: pointer;
             padding: 0 1em;
+            
+            @include sm {
+                padding: 0;
+                margin-bottom: 1em;
+            }
 
             .section-container {
                 background-color: #fff;
@@ -183,6 +226,9 @@ $grey: #929292;
                     text-transform: capitalize;
                     left: 15%;
                     z-index: 1;
+                    @include sm {
+                        font-size: $title-face * 1.2;
+                    }
                 }
 
                 .section-title {
@@ -242,6 +288,10 @@ $grey: #929292;
         width: 55%;
         margin: 0 auto;
         z-index: 1;
+        
+        @include sm {
+            width: 80%;
+        }
 
         h1 {
             font-size: $title-face * 2;
@@ -249,6 +299,9 @@ $grey: #929292;
             font-family: $font-family;
             margin-bottom: 1em;
             transform: skewX(-10deg);
+            @include sm {
+                width: $title-face * 1.5;
+            }
         }
 
         p {
@@ -258,6 +311,9 @@ $grey: #929292;
             color: #5d5d5d;
             font-family: $font-family;
             text-align: justify;
+            @include sm {
+                width: 100%;
+            }
         }
     }
 
@@ -276,6 +332,10 @@ $grey: #929292;
     padding-bottom: 40px;
     background-color: #d3d3d3;
     text-align: center;
+    
+    @include sm {
+        padding-top: 10 0px;
+    }
     img {
         vertical-align: sub;
         height: $title-face * 1.2;
@@ -284,6 +344,10 @@ $grey: #929292;
     .main-content {
         width: 70%;
         margin: 0 auto;
+        
+        @include sm {
+            width: 90%;
+        }
 
         h1 {
             display: inline-block;
@@ -294,6 +358,10 @@ $grey: #929292;
             font-family: $font-family;
             margin-bottom: 0;
             transform: skewX(-8deg);
+            @include sm {
+                line-height: 1.2em;
+                font-size: $title-face * 0.8;
+            }
         }
     }
 }

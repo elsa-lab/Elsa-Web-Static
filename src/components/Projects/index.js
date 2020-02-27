@@ -2,7 +2,7 @@ import MediaQuery from 'react-responsive';
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Col, Row } from 'antd';
-import { Link } from 'react-router';
+import { Link, useParams, useRouteMatch } from 'react-router-dom';
 import axios from 'axios';
 
 import Drawer from '../Share/Drawer';

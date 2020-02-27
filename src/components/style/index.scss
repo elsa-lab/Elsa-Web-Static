@@ -11,12 +11,13 @@ body, html {
 }
 .right {
   height: 100vh;
-  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .mobile-nav-content {
   padding: 3em 2.5em;
-  margin-top: 13vh;
+  margin-top: 12.8vh;
   hr {
     margin: auto 0;
     border-top: solid 2px #8c8c8c;

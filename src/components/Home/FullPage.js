@@ -44,6 +44,10 @@ const BackgroundStyleColor = styled(BackgroundColor)`
   `};
 `;
 
+const BigTitleStyled = styled(BigTitle)`
+  background-color: #333;
+`;
+
 const OtherLink = styled(Col)`
   margin-top: 5vh;
 `;
@@ -122,6 +126,12 @@ class FullPage extends Component {
                   Professor : Chun-Yi Lee
                 </Row>
               </SmallContent>
+              <BigTitle xs={0} md={18}>
+                <TitleStyleText>
+                  {current !== 0 ? <br /> : ''}
+                  {bigTitleMap[current]}
+                </TitleStyleText>
+              </BigTitle>
               <MedContent xs={0} md={14} color="#a9a9a9">
                 {medContentMap[current]}
               </MedContent>
@@ -130,12 +140,12 @@ class FullPage extends Component {
               </OtherLink>
             </MainRow>
           </BackgroundStyleColor>
-          <BigTitle xs={20} md={18}>
+          <BigTitleStyled xs={20} md={0}>
             <TitleStyleText>
               {current !== 0 ? <br /> : ''}
               {bigTitleMap[current]}
             </TitleStyleText>
-          </BigTitle>
+          </BigTitleStyled>
         </Col>
         <Col xs={0} md={15}>
           <BackgroundImage image={backgroundImageMap[current]} />

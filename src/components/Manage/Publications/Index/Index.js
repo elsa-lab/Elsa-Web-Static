@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { Col, Row } from 'antd';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import settings from '../../../../settings';
 import { media } from '../../../size';

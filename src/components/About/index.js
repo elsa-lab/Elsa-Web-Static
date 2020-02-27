@@ -2,12 +2,14 @@ import MediaQuery from 'react-responsive';
 import React, { Component } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import { Col, Row } from 'antd';
+import { Col, Row, Drawer as DrawerAntd } from 'antd';
 import jdenticon from 'jdenticon';
+import { Link } from 'react-router-dom';
 
-import settings from '../../settings';
-import Drawer from '../Share/Drawer';
 import Header from '../Share/Header';
+import settings from '../../settings';
+import Logo from '../Share/Logo';
+import MobileContent from '../Share/MobileContent';
 import IconImg from '../static/icon.png';
 import {
   BackgroundColor,
@@ -26,19 +28,31 @@ import {
 } from '../Share';
 import { media, xl, lg, md, sm } from '../size';
 
+const EachLink = styled(Link)`
+  text-decoration: none !important;
+`;
+
+const LinkBlock = styled.div`
+  height: 10vh;
+  color: black;
+`;
+
 jdenticon.config = {
   replaceMode: 'observe',
 };
 
 const BackgroundStyleColor = styled(BackgroundColor)`
   ${media.lessThan('md')`
-    height: 70vh;
+    height: 13vh;
+    z-index: 11;
+    position: fixed;
   `};
 `;
 
 const IconStyleImage = styled(IconImage)`
+  width: 35px;
   ${media.lessThan('md')`
-    width: 8vw;
+    width: 35px;
   `};
 `;
 
@@ -55,6 +69,7 @@ const MedContentBlock = styled.div`
 class About extends Component {
   state = {
     lab_member: '',
+    visible: false,
   };
 
   componentWillMount() {
@@ -73,6 +88,18 @@ class About extends Component {
         console.log(error);
       });
   }
+
+  showDrawer = () => {
+    this.setState({
+      visible: true,
+    });
+  };
+
+  onClose = () => {
+    this.setState({
+      visible: false,
+    });
+  };
 
   renderLogin = () => {
     const { token } = localStorage;
@@ -208,12 +235,25 @@ class About extends Component {
   render() {
     return (
       <Row id="about">
-        {/* left side */}
-        <Col xs={{ span: 24 }} xl={{ span: 9 }}>
+        <Col xs={24} md={9} xl={9}>
           <BackgroundStyleColor color="#ffbb87">
-            <MainRow type="flex" justify="center">
-              <LogoContent xs={{ span: 22 }} xl={{ span: 18 }}>
-                <Row type="flex" justify="start" align="middle" gutter={8}>
+            <Logo xs={{ span: 0 }} xl={{ span: 0 }} content="About ELSA Lab" />
+          </BackgroundStyleColor>
+        </Col>
+        <Col xs={24} md={15} className="right">
+          <MediaQuery query={`(max-width: ${md})`}>
+            {matches => (!matches ? <Header fontColor="#9b9b9b" /> : <></>)}
+          </MediaQuery>
+          <div className="block">
+            <MobileContent color="#ffbb87" content="About ELSA Lab" />
+            <div className="d-flex square-container">{this.renderMember()}</div>
+          </div>
+        </Col>
+        {/* <Col xs={24} md={9}>
+          <BackgroundStyleColor color="#ffbb87">
+            <MainRow type="flex" justify="start">
+              <LogoContent xs={24} md={18}>
+                <Row type="flex" justify="start" align="middle" gutter={5}>
                   <Col>
                     <IconStyleImage src={IconImg} />
                   </Col>
@@ -221,31 +261,31 @@ class About extends Component {
                     <Title1>NTHU</Title1>
                     <Title2>ELSA</Title2>
                   </Col>
-                  <Col xs={{ span: 4 }} xl={{ span: 0 }} offset={14}>
+                  <Col xs={3} md={0} offset={15}>
                     <Drawer />
                   </Col>
                 </Row>
               </LogoContent>
-              <SmallContent xs={{ span: 22 }} xl={{ span: 18 }} color="#8c8c8c">
-                <Row type="flex" justify="start" align="bottom">
+              <SmallContent xs={0} md={24} color="#8c8c8c">
+                <Row type="flex" justify="start" align="middle">
                   <Col span={6}>
                     <Hr color="#8c8c8c" />
                   </Col>
-                  <Col span={12} offset={1}>
+                  <Col span={12} offset={2}>
                     Home
                   </Col>
                 </Row>
               </SmallContent>
-              <BigTitle xs={{ span: 22 }} xl={{ span: 18 }}>
+              <BigTitle xs={0} md={14}>
                 <TitleStyleText>
                   About
                   <br />
                   ELSA Lab
                 </TitleStyleText>
               </BigTitle>
-              <MedContent xs={{ span: 22 }} xl={{ span: 12 }} color="#8c8c8c">
+              <MedContent xs={0} md={22} color="#8c8c8c">
                 <Row type="flex" justify="start" align="top">
-                  <Col xs={{ span: 11 }} xl={{ span: 24 }}>
+                  <Col xs={11} md={18}>
                     <MedContentBlock>
                       <b>Address</b>
                       <br />
@@ -254,12 +294,15 @@ class About extends Component {
                       Taiwan
                     </MedContentBlock>
                   </Col>
-                  <Col xs={{ span: 11 }} xl={{ span: 24 }}>
+                  <Col xs={11} md={18}>
                     <MedContentBlock>
                       <b>Office</b>
                       <br />
-                      Phone: +886-3-5731308 Email: cylee@cs.nthu.edu.tw Address:
-                      Delta Building 606
+                      Phone: +886-3-5731308
+                      <br />
+                      Email: cylee@cs.nthu.edu.tw
+                      <br />
+                      Address: Delta Building 606
                     </MedContentBlock>
                   </Col>
                 </Row>
@@ -267,119 +310,21 @@ class About extends Component {
               <Col span={6} />
             </MainRow>
           </BackgroundStyleColor>
-        </Col>
-        {/* right side */}
-        <Col className="right" xs={{ span: 24 }} xl={{ span: 15 }}>
-          {/* navbar   */}
+          <BigTitle xs={20} md={0}>
+            <TitleStyleText>
+              About
+              <br />
+              ELSA Lab
+            </TitleStyleText>
+          </BigTitle>
+        </Col> */}
+        {/* <Col className="right" xs={24} md={15}>
+          navbar
           <MediaQuery query={`(max-width: ${md})`}>
             {matches => (!matches ? <Header fontColor="white" /> : <></>)}
           </MediaQuery>
-          <div className="d-flex square-container">
-            {this.renderMember()}
-            {/* <div className="square-row">
-              <div className="square" onClick={() => this.expenContent(0)}>
-                <img src={picture} alt="" />
-              </div>
-              <div className="square" onClick={() => this.expenContent(0)}>
-                <img src={picture2} alt="" />
-              </div>
-              <div className="square" onClick={() => this.expenContent(0)}>
-                <img src={picture3} alt="" />
-              </div>
-              <div className="square-content row">
-                <div className="square-content-title col-md-12">
-                  <h1 className="name">Professor - Chun-Yi Lee, Ph.D.</h1>
-                  <h2 className="email">cylee@cs.nthu.edu.tw</h2>
-                </div>
-                <div className="square-card col-md-5">
-                  <div className="title">Work Experience</div>
-                  <div className="content">
-                    <div className="content-block">
-                      <div className="year">2015~</div>
-                      <p>Assistant Professor</p>
-                      <p>Department of Computer Science</p>
-                      <p>National Tsing Hua University</p>
-                    </div>
-                    <div className="content-block">
-                      <div className="year">2012 ~ 2015</div>
-                      <p>Senior Hardware Engineer, </p>
-                      <p>Oracle America, Inc.</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="square-card col-md-7">
-                  <div className="title">Education</div>
-                  <div className="content-block">
-                    <div className="year">2007 ~ 2012</div>
-                    <p>Ph.D., Department of Electrical Engineering,</p>
-                    <p>Princeton University</p>
-                  </div>
-                  <div className="content-block">
-                    <div className="year">2003 ~ 2005</div>
-                    <p>M.S., Department of Electrical Engineering,</p>
-                    <p>National Taiwan University</p>
-                  </div>
-                  <div className="content-block">
-                    <div className="year">1999 ~ 2003</div>
-                    <p>B.S., Department of Electrical Engineering,</p>
-                    <p>National Taiwan University </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="square-row">
-              <div className="square" onClick={() => this.expenContent(1)}>
-                <img src={picture3} alt="" />
-              </div>
-              <div className="square" onClick={() => this.expenContent(1)}>
-                <img src={picture} alt="" />
-              </div>
-              <div className="square" onClick={() => this.expenContent(1)}>
-                <img src={picture2} alt="" />
-              </div>
-              <div className="square-content row">
-                <div className="square-content-title col-md-12">
-                  <h1 className="name">Professor - Chun-Yi Lee, Ph.D.</h1>
-                  <h2 className="email">cylee@cs.nthu.edu.tw</h2>
-                </div>
-                <div className="square-card col-md-5">
-                  <div className="title">Work Experience</div>
-                  <div className="content">
-                    <div className="content-block">
-                      <div className="year">2015~</div>
-                      <p>Assistant Professor</p>
-                      <p>Department of Computer Science</p>
-                      <p>National Tsing Hua University</p>
-                    </div>
-                    <div className="content-block">
-                      <div className="year">2012 ~ 2015</div>
-                      <p>Senior Hardware Engineer, </p>
-                      <p>Oracle America, Inc.</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="square-card col-md-7">
-                  <div className="title">Education</div>
-                  <div className="content-block">
-                    <div className="year">2007 ~ 2012</div>
-                    <p>Ph.D., Department of Electrical Engineering,</p>
-                    <p>Princeton University</p>
-                  </div>
-                  <div className="content-block">
-                    <div className="year">2003 ~ 2005</div>
-                    <p>M.S., Department of Electrical Engineering,</p>
-                    <p>National Taiwan University</p>
-                  </div>
-                  <div className="content-block">
-                    <div className="year">1999 ~ 2003</div>
-                    <p>B.S., Department of Electrical Engineering,</p>
-                    <p>National Taiwan University </p>
-                  </div>
-                </div>
-              </div>
-            </div> */}
-          </div>
-        </Col>
+          <div className="d-flex square-container">{this.renderMember()}</div>
+        </Col> */}
       </Row>
     );
   }

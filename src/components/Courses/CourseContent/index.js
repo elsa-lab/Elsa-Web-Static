@@ -11,7 +11,7 @@ import settings from '../../../settings';
 import Logo from '../../Share/Logo';
 import MobileContent from '../../Share/MobileContent';
 import { BackgroundColor, PageLink, Text } from '../../Share';
-import { media, xl, lg, md, sm } from '../../size';
+import { media, md } from '../../size';
 
 const BackgroundStyleColor = styled(BackgroundColor)`
   ${media.lessThan('md')`
@@ -33,16 +33,15 @@ class CourseContent extends Component {
   componentWillMount() {
     const {
       params: { course_id },
-    } = this.props;
+    } = this.props.match;
     const ins = axios.create({
       baseURL: settings.backend_url,
       timeout: 1000,
     });
-
     ins
       .get(`courses/${course_id}`)
       .then(res => {
-        // console.log(res.data);
+        console.log(res.data);
         this.setState({
           id: res.data.id,
           title: res.data.title,
@@ -112,9 +111,6 @@ class CourseContent extends Component {
   };
 
   render() {
-    const {
-      params: { content_id },
-    } = this.props;
     let seasonText;
     if (this.state.season === 0) {
       seasonText = '下學期';
@@ -141,7 +137,7 @@ class CourseContent extends Component {
           </MediaQuery>
           <div className="classBlock">
             <MobileContent color="#f8d188" content="Course" />
-            {this.renderClassContent(content_id)}
+            {this.renderClassContent()}
           </div>
         </Col>
       </Row>
@@ -150,8 +146,10 @@ class CourseContent extends Component {
 }
 
 CourseContent.propTypes = {
-  params: PropTypes.shape({
-    course_id: PropTypes.string.isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      course_id: PropTypes.string.isRequired,
+    }).isRequired,
   }).isRequired,
 };
 export default CourseContent;

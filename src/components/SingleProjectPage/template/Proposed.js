@@ -19,20 +19,36 @@ const Proposed = ({ content }) => (
     <div className="main-content">
       <h1> Proposed Methodology </h1>
       {content && (
-        <Slider {...settings}>
-          {content &&
-            content.map(({ id, title, content }) => (
-              <div key={id} className="section-block">
-                <div className="section-container">
-                  <div className="section-title">{title}</div>
-                  <div className="seemore">See more</div>
-                  <div className="project-deco">
-                    <img src={deco} alt="" />
+        <div>
+          <Slider className="d-none d-md-flex" {...settings}>
+            {content &&
+              content.map(({ id, title }) => (
+                <div key={id} className="section-block">
+                  <div className="section-container">
+                    <div className="section-title">{title}</div>
+                    <div className="seemore">See more</div>
+                    <div className="project-deco">
+                      <img src={deco} alt="" />
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-        </Slider>
+              ))}
+          </Slider>
+          <div className="mobile-slide d-block d-md-none">
+            {content &&
+              content.map(({ id, title }) => (
+                <div key={id} className="section-block">
+                  <div className="section-container">
+                    <div className="section-title">{title}</div>
+                    <div className="seemore">See more</div>
+                    <div className="project-deco">
+                      <img src={deco} alt="" />
+                    </div>
+                  </div>
+                </div>
+              ))}
+          </div>
+        </div>
       )}
     </div>
   </div>

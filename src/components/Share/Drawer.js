@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Drawer as DrawerAntd } from 'antd';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const MenuIcon = styled.i`
   font-size: 8em;

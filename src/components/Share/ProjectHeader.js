@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import './style/nav.scss';
 import styled from 'styled-components';
 import { Drawer as DrawerAntd } from 'antd';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
+import { FormattedMessage } from 'react-intl';
 
 import IconImg from '../static/icon.png';
 
@@ -14,12 +15,6 @@ const LinkBlock = styled.div`
   height: 10vh;
   color: black;
 `;
-
-// function BackgroundChange() {
-//   window.addEventListener('scroll', () => {
-//     console.log("test");
-//   });
-// }
 
 class ProjectHeader extends Component {
   state = { visible: false };
@@ -40,9 +35,13 @@ class ProjectHeader extends Component {
     document.addEventListener('scroll', () => {
       const offset = document.documentElement.scrollTop;
       if (offset >= 80) {
-        document.querySelector('#project-nav').style.backgroundColor = '#f7f7f7';
+        document.querySelector('#project-nav').style.backgroundColor = 'white';
+        document.querySelector('#project-nav').style.boxShadow =
+          '#0000003d 0 3px 10px';
       } else {
-        document.querySelector('#project-nav').style.backgroundColor = 'transparent';
+        document.querySelector('#project-nav').style.backgroundColor =
+          'transparent';
+        document.querySelector('#project-nav').style.boxShadow = 'none';
       }
     });
   };
@@ -52,13 +51,13 @@ class ProjectHeader extends Component {
     if (token) {
       return (
         <a className="nav-link" href="/logout">
-          Sign out
+          <FormattedMessage id="header_signout" />
         </a>
       );
     }
     return (
       <a className="nav-link" href="/login">
-        Sign in
+        <FormattedMessage id="header_signin" />
       </a>
     );
   };
@@ -102,27 +101,27 @@ class ProjectHeader extends Component {
         <ul className="d-md-flex d-none">
           <li className="nav-item active">
             <a className="nav-link" href="/">
-              Home
+              <FormattedMessage id="header_home" />
             </a>
           </li>
           <li className="nav-item">
             <a className="nav-link" href="/courses">
-              Courses
+              <FormattedMessage id="header_course" />
             </a>
           </li>
           <li className="nav-item">
             <a className="nav-link" href="/publications">
-              Publications
+              <FormattedMessage id="header_publications" />
             </a>
           </li>
           <li className="nav-item">
             <a className="nav-link" href="/projects">
-              Projects
+              <FormattedMessage id="header_projects" />
             </a>
           </li>
           <li className="nav-item">
             <a className="nav-link" href="/news">
-              News
+              <FormattedMessage id="header_news" />
             </a>
           </li>{' '}
           <li className="nav-item">{this.renderLogin()}</li>

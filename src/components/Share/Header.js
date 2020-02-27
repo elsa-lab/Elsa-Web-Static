@@ -2,12 +2,14 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Col, Row } from 'antd';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import './style/nav.scss';
+import { FormattedMessage } from 'react-intl';
 
 const EachLink = styled(Link)`
   color: ${props => props.color};
   text-decoration: none !important;
+  height: 100%;
 `;
 
 const LinkCol = styled(Col)`
@@ -30,13 +32,17 @@ class Header extends Component {
     if (token) {
       return (
         <EachLink color={this.props.fontColor} to="/logout">
-          <LinkCol>Sign out</LinkCol>
+          <LinkCol>
+            <FormattedMessage id="header_signout" />
+          </LinkCol>
         </EachLink>
       );
     }
     return (
       <EachLink color={this.props.fontColor} to="/login">
-        <LinkCol>Sign in</LinkCol>
+        <LinkCol>
+          <FormattedMessage id="header_signin" />
+        </LinkCol>
       </EachLink>
     );
   };
@@ -47,27 +53,37 @@ class Header extends Component {
         <Row type="flex" justify="space-around" align="middle">
           <Col span={2}>
             <EachLink color={this.props.fontColor} to="/">
-              <LinkCol>Home</LinkCol>
+              <LinkCol>
+                <FormattedMessage id="header_home" />
+              </LinkCol>
             </EachLink>
           </Col>
           <Col span={2}>
             <EachLink color={this.props.fontColor} to="/courses">
-              <LinkCol>Course</LinkCol>
+              <LinkCol>
+                <FormattedMessage id="header_course" />
+              </LinkCol>
             </EachLink>
           </Col>
           <Col span={3}>
             <EachLink color={this.props.fontColor} to="/publications">
-              <LinkCol>Publications</LinkCol>
+              <LinkCol>
+                <FormattedMessage id="header_publications" />
+              </LinkCol>
             </EachLink>
           </Col>
           <Col span={2}>
             <EachLink color={this.props.fontColor} to="/projects">
-              <LinkCol>Projects</LinkCol>
+              <LinkCol>
+                <FormattedMessage id="header_projects" />
+              </LinkCol>
             </EachLink>
           </Col>
           <Col span={2}>
             <EachLink color={this.props.fontColor} to="/news">
-              <LinkCol>News</LinkCol>
+              <LinkCol>
+                <FormattedMessage id="header_news" />
+              </LinkCol>
             </EachLink>
           </Col>
           <Col span={2}>{this.renderLogin()}</Col>

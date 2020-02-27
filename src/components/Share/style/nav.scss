@@ -16,17 +16,17 @@
     padding: 0 10%;
     margin-top: 5%;
     z-index: 11;
-    transition: 0.5s;
+    transition: 0.3s;
 
     .navbar-brand {
         img {
             vertical-align: sub;
             width: 45px;
-                        
+
             @include md {
                 width: 35px;
             }
-            
+
             @include sm {
                 width: 35px;
             }
@@ -38,11 +38,11 @@
             color: #144992;
             margin-left: 5px;
             font-size: $title-face;
-            
+
             @include md {
                 font-size: $title-face * 0.7;
             }
-            
+
             @include sm {
                 font-size: $title-face * 0.7;
             }
@@ -59,11 +59,11 @@
             font-family: 'Alata', sans-serif;
             transition: 0.5s;
             font-size: $title-face;
-            
+
             @include md {
                 font-size: $title-face * 0.8;
             }
-            
+
             @include sm {
                 font-size: $title-face * 0.8;
             }

@@ -30,7 +30,7 @@ class Template extends Component {
       ins
         .get(`user/${user_id}`)
         .then(res => {
-          //console.log(res);
+          // console.log(res);
           // this.setState({ user: res.data, logIn: true });
           // if user not in root_user_types redirect to '/'
           if (

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import swal from 'sweetalert2';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import '../../../../../node_modules/sweetalert2/dist/sweetalert2.css';
 

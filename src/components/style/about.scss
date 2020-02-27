@@ -1,4 +1,6 @@
+@import 'utility/var';
 #about {
+  overflow: hidden;
   .description {
     height: 300px;
     display: flex;
@@ -12,6 +14,9 @@
     flex-wrap: wrap;
     overflow-y: hidden;
     margin-top: 154px;
+    @include sm {
+      margin-top: 0;
+    }
 
     .square-row {
       width: 100%;
@@ -32,6 +37,10 @@
         left: 0.5em;
         font-family: 'Alata', sans-serif;
         text-shadow: 0px 0px 3px #333;
+        font-size: $title-face * 1.8;
+        @include sm {
+          font-size: $title-face * 1.1;
+        }
       }
       img, svg {
         height: 100.1%;
@@ -66,13 +75,14 @@
         height: 20%;
 
         h1 {
-          font-size: 28px;
+          font-size: $title-face * 1.2;
           font-weight: bold;
           margin-bottom: 0;
         }
 
         h2 {
-          font-size: 20px;
+          font-size: $title-face;          overflow: hidden;
+          text-overflow: ellipsis;
         }
       }
 
@@ -81,7 +91,7 @@
         .square-card {
           h3 {
             font-weight: bold;
-            font-size: 26px;
+            font-size: $title-face * 1.2;
           }
         }
       }
@@ -90,6 +100,11 @@
     .expended {
       height: 570px;
       padding: 2.8em;
+      overflow-y: auto;
+      @include sm {
+        padding: 1em 0.5em;
+        height: 480px;
+      }
     }
   }
 }

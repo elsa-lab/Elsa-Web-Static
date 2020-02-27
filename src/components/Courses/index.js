@@ -10,7 +10,7 @@ import settings from '../../settings';
 import Logo from '../Share/Logo';
 import MobileContent from '../Share/MobileContent';
 import { BackgroundColor, PageLink, Text } from '../Share';
-import { media, xl, lg, md, sm } from '../size';
+import { media, md } from '../size';
 
 import '../style/course.scss';
 

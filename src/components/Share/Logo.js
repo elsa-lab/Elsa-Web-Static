@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Drawer as DrawerAntd } from 'antd';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import IconImg from '../static/icon.png';
 import './style/logo.scss';

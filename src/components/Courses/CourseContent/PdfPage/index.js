@@ -1,4 +1,3 @@
-import MediaQuery from 'react-responsive';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import axios from 'axios';
@@ -6,7 +5,6 @@ import ImageGallery from 'react-image-gallery';
 
 import ProjectHeader from '../../../Share/ProjectHeader';
 import settings from '../../../../settings';
-import { media, xl, lg, md, sm } from '../../../size';
 
 import '../../../style/course.scss';
 
@@ -24,7 +22,7 @@ class PdfPage extends Component {
   componentDidMount() {
     const {
       params: { lecture_id },
-    } = this.props;
+    } = this.props.match;
     const ins = axios.create({
       baseURL: settings.backend_url,
       timeout: 1000,
@@ -91,7 +89,7 @@ class PdfPage extends Component {
             <a href={this.state.attach_files}>Attach file</a>
           ) : null}
           <Comment
-            lectureId={this.props.params.lecture_id}
+            lectureId={this.props.match.params.lecture_id}
             nowPage={this.state.current + 1}
           />
         </div>
@@ -101,8 +99,11 @@ class PdfPage extends Component {
 }
 
 PdfPage.propTypes = {
-  params: PropTypes.shape({
-    lecture_id: PropTypes.string.isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      course_id: PropTypes.string.isRequired,
+      lecture_id: PropTypes.string.isRequired,
+    }).isRequired,
   }).isRequired,
 };
 

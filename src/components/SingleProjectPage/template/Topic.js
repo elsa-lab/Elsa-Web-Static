@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Topic = ({ projectName, content }) => (
   <div id="topic">
@@ -13,5 +14,10 @@ const Topic = ({ projectName, content }) => (
     </div>
   </div>
 );
+
+Topic.propTypes = {
+  content: PropTypes.object.isRequired,
+  projectName: PropTypes.string.isRequired,
+};
 
 export default Topic;
